@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three.js Interactive Portfolio — Lucie Choi</title>
+  <meta name="description" content="Detailed case study of the Three.js Interactive Portfolio website by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Three.js Interactive Portfolio</h1>
+      <div class="project-detail-meta">
+        <span>2026</span>
+        <span>•</span>
+        <span>WebGL / Three.js / Vite</span>
+        <span>•</span>
+        <span>Creative Technologist &amp; Engineer</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Three.js</span>
+        <span>Vite</span>
+        <span>JavaScript</span>
+        <span>Vanilla CSS</span>
+        <span>GitHub Actions</span>
+      </div>
+
+      <div class="action-buttons">
+        <a href="https://github.com/luciechoi/luciechoi.github.io" target="_blank" rel="noopener noreferrer" class="action-btn">
+          View Source Code &rarr;
+        </a>
+        <a href="../index.html" class="action-btn secondary">
+          Live Website &rarr;
+        </a>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Embedded Video / Media -->
+      <div class="media-container">
+        <!-- Embedded Video / Media Preview -->
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0" 
+          title="Project Demo Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+        <div class="media-caption">Interactive demo recording: real-time 3D ambient particle system and smooth tab transitions.</div>
+      </div>
+
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          A minimalist personal portfolio website built from the ground up using <strong>Three.js</strong> and <strong>Vite</strong>, hosted on GitHub Pages. The design merges a clean, editorial white aesthetic with dynamic 3D interactive graphics, allowing visitors to engage with subtle visual depth without sacrificing content readability or load performance.
+        </p>
+      </section>
+
+      <section class="detail-section">
+        <h3>Key Features</h3>
+        <ul>
+          <li><strong>Real-time 3D Scene</strong>: Procedural wireframe icosahedron and torus knot geometry with soft diffuse lighting and 200+ floating ambient particles.</li>
+          <li><strong>Mouse &amp; Cursor Parallax</strong>: Smooth lerp-interpolated camera rotations that respond dynamically to mouse movement.</li>
+          <li><strong>Client-Side Tab Architecture</strong>: Fast, zero-reload tab switching with full browser history and direct hash routing support.</li>
+          <li><strong>Automated CI/CD</strong>: GitHub Actions pipeline that builds and deploys the optimized Vite production bundle on every push.</li>
+        </ul>
+      </section>
+
+      <section class="detail-section">
+        <h3>Technical Stack &amp; Architecture</h3>
+        <p>
+          The architecture separates presentation into a background WebGL layer and a responsive semantic DOM layer. By capping device pixel ratios and utilizing efficient requestAnimationFrame rendering loops, the site maintains a steady 60 FPS across both desktop and mobile devices.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+</html>

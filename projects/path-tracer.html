@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physically Based Path Tracer — Lucie Choi</title>
+  <meta name="description" content="Case study on Monte Carlo physically based path tracing by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Physically Based Path Tracer</h1>
+      <div class="project-detail-meta">
+        <span>2025</span>
+        <span>•</span>
+        <span>Rendering / Monte Carlo / Ray Tracing</span>
+        <span>•</span>
+        <span>Computer Graphics</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Path Tracing</span>
+        <span>Monte Carlo</span>
+        <span>BVH Acceleration</span>
+        <span>Cook-Torrance BRDF</span>
+        <span>C++</span>
+      </div>
+
+      <div class="action-buttons">
+        <a href="https://github.com/luciechoi" target="_blank" rel="noopener noreferrer" class="action-btn">
+          View Repository &rarr;
+        </a>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <div class="media-container">
+        <img 
+          src="../images/preview-pathtracer.jpg" 
+          alt="Physically Based Path Tracer Render" 
+        />
+        <div class="media-caption">Unbiased global illumination render with dielectric glass transmission, caustics, and microfacet reflection.</div>
+      </div>
+
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          A pure C++ physically based spectral path tracer implementing the rendering equation via numerical Monte Carlo integration. The renderer supports arbitrary triangular meshes, microfacet materials, refractive dielectrics, and environment lighting.
+        </p>
+      </section>
+
+      <section class="detail-section">
+        <h3>Key Features</h3>
+        <ul>
+          <li><strong>Surface Area Heuristic (SAH) BVH</strong>: High-speed ray-primitive intersection using binned SAH BVH trees.</li>
+          <li><strong>Multiple Importance Sampling (MIS)</strong>: Balanced heuristic combining light source sampling and BSDF cosine sampling.</li>
+          <li><strong>Fresnel Microfacet Models</strong>: GGX normal distribution with Smith geometric shadowing for realistic metals and plastics.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procedural Terrain &amp; Hydraulic Erosion — Lucie Choi</title>
+  <meta name="description" content="Case study on procedural terrain generation and hydraulic erosion by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Procedural Terrain &amp; Hydraulic Erosion</h1>
+      <div class="project-detail-meta">
+        <span>2025</span>
+        <span>•</span>
+        <span>Procedural Generation / Technical Art</span>
+        <span>•</span>
+        <span>Houdini / VEX</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Houdini</span>
+        <span>Procedural Generation</span>
+        <span>Hydraulic Erosion</span>
+        <span>Thermal Weathering</span>
+        <span>VEX</span>
+      </div>
+
+      <div class="action-buttons">
+        <a href="https://github.com/luciechoi" target="_blank" rel="noopener noreferrer" class="action-btn">
+          View Repository &rarr;
+        </a>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <div class="media-container">
+        <img 
+          src="../images/preview-terrain.jpg" 
+          alt="Procedural Topographic Terrain Model" 
+        />
+        <div class="media-caption">Procedural mountain landscape with physical sediment transport and riverbed carving.</div>
+      </div>
+
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          A procedural world generation pipeline built in Houdini and VEX that simulates geological processes over time. By modeling particle-based droplet erosion, sediment carrying capacity, and talus angle deposition, terrain surfaces exhibit natural drainage channels and realistic cliff formations.
+        </p>
+      </section>
+
+      <section class="detail-section">
+        <h3>Key Features</h3>
+        <ul>
+          <li><strong>Hydraulic Droplet Simulation</strong>: Droplet-based erosion and sediment deposition algorithms executing over iterative heightfields.</li>
+          <li><strong>Multi-Scale Noise Synthesis</strong>: Domain-warped fractional Brownian motion for diverse biome profiles.</li>
+          <li><strong>Automated Mask Generation</strong>: Slope, curvature, and sediment flow masks driving runtime texture splatting.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+</html>

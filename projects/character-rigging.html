@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Character Rigging &amp; IK Solver — Lucie Choi</title>
+  <meta name="description" content="Case study on skeletal animation, inverse kinematics, and dual quaternion skinning by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Real-Time Character Rigging &amp; IK Solver</h1>
+      <div class="project-detail-meta">
+        <span>2024</span>
+        <span>•</span>
+        <span>Animation / Technical Art / Kinematics</span>
+        <span>•</span>
+        <span>C++ / WebGL</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Inverse Kinematics</span>
+        <span>Skeletal Animation</span>
+        <span>Dual Quaternions</span>
+        <span>FABRIK</span>
+        <span>Tech Art</span>
+      </div>
+
+      <div class="action-buttons">
+        <a href="https://github.com/luciechoi" target="_blank" rel="noopener noreferrer" class="action-btn">
+          View Repository &rarr;
+        </a>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <div class="media-container">
+        <img 
+          src="../images/preview-portfolio.jpg" 
+          alt="Character Rigging and IK Solver Preview" 
+        />
+        <div class="media-caption">Real-time procedural IK leg placement and secondary joint dynamics responding to terrain collisions.</div>
+      </div>
+
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          A procedural character animation and kinematics engine built to eliminate candy-wrapper skinning artifacts and enable responsive full-body locomotion across uneven terrain.
+        </p>
+      </section>
+
+      <section class="detail-section">
+        <h3>Key Features</h3>
+        <ul>
+          <li><strong>FABRIK &amp; Two-Bone IK</strong>: Fast, stable iterative heuristic solvers for limb reach and pole target alignment.</li>
+          <li><strong>Dual Quaternion Skinning (DQS)</strong>: Preserves skeletal joint volume during severe twisting and flexion.</li>
+          <li><strong>Procedural Secondary Jiggle</strong>: Spring-damper physics integrated into cloth, hair, and soft-tissue attachments.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+</html>

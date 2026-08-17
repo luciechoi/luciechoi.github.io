@@ -1,8 +1,657 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Lucie Choi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lucie Yoonsun Choi</title>
+    <meta name="description"
+        content="Personal website of Lucie Yoonsun Choi. Explore projects, CV, learning journey, and thoughts." />
+
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="/src/style.css" />
 </head>
-<body> Hello World </body>
+
+<body>
+    <!-- Minimalist Three.js 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="site-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1 class="site-title">Lucie Choi</h1>
+                <p class="site-subtitle">Software Engineer</p>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <nav class="tabs-nav" aria-label="Main Navigation">
+                <button class="tab-btn active" data-tab="intro">Intro</button>
+                <button class="tab-btn" data-tab="projects">Projects</button>
+                <button class="tab-btn" data-tab="work">Work & Experience</button>
+                <button class="tab-btn" data-tab="learning">Learning Journey</button>
+                <button class="tab-btn" data-tab="writing">Writing</button>
+                <button class="tab-btn" data-tab="about">About Me</button>
+            </nav>
+        </header>
+
+        <!-- Tab Contents Container -->
+        <main class="content-area">
+
+            <!-- TAB 1: INTRO -->
+            <section class="tab-pane active" id="tab-intro">
+                <div class="intro-block">
+                    <p class="lead-text">
+                        Hi! I'm Lucie Choi. I’m a Computer Graphics enthusiast with a strong focus on Technical Art,
+                        where I love bringing visually intriguing art forms to life through algorithms.
+                        <br />
+                        <br />
+                        For me, art has become a profound source of comfort, expressive release, and human connection.
+                        Exploring the intersection of technology and art, I aspire to create similar experiences that
+                        offer individuals a sense of inner peace, sparks of ingenuity, and resonant
+                        connections with the world around them.
+                    </p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Focus Areas</h3>
+                        <p>Interactive 3D Web &amp; Graphics, Full-Stack Architecture, Human-Computer Interaction,
+                            Creative Coding.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Current Exploring</h3>
+                        <p>WebGL / Three.js, Generative Algorithms, Computational Design, Agentic Workflows.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Connect</h3>
+                        <p>
+                            <a href="mailto:[EMAIL_ADDRESS]" class="text-link">clucie@gmail.com</a><br />
+                            <!-- <a href="https://github.com/luciechoi" target="_blank" rel="noopener noreferrer"
+                                class="text-link">github.com/luciechoi</a> -->
+                            <a href="https://www.linkedin.com/in/clucie" target="_blank" rel="noopener noreferrer"
+                                class="text-link">linkedin.com/in/clucie</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: PROJECTS -->
+            <section class="tab-pane" id="tab-projects">
+                <div class="section-intro">
+                    <h2>Projects</h2>
+                    <p>Selected computer graphics, physics simulation, and technical art experiments.</p>
+                </div>
+
+                <div class="projects-list">
+                    <article class="project-item">
+                        <a href="projects/interactive-portfolio.html" class="project-thumb-link"
+                            aria-label="Preview Three.js Interactive Portfolio">
+                            <img src="images/preview-portfolio.jpg"
+                                alt="Three.js Interactive Portfolio Snapshot Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/interactive-portfolio.html"
+                                        class="title-link">Acoustic Peace Transfer</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis </span>
+                            </div>
+                            <p class="project-description">
+                                A minimalist, interactive portfolio featuring real-time 3D ambient geometry, smooth tab
+                                switching, and responsive design.
+
+                                <br />
+                                weg
+                            </p>
+                            <div class="project-tags">
+                                <span>Linear Modal Sound</span>
+                                <span>Finite Element Method</span>
+                                <span>Acoustic Transfer</span>
+                                <span>Houdini</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/generative-systems.html" class="project-thumb-link"
+                            aria-label="Preview Algorithmic &amp; Generative Systems">
+                            <img src="images/preview-generative.jpg"
+                                alt="Algorithmic &amp; Generative Systems Snapshot Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/generative-systems.html"
+                                        class="title-link">Undying Passion (2026)</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis</span>
+                            </div>
+                            <p class="project-description">
+                                Procedural design experiments exploring mathematical patterns, particle dynamics, and
+                                interactive simulations.
+                            </p>
+                            <div class="project-tags">
+                                <span>Spectral Bandwidth Extension</span>
+                                <span>Houdini</span>
+                                <span>Scipy</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/generative-systems.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/data-visualizer.html" class="project-thumb-link"
+                            aria-label="Preview Data &amp; Systems Visualizer">
+                            <img src="images/preview-visualizer.jpg"
+                                alt="Data &amp; Systems Visualizer Snapshot Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/data-visualizer.html"
+                                        class="title-link">Cloth - Position Based Dynamics</a></h3>
+                                <span class="project-meta">2026 • Visual Simulation</span>
+                            </div>
+                            <p class="project-description">
+                                Cloth simulation using Position Based Dynamics with stretch, shear, and bending
+                                constraints.
+                            </p>
+                            <div class="project-tags">
+                                <span>Position Based Dynamics</span>
+                                <span>Houdini</span>
+                                <span>Mixamo</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/data-visualizer.html" class="text-link">View Project &amp; Demo
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/fluid-simulation.html" class="project-thumb-link"
+                            aria-label="Preview Real-Time SPH Fluid Simulation">
+                            <img src="images/preview-fluid.jpg" alt="Real-Time SPH Fluid Simulation Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/fluid-simulation.html"
+                                        class="title-link">Synthetic Xylophone</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis / Rendering</span>
+                            </div>
+                            <p class="project-description">
+                                Particle-based fluid simulation implementing Smoothed Particle Hydrodynamics (SPH) with
+                                surface reconstruction and screen-space fluid rendering.
+                            </p>
+                            <div class="project-tags">
+                                <span>Ray Marching</span>
+                                <span>Taichi Lang</span>
+                                <span>Librosa</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/fluid-simulation.html" class="text-link">View Project &amp; Demo
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/path-tracer.html" class="project-thumb-link"
+                            aria-label="Preview Physically Based Path Tracer">
+                            <img src="images/preview-pathtracer.jpg" alt="Physically Based Path Tracer Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/path-tracer.html"
+                                        class="title-link">Self-Talk: Be Kind
+                                        to Yourself (2019) </a></h3>
+                                <span class="project-meta">2025 • Character Animation</span>
+                            </div>
+                            <p class="project-description">
+                                Unbiased Monte Carlo path tracer featuring Bounding Volume Hierarchy (BVH) spatial
+                                acceleration, microfacet Cook-Torrance BRDFs, and importance sampling.
+                            </p>
+                            <div class="project-tags">
+                                <span>Keyframe Interpolation</span>
+                                <span>Inverse Kinematics</span>
+                                <span>Forward Kinematics</span>
+                                <span>p5.js</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/path-tracer.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/procedural-terrain.html" class="project-thumb-link"
+                            aria-label="Preview Procedural Terrain &amp; Hydraulic Erosion">
+                            <img src="images/preview-terrain.jpg" alt="Procedural Terrain Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="/projects/in-memory-of-my-grandmother.html"
+                                        class="title-link">In Memory of My Grandmother (2025) </a></h3>
+                                <span class="project-meta">2025 • SVG Rasterization</span>
+                            </div>
+                            <p class="project-description">
+                                Procedural landscape generation tool with multi-layer hydraulic erosion simulation,
+                                thermal weathering, and heightfield splatmapping.
+                            </p>
+                            <div class="project-tags">
+                                <span>Houdini</span>
+                                <span>Procedural Generation</span>
+                                <span>Hydraulic Erosion</span>
+                                <span>VEX</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/procedural-terrain.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/volumetric-clouds.html" class="project-thumb-link"
+                            aria-label="Preview Volumetric Clouds &amp; Atmospheric Scattering">
+                            <img src="images/preview-clouds.jpg" alt="Volumetric Clouds Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/volumetric-clouds.html"
+                                        class="title-link">C++ 3D Rendering Engine</a></h3>
+                                <span class="project-meta">2025 • Geometry Processing &amp; Ray Tracing</span>
+                            </div>
+                            <p class="project-description">
+                                Rendering engine with geometry processing, ray tracing, and interactive camera controls.
+                            </p>
+                            <div class="project-tags">
+                                <span>Ray Tracing</span>
+                                <span>Physically-Based Rendering</span>
+                                <span>Mesh Processing</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/volumetric-clouds.html" class="text-link">View Project &amp; Demo
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/character-rigging.html" class="project-thumb-link"
+                            aria-label="Preview Real-Time Character Rigging &amp; IK Solver">
+                            <img src="images/preview-portfolio.jpg" alt="Character Rigging Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/character-rigging.html"
+                                        class="title-link">Voices Floating around my Head (2024)</a></h3>
+                                <span class="project-meta">2024 • Abstract Art</span>
+                            </div>
+                            <p class="project-description">
+                                I am sorry I cannot provide details about this project. Please reach out to me if you
+                                are interested in learning more.
+                            </p>
+                            <div class="project-tags">
+                                <span>Three.JS</span>
+                                <span>3D Scan</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/character-rigging.html" class="text-link">View Project &amp; Demo
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- TAB 3: WORK & EXPERIENCE -->
+            <section class="tab-pane" id="tab-work">
+                <div class="section-intro">
+                    <h2>Work &amp; Experience</h2>
+                    <p>Shipped software products, real-time XR platforms, and career experience.</p>
+                </div>
+
+                <!-- Featured Shipped Work -->
+                <div class="projects-list" style="margin-bottom: 40px;">
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/preview-portfolio.jpg" alt="YouTube XR Co-Watching Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name">YouTube XR Co-Watching</h3>
+                                <span class="project-meta">Google / YouTube XR • Spatial Media</span>
+                            </div>
+                            <p class="project-description">
+                                Real-time synchronized video co-watching and spatial presence engine for YouTube on XR
+                                headsets, enabling immersive multi-user synchronized media playback and low-latency
+                                social interactions.
+                            </p>
+                            <div class="project-tags">
+                                <span>Spatial Computing</span>
+                                <span>Real-Time Sync</span>
+                                <span>Media Systems</span>
+                                <span>Android / C++</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/preview-pathtracer.jpg" alt="Android XR Launch Avatars Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name">Android XR Launch Avatars</h3>
+                                <span class="project-meta">Google / Android XR • Real-Time 3D</span>
+                            </div>
+                            <p class="project-description">
+                                Real-time 3D avatar rendering, expressive facial rigging pipelines, and runtime
+                                performance architecture developed for the Android XR launch platform.
+                            </p>
+                            <div class="project-tags">
+                                <span>Android XR</span>
+                                <span>3D Avatars</span>
+                                <span>Real-Time Graphics</span>
+                                <span>Performance Optimization</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/preview-visualizer.jpg"
+                                alt="Shader Compilers & Graphics Infrastructure Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name">Shader Compilers &amp; Graphics Infrastructure</h3>
+                                <span class="project-meta">Graphics Infrastructure • Compilers &amp; Toolchains</span>
+                            </div>
+                            <p class="project-description">
+                                High-performance shader compilation pipelines, intermediate representation (IR) tooling,
+                                and shader validation passes for cross-platform real-time graphics runtimes.
+                            </p>
+                            <div class="project-tags">
+                                <span>Shader Compilation</span>
+                                <span>SPIR-V / GLSL</span>
+                                <span>Graphics Toolchains</span>
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Career Timeline -->
+                <div class="section-intro" style="margin-top: 10px;">
+                    <h3
+                        style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
+                        Career &amp; Background</h3>
+                </div>
+
+                <div class="cv-list">
+                    <div class="cv-item">
+                        <div class="cv-time">Present</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">Software Engineer</h3>
+                            <div class="cv-org">Independent &amp; Open Source</div>
+                            <p class="cv-desc">
+                                Architecting modern web applications, interactive 3D user interfaces, and modular
+                                software components.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-time">2024 &ndash; 2025</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">Software Developer</h3>
+                            <div class="cv-org">Engineering &amp; Technology</div>
+                            <p class="cv-desc">
+                                Developed full-stack web applications, built reusable component libraries, collaborated
+                                on API integration, and improved UI performance.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-time">Education</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">Computer Science &amp; Engineering</h3>
+                            <div class="cv-org">University</div>
+                            <p class="cv-desc">
+                                Focused on software systems, algorithms, human-computer interaction, and computational
+                                media.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: LEARNING JOURNEY -->
+            <section class="tab-pane" id="tab-learning">
+                <div class="section-intro">
+                    <h2>Learning Journey</h2>
+                    <p>Technologies, methodologies, and topics I am continuously exploring.</p>
+                </div>
+
+                <div class="journey-grid">
+                    <div class="journey-card">
+                        <span class="journey-num">01</span>
+                        <h3>3D Graphics &amp; WebGL</h3>
+                        <p>Three.js, shaders (GLSL), matrix transformations, lighting models, camera projection, and
+                            real-time rendering pipelines.</p>
+                    </div>
+
+                    <div class="journey-card">
+                        <span class="journey-num">02</span>
+                        <h3>Modern Web Architecture</h3>
+                        <p>Vite, TypeScript, reactive frameworks, clean CSS architectures, performance profiling, and
+                            accessible web standards.</p>
+                    </div>
+
+                    <div class="journey-card">
+                        <span class="journey-num">03</span>
+                        <h3>AI &amp; Computational Systems</h3>
+                        <p>Agentic workflows, generative intelligence, neural network fundamentals, and creative coding
+                            algorithms.</p>
+                    </div>
+
+                    <div class="journey-card">
+                        <span class="journey-num">04</span>
+                        <h3>Design Systems &amp; Interaction</h3>
+                        <p>Typography, minimalist layout systems, motion design, micro-interactions, and cognitive
+                            ergonomics.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: WRITING -->
+            <section class="tab-pane" id="tab-writing">
+                <div class="section-intro">
+                    <h2>Writing</h2>
+                    <p>Essays, articles, and thoughts on art, technology, and design.</p>
+                </div>
+
+                <div class="writing-list">
+                    <article class="writing-item">
+                        <div class="writing-meta">
+                            <span class="writing-date">Aug 2026</span>
+                            <span class="writing-tag">Art &amp; Tech</span>
+                        </div>
+                        <h3 class="writing-title"><a href="writing/art-and-technology.html" class="title-link">The
+                                Intersection Between Art and Technology</a></h3>
+                        <p class="writing-excerpt">
+                            When code is treated as an expressive medium, the browser transforms from a document reader
+                            into a canvas for living, dynamic visual experiences.
+                        </p>
+                        <a href="writing/art-and-technology.html" class="text-link">Read Essay &rarr;</a>
+                    </article>
+
+                    <article class="writing-item">
+                        <div class="writing-meta">
+                            <span class="writing-date">Jul 2026</span>
+                            <span class="writing-tag">Spatial Computing</span>
+                        </div>
+                        <h3 class="writing-title"><a href="writing/spatial-interfaces.html" class="title-link">The
+                                Spatial Dimension in Everyday Computing</a></h3>
+                        <p class="writing-excerpt">
+                            Bringing subtle 3D spatial awareness into web experiences allows software to feel tangible,
+                            tactile, and natural without becoming cluttered.
+                        </p>
+                        <a href="writing/spatial-interfaces.html" class="text-link">Read Essay &rarr;</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- TAB 6: ABOUT ME -->
+            <section class="tab-pane" id="tab-about">
+                <div class="section-intro">
+                    <h2>About Me</h2>
+                    <p>Thoughts, curated inspirations, quotes, and books.</p>
+                </div>
+
+                <!-- Sub Navigation for About Me -->
+                <div class="subtabs-nav">
+                    <button class="subtab-btn active" data-subtab="journals">Journals (Brain Dump)</button>
+                    <button class="subtab-btn" data-subtab="inspirations">Works of Inspiration</button>
+                    <button class="subtab-btn" data-subtab="quotes">Quotes To Live By</button>
+                    <button class="subtab-btn" data-subtab="books">Books</button>
+                </div>
+
+                <!-- Subtab 1: Journals -->
+                <div class="subtab-pane active" id="subtab-journals">
+                    <div class="journal-entries">
+                        <article class="journal-entry">
+                            <span class="entry-date">Note #01</span>
+                            <h4>The Spatial Dimension in Everyday Computing</h4>
+                            <p>
+                                Flat 2D interfaces have dominated computing for decades. Bringing subtle 3D spatial
+                                awareness into web experiences allows software to feel tangible, tactile, and natural
+                                without needing to be cluttered.
+                            </p>
+                        </article>
+
+                        <article class="journal-entry">
+                            <span class="entry-date">Note #02</span>
+                            <h4>Code as Craft and Clarity</h4>
+                            <p>
+                                Clean code is not simply code that works; it is code that communicates intention
+                                effortlessly to other humans. The best code feels like a well-edited paragraph.
+                            </p>
+                        </article>
+
+                        <article class="journal-entry">
+                            <span class="entry-date">Note #03</span>
+                            <h4>Building with Relentless Curiosity</h4>
+                            <p>
+                                The deepest learning happens at the edges of what is comfortable. Prototype rapidly,
+                                test hypotheses in code, and embrace experimentation.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Subtab 2: Works of Inspiration -->
+                <div class="subtab-pane" id="subtab-inspirations">
+                    <div class="inspiration-list">
+                        <div class="inspire-row">
+                            <span class="inspire-label">Generative &amp; Computational Art</span>
+                            <p>Explorations where mathematical algorithms produce organic visual beauty and interactive
+                                behaviors.</p>
+                        </div>
+                        <div class="inspire-row">
+                            <span class="inspire-label">Minimalist Product Design</span>
+                            <p>Dieter Rams' Ten Principles for Good Design, Braun industrial aesthetics, and Bauhaus
+                                functionalism.</p>
+                        </div>
+                        <div class="inspire-row">
+                            <span class="inspire-label">Open Web &amp; Creative Tools</span>
+                            <p>Tools that empower people to build, think, and express ideas freely through software.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtab 3: Quotes To Live By -->
+                <div class="subtab-pane" id="subtab-quotes">
+                    <div class="quotes-list">
+                        <blockquote class="quote-item">
+                            <p>"Simplicity is prerequisite for reliability."</p>
+                            <cite>— Edsger W. Dijkstra</cite>
+                        </blockquote>
+                        <blockquote class="quote-item">
+                            <p>"The best way to predict the future is to invent it."</p>
+                            <cite>— Alan Kay</cite>
+                        </blockquote>
+                        <blockquote class="quote-item">
+                            <p>"Make it work, make it right, make it fast."</p>
+                            <cite>— Kent Beck</cite>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <!-- Subtab 4: Books -->
+                <div class="subtab-pane" id="subtab-books">
+                    <div class="books-list">
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">The Design of Everyday Things</span>
+                                <span class="book-author">Don Norman</span>
+                            </div>
+                            <p class="book-description">A foundational study on affordances, signifiers, and cognitive
+                                usability.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">The Nature of Code</span>
+                                <span class="book-author">Daniel Shiffman</span>
+                            </div>
+                            <p class="book-description">Simulating physics, vectors, fractals, and autonomous agents in
+                                code.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">Clean Code</span>
+                                <span class="book-author">Robert C. Martin</span>
+                            </div>
+                            <p class="book-description">Principles and patterns of writing maintainable, readable
+                                software.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Lucie Choi</p>
+        </footer>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
