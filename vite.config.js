@@ -11,7 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        portfolio: resolve(__dirname, 'projects/interactive-portfolio.html'),
+        bell: resolve(__dirname, 'projects/bell-of-king-seongdeok.html'),
         generative: resolve(__dirname, 'projects/generative-systems.html'),
         visualizer: resolve(__dirname, 'projects/data-visualizer.html'),
         fluidSim: resolve(__dirname, 'projects/fluid-simulation.html'),

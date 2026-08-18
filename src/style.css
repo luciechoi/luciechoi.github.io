@@ -290,8 +290,8 @@ body {
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 6px;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-wrap: nowrap;
+  gap: 12px;
 }
 
 .project-name {
@@ -299,6 +299,7 @@ body {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-main);
+  min-width: 0;
 }
 
 .title-link {
@@ -314,6 +315,8 @@ body {
 .project-meta {
   font-size: 0.78rem;
   color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .project-description {

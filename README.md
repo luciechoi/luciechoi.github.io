@@ -7,8 +7,14 @@
 4. Prepare and link to resume in PDF format.
 5. Draft other sections. or leave TODO.
 6. Brainstorm design for the website.
+7. Rerender the visuals without Houdini watermarks.
 
-## 2026-08-16
+## Changelog
+### 2026-08-17
+- Added details and preview images to the project overview page.
+- Polished intro wordings.
+
+### 2026-08-16
 - Basic Website Structure.  
 - Added ThreeJS support
 - Intro wording updated
