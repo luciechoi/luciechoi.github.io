@@ -278,6 +278,27 @@ body {
   transform: scale(1.05);
 }
 
+.project-thumb-link.thumb-dark {
+  background-color: #000000;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-thumb-link.thumb-dark .project-thumb-img {
+  object-fit: contain;
+  padding: 12px;
+  width: 100%;
+  height: 100%;
+  transition: none;
+}
+
+.project-item:hover .project-thumb-link.thumb-dark .project-thumb-img {
+  transform: none;
+}
+
 .project-info {
   flex: 1;
   min-width: 0;
@@ -288,10 +309,18 @@ body {
 .project-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 6px;
-  flex-wrap: nowrap;
-  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
 }
 
 .project-name {
@@ -341,8 +370,60 @@ body {
   border-radius: 4px;
 }
 
+.tag-shipped,
+.project-tags span.tag-shipped {
+  font-size: 0.72rem;
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag-shipped::before,
+.project-tags span.tag-shipped::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #22c55e;
+}
+
+.tag-progress,
+.project-tags span.tag-progress {
+  font-size: 0.72rem;
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag-progress::before,
+.project-tags span.tag-progress::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #f59e0b;
+}
+
 .project-links {
+  margin-top: 10px;
   font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* ==========================================================================
@@ -391,6 +472,65 @@ body {
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+/* LinkedIn-style nested role timeline */
+.cv-roles-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 14px;
+  position: relative;
+  padding-left: 18px;
+  border-left: 1.5px solid var(--border-light);
+}
+
+.cv-role-item {
+  position: relative;
+}
+
+.cv-role-item::before {
+  content: '';
+  position: absolute;
+  left: -23.5px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  border: 1.5px solid var(--text-subtle);
+}
+
+.cv-role-item.current::before {
+  border-color: var(--text-main);
+  background-color: var(--text-main);
+}
+
+.cv-role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cv-role-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.cv-role-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.cv-role-desc {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.45;
 }
 
 /* ==========================================================================

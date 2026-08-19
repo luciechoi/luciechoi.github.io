@@ -86,7 +86,7 @@
             <section class="tab-pane" id="tab-projects">
                 <div class="section-intro">
                     <h2>Projects</h2>
-                    <p>Selected computer graphics, physics simulation, and technical art experiments.</p>
+                    <p>Computer graphics, physics simulation, and technical art experiments.</p>
                 </div>
 
                 <div class="projects-list">
@@ -359,78 +359,134 @@
             <section class="tab-pane" id="tab-work">
                 <div class="section-intro">
                     <h2>Work &amp; Experience</h2>
-                    <p>Shipped software products, real-time XR platforms, and career experience.</p>
+                    <p>Shipped products and career experience.</p>
                 </div>
 
                 <!-- Featured Shipped Work -->
                 <div class="projects-list" style="margin-bottom: 40px;">
                     <article class="project-item">
                         <div class="project-thumb-link">
-                            <img src="images/preview-portfolio.jpg" alt="YouTube XR Co-Watching Preview"
+                            <img src="images/google-gentle-monster-glasses.jpg"
+                                alt="Low-Latency XR Graphics &amp; Reprojection Pipeline Preview"
                                 class="project-thumb-img" loading="lazy" />
                         </div>
                         <div class="project-info">
                             <div class="project-header">
-                                <h3 class="project-name">YouTube XR Co-Watching</h3>
-                                <span class="project-meta">Google / YouTube XR • Spatial Media</span>
+                                <div class="project-title-group">
+                                    <h3 class="project-name">XR Glasses Rendering</h3>
+                                    <span class="project-meta">2026 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-progress">In Progress</span>
                             </div>
                             <p class="project-description">
-                                Real-time synchronized video co-watching and spatial presence engine for YouTube on XR
-                                headsets, enabling immersive multi-user synchronized media playback and low-latency
-                                social interactions.
+                                Building the Android graphics and display pipeline for next-generation XR
+                                glasses, specifically integrating hardware-accelerated Late Stage Reprojection (LSR).
                             </p>
                             <div class="project-tags">
-                                <span>Spatial Computing</span>
-                                <span>Real-Time Sync</span>
-                                <span>Media Systems</span>
+                                <span>Rendering</span>
+                                <span>Late Stage Reprojection (LSR)</span>
+                                <span>XR Glasses</span>
+                                <span>C++</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.android.com/xr/" target="_blank" rel="noopener noreferrer"
+                                    class="text-link">Explore Android XR &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link thumb-dark">
+                            <img src="images/directx.png" alt="Shader Compilers & Graphics Infrastructure Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">Shader Compilers</h3>
+                                    <span class="project-meta">2026 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Contributed to <a href="https://github.com/microsoft/DirectXShaderCompiler"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">DXC</a> and <a
+                                    href="https://github.com/llvm/llvm-project" target="_blank"
+                                    rel="noopener noreferrer" class="text-link">LLVM</a> open-source compilers for
+                                HLSL-to-SPIR-V translation, implementing CombinedImageSampler support and GPU
+                                reconvergence features for Vulkan.
+                            </p>
+                            <div class="project-tags">
+                                <span>Open Source Development</span>
+                                <span>HLSL</span>
+                                <span>SPIR-V / Vulkan</span>
+                                <span>GPU</span>
+                                <span>LLVM</span>
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/meet-xr.png" alt="Likeness Photorealistic Avatars Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">Likeness Avatars</h3>
+                                    <span class="project-meta">2025 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Served as Tech Lead to architect the backend and build the Android mobile app
+                                end-to-end, enabling users to generate higher quality photorealistic 3D avatars and
+                                stream them to XR devices.
+                            </p>
+                            <div class="project-tags">
+                                <span>Tech Lead</span>
+                                <span>Android / C++</span>
+                                <span>MediaPipe</span>
+                                <span>OpenXR</span>
+                                <span>Performance</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://roadtovr.com/google-android-xr-likeness-avatars-photorealistic/"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">Press Coverage
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/cowatching.avif" alt="YouTube XR Co-Watching Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">YouTube VR</h3>
+                                    <span class="project-meta">2024 &bull; YouTube, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Built a real-time synchronized video co-watching engine from scratch for YouTube
+                                on Meta Quest devices, enabling immersive social VR experiences.
+                            </p>
+                            <div class="project-tags">
+                                <span>Media Playback</span>
+                                <span>VR</span>
+                                <span>Security</span>
                                 <span>Android / C++</span>
                             </div>
-                        </div>
-                    </article>
-
-                    <article class="project-item">
-                        <div class="project-thumb-link">
-                            <img src="images/preview-pathtracer.jpg" alt="Android XR Launch Avatars Preview"
-                                class="project-thumb-img" loading="lazy" />
-                        </div>
-                        <div class="project-info">
-                            <div class="project-header">
-                                <h3 class="project-name">Android XR Launch Avatars</h3>
-                                <span class="project-meta">Google / Android XR • Real-Time 3D</span>
-                            </div>
-                            <p class="project-description">
-                                Real-time 3D avatar rendering, expressive facial rigging pipelines, and runtime
-                                performance architecture developed for the Android XR launch platform.
-                            </p>
-                            <div class="project-tags">
-                                <span>Android XR</span>
-                                <span>3D Avatars</span>
-                                <span>Real-Time Graphics</span>
-                                <span>Performance Optimization</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-item">
-                        <div class="project-thumb-link">
-                            <img src="images/preview-visualizer.jpg"
-                                alt="Shader Compilers & Graphics Infrastructure Preview" class="project-thumb-img"
-                                loading="lazy" />
-                        </div>
-                        <div class="project-info">
-                            <div class="project-header">
-                                <h3 class="project-name">Shader Compilers &amp; Graphics Infrastructure</h3>
-                                <span class="project-meta">Graphics Infrastructure • Compilers &amp; Toolchains</span>
-                            </div>
-                            <p class="project-description">
-                                High-performance shader compilation pipelines, intermediate representation (IR) tooling,
-                                and shader validation passes for cross-platform real-time graphics runtimes.
-                            </p>
-                            <div class="project-tags">
-                                <span>Shader Compilation</span>
-                                <span>SPIR-V / GLSL</span>
-                                <span>Graphics Toolchains</span>
-                                <span>C++</span>
+                            <div class="project-links">
+                                <a href="https://www.theverge.com/2024/11/13/24295635/youtube-meta-quest-app-co-watch-vr"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">Press Coverage
+                                    &rarr;</a>
                             </div>
                         </div>
                     </article>
@@ -440,43 +496,32 @@
                 <div class="section-intro" style="margin-top: 10px;">
                     <h3
                         style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
-                        Career &amp; Background</h3>
+                        Experience</h3>
+                </div>
+
+                <div class="cv-list" style="margin-bottom: 32px;">
+                    <div class="cv-item">
+                        <div class="cv-time">Dec 2021 &ndash; Present</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">Senior Software Engineer</h3>
+                            <div class="cv-org">Google &bull; Android XR &bull; San Jose, CA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="section-intro" style="margin-top: 10px;">
+                    <h3
+                        style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
+                        Education</h3>
                 </div>
 
                 <div class="cv-list">
                     <div class="cv-item">
-                        <div class="cv-time">Present</div>
+                        <div class="cv-time">2020</div>
                         <div class="cv-details">
-                            <h3 class="cv-title">Software Engineer</h3>
-                            <div class="cv-org">Independent &amp; Open Source</div>
-                            <p class="cv-desc">
-                                Architecting modern web applications, interactive 3D user interfaces, and modular
-                                software components.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-time">2024 &ndash; 2025</div>
-                        <div class="cv-details">
-                            <h3 class="cv-title">Software Developer</h3>
-                            <div class="cv-org">Engineering &amp; Technology</div>
-                            <p class="cv-desc">
-                                Developed full-stack web applications, built reusable component libraries, collaborated
-                                on API integration, and improved UI performance.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-time">Education</div>
-                        <div class="cv-details">
-                            <h3 class="cv-title">Computer Science &amp; Engineering</h3>
-                            <div class="cv-org">University</div>
-                            <p class="cv-desc">
-                                Focused on software systems, algorithms, human-computer interaction, and computational
-                                media.
-                            </p>
+                            <h3 class="cv-title">B.A. in Computer Science</h3>
+                            <div class="cv-org">University of California, Berkeley</div>
                         </div>
                     </div>
                 </div>
