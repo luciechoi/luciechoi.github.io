@@ -11,10 +11,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        bell: resolve(__dirname, 'projects/bell-of-king-seongdeok.html'),
-        generative: resolve(__dirname, 'projects/generative-systems.html'),
+        acoustic: resolve(__dirname, 'projects/acoustic-peace-transfer.html'),
+        fireSound: resolve(__dirname, 'projects/fire-sound-synthesis.html'),
+        taichi: resolve(__dirname, 'projects/taichi-xylophone.html'),
         visualizer: resolve(__dirname, 'projects/data-visualizer.html'),
-        fluidSim: resolve(__dirname, 'projects/fluid-simulation.html'),
         pathTracer: resolve(__dirname, 'projects/path-tracer.html'),
         terrain: resolve(__dirname, 'projects/procedural-terrain.html'),
         clouds: resolve(__dirname, 'projects/volumetric-clouds.html'),

@@ -199,34 +199,37 @@ body {
   color: var(--text-muted);
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  border-top: 1px solid var(--border-light);
-  padding-top: 24px;
+.intro-socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.info-card {
-  padding: 16px;
+.social-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  color: var(--text-muted);
   background-color: var(--bg-card);
   border: 1px solid var(--border-light);
-  border-radius: 8px;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.info-card h3 {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-.info-card p {
-  font-size: 0.92rem;
-  line-height: 1.5;
+.social-icon-btn:hover {
   color: var(--text-main);
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.social-icon-btn svg {
+  display: block;
 }
 
 /* ==========================================================================
@@ -277,6 +280,15 @@ body {
 
 .project-item:hover .project-thumb-img {
   transform: scale(1.05);
+}
+
+/* Disable zoom and pointer on non-clickable previews in Work & Experience */
+#tab-work .project-thumb-link {
+  cursor: default;
+}
+
+#tab-work .project-item:hover .project-thumb-img {
+  transform: none;
 }
 
 .project-thumb-link.thumb-dark {
@@ -817,6 +829,31 @@ body {
 
 .text-link:hover {
   opacity: 0.7;
+}
+
+/* ==========================================================================
+   TAB 6: CONTACT
+   ========================================================================== */
+
+.contact-text-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contact-text-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.contact-text-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .footer {
