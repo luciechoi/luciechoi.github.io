@@ -1,85 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Three.js Interactive Portfolio — Lucie Choi</title>
-  <meta name="description" content="Detailed case study of the Three.js Interactive Portfolio website by Lucie Choi." />
+  <title>Acoustic Peace Transfer — Lucie Choi</title>
+  <meta name="description"
+    content="Physically based sound synthesis and acoustic transfer simulation of the Sacred Bell of King Seongdeok by Lucie Choi." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- KaTeX for LaTeX Math & Numbers -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
 </head>
+
 <body>
   <div class="site-container">
     <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
 
     <header class="project-detail-header">
-      <h1 class="project-detail-title">Three.js Interactive Portfolio</h1>
+      <h1 class="project-detail-title">Acoustic Peace Transfer</h1>
       <div class="project-detail-meta">
-        <span>2026</span>
-        <span>•</span>
-        <span>WebGL / Three.js / Vite</span>
-        <span>•</span>
-        <span>Creative Technologist &amp; Engineer</span>
+        <span>2026 • Sound Synthesis</span>
       </div>
 
       <div class="project-tags">
-        <span>Three.js</span>
-        <span>Vite</span>
-        <span>JavaScript</span>
-        <span>Vanilla CSS</span>
-        <span>GitHub Actions</span>
+        <span>Modal Sound Synthesis</span>
+        <span>Finite Element Method (FEM)</span>
+        <span>Equivalent Source Method (ESM)</span>
+        <span>Acoustic Transfer</span>
+        <!-- <span>Houdini FX</span>
+        <span>DaVinci Resolve</span> -->
       </div>
 
       <div class="action-buttons">
-        <a href="https://github.com/luciechoi/luciechoi.github.io" target="_blank" rel="noopener noreferrer" class="action-btn">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
           View Source Code &rarr;
-        </a>
-        <a href="../index.html" class="action-btn secondary">
-          Live Website &rarr;
-        </a>
+        </span>
       </div>
     </header>
 
     <main class="project-detail-content">
       <!-- Embedded Video / Media -->
       <div class="media-container">
-        <!-- Embedded Video / Media Preview -->
-        <iframe 
-          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0" 
-          title="Project Demo Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-        <div class="media-caption">Interactive demo recording: real-time 3D ambient particle system and smooth tab transitions.</div>
+        <video controls playsinline preload="metadata"
+          style="width: 100%; max-height: 540px; background: #000; border-radius: 8px 8px 0 0;">
+          <source src="/videos/acoustic_peace_transfer.mp4" type="video/mp4" />
+          <source src="/videos/acoustic%20peace%20transfer.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
+      <!-- Motivation -->
       <section class="detail-section">
-        <h3>Overview</h3>
+        <h3>Motivation</h3>
         <p>
-          A minimalist personal portfolio website built from the ground up using <strong>Three.js</strong> and <strong>Vite</strong>, hosted on GitHub Pages. The design merges a clean, editorial white aesthetic with dynamic 3D interactive graphics, allowing visitors to engage with subtle visual depth without sacrificing content readability or load performance.
+          Temples’ ambient sounds make me feel calm, so I often play them as background music. In this project, I
+          aimed to simulate the sound of the most famous Korean temple bell, <strong>the Sacred Bell of King
+            Seongdeok (성덕대왕신종)</strong>,
+          driving the audio from its structure and material properties. I also reproduced the sound from listeners’
+          relative hearing positions, where distance and angle from the bell matter, to best resemble the real
+          physical experience.
         </p>
       </section>
 
+      <!-- Overview -->
       <section class="detail-section">
-        <h3>Key Features</h3>
+        <h3>Background</h3>
+        <p>
+          The Sacred Bell of King Seongdeok, made in 771 CE, has a big cultural and historical significance in Korea.
+          Therefore, there have been many attempts to preserve the bell and recreate the sound through scientific
+          approaches. The regular bell striking ceremony has stopped in 1992 to prevent further damage to the artifact.
+        </p>
+        <p>
+          As heard in <a href="https://www.youtube.com/watch?v=8cNlTuf1YWM" target="_blank" rel="noopener noreferrer"
+            class="text-link">this recording</a>, the sound exhibits several defining
+          acoustic characteristics:
+        </p>
         <ul>
-          <li><strong>Real-time 3D Scene</strong>: Procedural wireframe icosahedron and torus knot geometry with soft diffuse lighting and 200+ floating ambient particles.</li>
-          <li><strong>Mouse &amp; Cursor Parallax</strong>: Smooth lerp-interpolated camera rotations that respond dynamically to mouse movement.</li>
-          <li><strong>Client-Side Tab Architecture</strong>: Fast, zero-reload tab switching with full browser history and direct hash routing support.</li>
-          <li><strong>Automated CI/CD</strong>: GitHub Actions pipeline that builds and deploys the optimized Vite production bundle on every push.</li>
+          <li><strong>Two Main Frequencies</strong>: The hum tone (\(64\ \text{Hz}\)) and the fundamental tone
+            (\(168\ \text{Hz}\)) make up
+            the body of the sound. The fundamental tone has a shorter decay time around 20s, while the hum tone has a
+            long decay up to 2 minutes.</li>
+          <li><strong>The Beating Phenomenon (맥놀이)</strong>: Subtle structural and thickness asymmetries
+            create closely spaced pairs of eigenfrequencies, producing ringing sounds that
+            fade in and out periodically. The hum tone has a 3s interval, while the fundamental tone has a 9s interval.
+          </li>
+          <li><strong>The Acoustic Sound Pipe (음통)</strong>: A hollow pipe at the top is designed to absorb
+            high frequencies above 300 Hz, leaving only a deep low-frequency reverberation.</li>
+        </ul>
+        <p>
+          The end goal was to match these characteristics as closely as possible, given the mesh and bell
+          properties.
+        </p>
+      </section>
+
+      <!-- Technical Details -->
+      <section class="detail-section">
+        <h3>Technical Details</h3>
+
+        <h4>1. Modal Analysis using Finite Element Method (FEM) </h4>
+        <p>
+          The bell geometry was tetrahedralized to perform modal analysis.
+          Using material parameters for a similar bronze bell (mass density \(\rho = 8800\ \text{kg/m}^3\),
+          Poisson ratio \(\nu = 0.34\),
+          and Young’s Modulus \(E = 79\ \text{GPa}\)), mass and stiffness matrices were assembled:
+        </p>
+        <ul>
+          <li><strong>Mass Matrix (\(\mathbf{M}\))</strong>: Formed by integrating volume density per tetrahedron,
+            distributing the element mass to the four vertices, and assembling into a
+            global sparse matrix.</li>
+          <li><strong>Stiffness Matrix (\(\mathbf{K}\))</strong>: Assembled from element stiffness matrices
+            \(\mathbf{K}_e = \mathbf{B}^T \mathbf{C} \mathbf{B} \cdot V\) for each tetrahedron:
+            <ul style="margin-top: 8px; margin-bottom: 8px;">
+              <li style="margin-bottom: 12px;"><strong>Constitutive Matrix (\(\mathbf{C}\))</strong>: A \(6 \times 6\)
+                elasticity matrix derived from
+                Hooke’s law relating 3D stress to strain (\(\mathbf{\sigma} = \mathbf{C} \mathbf{\epsilon}\)) via
+                Young’s Modulus (\(E\)) and Poisson’s ratio (\(\nu\)):
+                $$\mathbf{C} = \frac{E}{(1+\nu)(1-2\nu)} \begin{bmatrix}
+                1-\nu & \nu & \nu & 0 & 0 & 0 \\
+                \nu & 1-\nu & \nu & 0 & 0 & 0 \\
+                \nu & \nu & 1-\nu & 0 & 0 & 0 \\
+                0 & 0 & 0 & \frac{1-2\nu}{2} & 0 & 0 \\
+                0 & 0 & 0 & 0 & \frac{1-2\nu}{2} & 0 \\
+                0 & 0 & 0 & 0 & 0 & \frac{1-2\nu}{2}
+                \end{bmatrix}$$
+              </li>
+              <li style="margin-bottom: 12px;"><strong>Strain-Displacement Matrix (\(\mathbf{B}\))</strong>: A \(6
+                \times 12\) matrix composed of four \(6 \times 3\) submatrices \(\mathbf{B} = \begin{bmatrix}
+                \mathbf{B}_1 & \mathbf{B}_2 & \mathbf{B}_3 & \mathbf{B}_4 \end{bmatrix}\) relating nodal displacements
+                to internal strain (\(\mathbf{\epsilon} = \mathbf{B}\mathbf{u}_e\)):
+                $$\mathbf{B}_i = \begin{bmatrix}
+                \frac{\partial N_i}{\partial x} & 0 & 0 \\
+                0 & \frac{\partial N_i}{\partial y} & 0 \\
+                0 & 0 & \frac{\partial N_i}{\partial z} \\
+                0 & \frac{\partial N_i}{\partial z} & \frac{\partial N_i}{\partial y} \\
+                \frac{\partial N_i}{\partial z} & 0 & \frac{\partial N_i}{\partial x} \\
+                \frac{\partial N_i}{\partial y} & \frac{\partial N_i}{\partial x} & 0
+                \end{bmatrix}$$
+                where \(\nabla N_i = \left(\frac{\partial N_i}{\partial x}, \frac{\partial N_i}{\partial y},
+                \frac{\partial N_i}{\partial z}\right)\) are the constant spatial gradients of the linear shape
+                functions.
+              </li>
+            </ul>
+          </li>
+          <li><strong>Generalized Eigenvalue Problem</strong>: Solved for natural frequencies \(f_i =
+            \frac{\omega_i}{2\pi}\) and mode shapes \(\mathbf{\phi}_i\):
+            $$\mathbf{K}\mathbf{\phi}_i = \omega_i^2 \mathbf{M}\mathbf{\phi}_i$$
+            The first six 0 Hz rigid-body modes were discarded to model the free-hanging pivot condition.</li>
+        </ul>
+
+        <h4>2. Modal Damping &amp; Sound Synthesis</h4>
+        <p>
+          Because real bells exhibit frequency-dependent energy dissipation rather than uniform Rayleigh damping,
+          individual damping ratios (\(\zeta_i\)) were calibrated from historical \(T_{60}\) reverberation measurements
+          (\(e^{-\zeta \omega T_{60}} = 10^{-3}\)):
+        </p>
+        <ul>
+          <li><strong>Hum Tone (64 Hz doublet)</strong>: \(\Delta f \approx 0.34\ \text{Hz}\), \(\sim 3\ \text{s}\)
+            beating interval,
+            \(\zeta = 0.00013\), audible for over 60 seconds.</li>
+          <li><strong>Fundamental Tone (168 Hz doublet)</strong>: \(\Delta f \approx 0.13\ \text{Hz}\), \(\sim 9\
+            \text{s}\) beating
+            interval, \(\zeta = 0.00030\), persisting for ~20 seconds.</li>
+          <li><strong>Modal Superposition</strong>: Time-domain audio was synthesized by summing the decaying sinusoidal
+            responses:
+            $$y(t) = \sum_{i} A_i e^{-\zeta_i \omega_i t} \sin(\omega_i t + \theta_i)$$
+          </li>
+        </ul>
+
+        <h4>3. Acoustic Transfer: BEM vs. Equivalent Source Method (ESM)</h4>
+        <p>
+          To simulate radiation into the surrounding 3D space, both BEM and ESM were evaluated:
+        </p>
+        <ul>
+          <li><strong>BEM (bempp-cl)</strong>: Tested Burton-Miller boundary integrals on the surface mesh (10K
+            vertices / 60K triangles). While accurate, solving large dense matrices for high frequencies without
+            dedicated GPU acceleration proved computationally prohibitive.</li>
+          <li><strong>Equivalent Source Method (ESM)</strong>: Placed proxy multipole sources inside the bell volume
+            (offset by \(-5\text{ cm}\) along the surface normal). Constructed the transfer matrix \(\mathbf{A}\) using
+            Green's function gradients and solved for source strengths with Tikhonov regularization. This yielded sound
+            pressure levels (SPL) and listener-position gains across different azimuth angles (\(0^\circ, 15^\circ,
+            30^\circ, 45^\circ, 60^\circ, 90^\circ\)).</li>
+        </ul>
+
+        <h4>4. Acoustic Radiation Visualization (Houdini &amp; DaVinci Resolve)</h4>
+        <p>
+          The sound field was visualized in 3D using Houdini FX:
+        </p>
+        <ul>
+          <li>Particle emission and velocity vectors driven directly by synthesized audio amplitude curves via Houdini
+            CHOPs.</li>
+          <li>Particles radiate outward in hemispherical pressure wavefronts around a centered 3D Bodhisattva statue,
+            evoking tranquility and cultural heritage.</li>
+          <li>Final color grading, glowing luminance transitions, and precise audio-visual synchronization were
+            composited in DaVinci Resolve.</li>
         </ul>
       </section>
 
+      <!-- Lessons Learned -->
       <section class="detail-section">
-        <h3>Technical Stack &amp; Architecture</h3>
-        <p>
-          The architecture separates presentation into a background WebGL layer and a responsive semantic DOM layer. By capping device pixel ratios and utilizing efficient requestAnimationFrame rendering loops, the site maintains a steady 60 FPS across both desktop and mobile devices.
-        </p>
+        <h3>For Future Work</h3>
+        <ul>
+          <li><strong>Try Wave Blender</strong>:
+          </li>
+
+        </ul>
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul class="references-list" style="list-style-type: none; padding-left: 0;">
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [1] Doug L. James, Jernej Barbič, and Dinesh K. Pai. 2006. <a
+              href="https://graphics.cs.cmu.edu/projects/pat/" target="_blank" rel="noopener noreferrer"
+              class="text-link">Precomputed acoustic transfer: output-sensitive, accurate sound generation for
+              geometrically complex vibration sources</a>. <em>ACM Transactions on Graphics (SIGGRAPH '06)</em>, 25(3),
+            987–995.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [2] Doug L. James and Jernej Barbič. 2016. <a
+              href="https://graphics.stanford.edu/courses/sound/sig16/PBSound2016_ModalVibration_notes.pdf"
+              target="_blank" rel="noopener noreferrer" class="text-link">Physically Based Sound for Computer Animation
+              and Virtual Environments: Modal Vibration</a>. <em>ACM SIGGRAPH 2016 Courses</em>.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [3] S. H. Kim, C. W. Lee, and J. M. Lee. 2005. <a
+              href="https://www.sciencedirect.com/science/article/abs/pii/S0022460X04002056" target="_blank"
+              rel="noopener noreferrer" class="text-link">Beat characteristics and beat maps of the King Seong-deok
+              Divine Bell</a>. <em>Journal of Sound and Vibration</em>, 281(1–2), 21–44.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [4] S. H. Kim et al. 2023. <a href="https://dael.euracoustics.org/confs/landing_pages/fa2023/001039.html"
+              target="_blank" rel="noopener noreferrer" class="text-link">Acoustic Analysis and Sound Field
+              Characteristics of the
+              Sacred Bell of King Seongdeok</a>. <em>Forum Acusticum</em>.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [5] J. M. Lee, S. H. Kim, S. J. Lee, and H. G. Choi. 2002. <a
+              href="https://www.sciencedirect.com/science/article/abs/pii/S0022460X02950923" target="_blank"
+              rel="noopener noreferrer" class="text-link">A Study on the Vibration Characteristics of a Large Size
+              Korean Bell</a>. <em>Journal of Sound and Vibration</em>, 257(4), 779–790.
+          </li>
+        </ul>
       </section>
     </main>
 
@@ -88,4 +268,5 @@
     </footer>
   </div>
 </body>
+
 </html>

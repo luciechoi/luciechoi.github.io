@@ -9,6 +9,9 @@
 6. Rerender the visuals without Houdini watermarks.
 
 ## Changelog
+### 2026-08-19
+- Started Acoustic Peace Transfer project page.
+
 ### 2026-08-18
 - Finished Work & Experience section.
 
