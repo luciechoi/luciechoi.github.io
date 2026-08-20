@@ -11,6 +11,8 @@
 ## Changelog
 ### 2026-08-19
 - Started Acoustic Peace Transfer project page.
+- Added View PDF button to project page.
+- Purchased my own domain and hosted! 😊
 
 ### 2026-08-18
 - Finished Work & Experience section.
