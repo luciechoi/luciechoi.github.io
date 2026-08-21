@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Memory of My Grandmother — Lucie Choi</title>
+  <meta name="description"
+    content="A memorial piece hand-drawn in SVG rendered via a custom 2D software rasterizer by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">In Memory of My Grandmother (2025)</h1>
+      <div class="project-detail-meta">
+        <span>2025 • Rendering • 10 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>SVG</span>
+        <span>2D Graphics</span>
+        <span>C++</span>
+      </div>
+
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <div class="media-container">
+        <img src="/images/preview-in-memory-of-my-grandmother.svg" alt="In Memory of My Grandmother SVG Artwork" />
+      </div>
+
+      <!-- Overview -->
+      <section class="detail-section">
+        <h3>Project Overview</h3>
+        <p style="margin-top: 12px;">
+          Created as part of the creative drawing task for Stanford's CS248A,
+          the above artwork was drawn in SVG (Scalable Vector Graphics), using Inkscape Bézier curves, Sketch, Adobe
+          Illustrator, and
+          reference images. It was converted into discrete polygon meshes, which were then rendered into a raster
+          image using a custom-built software rasterizer.
+        </p>
+      </section>
+
+      <!-- Technical Details -->
+      <section class="detail-section">
+        <h3>Technical Details</h3>
+        <p style="margin-top: 12px; margin-bottom: 12px;">The rasterizer supports the following features:</p>
+        <ul>
+          <li>
+            <strong>Generalized Line Drawing</strong>: Modified Bresenham's algorithm for arbitrary slopes in all four
+            quadrants using floating-point arithmetic.
+          </li>
+          <li>
+            <strong>Triangle Drawing</strong>: Rasterizes triangles using 2D bounding box and triangle-edge rule.
+          </li>
+          <li>
+            <strong>Anti-Aliasing using Supersampling (SSAA)</strong>: Multi-rate sub-pixel sample buffers to eliminate
+            jagged edges, using box or truncated Gaussian filter.
+          </li>
+          <li>
+            <strong>Transforms &amp; Hierarchical Modeling</strong>: Homogeneous coordinate matrix transformations
+            supporting nested group hierarchies alongside interactive panning and zooming.
+          </li>
+          <li>
+            <strong>Texturing &amp; Sampling</strong>: Nearest-neighbor and bilinear texture filtering.
+          </li>
+          <li>
+            <strong>Alpha Compositing</strong>: Alpha blending for rendering semi-transparent elements.
+          </li>
+        </ul>
+      </section>
+
+      <!-- The Story & Motivation -->
+      <section class="detail-section">
+        <h3>Behind The Piece</h3>
+        <p>
+          This work is dedicated to my grandmother, who passed away while I was working on this project, during Lunar
+          New Year in 2025. Unfortunately, I couldn't fly to Korea to say goodbye.
+        </p>
+        <p style="margin-top: 14px;">
+          The drawing depicts a cherished childhood memory of mine during Lunar New Year (설날 / Seollal). In Korean
+          tradition, families gather in traditional clothing (한복 / Hanbok) to perform 세배 (Sebae), a deep
+          ceremonial bow to the elders, expressing gratitude and receiving warm blessings for the year ahead.
+        </p>
+        <p style="margin-top: 14px;">
+          Being unable to be there in person made me reflect for the first time on the sheer weight of history she
+          carried.
+        </p>
+        <p style="margin-top: 14px;">
+          Born during the Japanese colonization, she lived through the devastation of the Korean War and the heartache
+          of losing her brothers. She would tell us about her childhood — albeit very rarely — and how she fled
+          south alone.
+        </p>
+        <p style="margin-top: 14px;">
+          The day after her passing, I pictured a little girl hiding in a barn, trembling, where she spent a night alone
+          next to the dead body of a baby. She said she was even hiding from American soldiers, South Korea's allies,
+          because it was simply not safe to get noticed as a young woman in such times.
+        </p>
+        <p style="margin-top: 14px;">
+          And the story of meeting my grandfather, who also fled South, and how he passed away when my father was
+          young, raising the two sons by herself.
+        </p>
+        <p style="margin-top: 14px;">
+          Global tragedies are not just chapters in history books; they leave deep, indelible marks on
+          human lives that echo across generations, shaping my father's life and ultimately my own.
+        </p>
+        <p style="margin-top: 14px;">
+          On New Year's Day, we bow to our ancestors. However, shortly after, we also pray to God and read the Bible
+          together. At night, when it's hard to fall asleep, my parents listen to sermons of
+          Buddhist monks on Youtube, and I, the ambient sound of temples.
+        </p>
+        <p style="margin-top: 14px;">
+          I never realized that this, such ordinary scenery in Korea, may seem bizarre to some people.
+        </p>
+        <p style="margin-top: 14px;">
+          However, with the context of history, how my grandmother was raised by Catholic nuns after the war, how my
+          mom went to an all-girls Christian school, and how we seek comfort and connections to our culture in
+          Buddhism and shamanism, <em>it all makes sense.</em>
+        </p>
+        <p style="margin-top: 14px;">
+          Here I am today, in the United States, reminded of the vision that Kim Gu (김구) had, a leader of the
+          Korean independence movement. He dreamed of a country where various religions and ideologies can freely
+          coexist, and such a vision is now a reality. It's a reality of my very own life, yet one denied to my
+          relatives in the North, whom I never met. And now, these first-hand memories are slowly slipping away, finding
+          their ways into peace.
+        </p>
+
+        <blockquote class="quote-item" style="margin-top: 18px;">
+          <p>
+            "그러므로 어느 한 학설을 표준으로 하여서 국민의 사상을 속박하는 것은 어느 한 종교를 국교로 정하여서 국민의 신앙을 강제하는 것과 마찬가지로 옳지 아니한 일이다. 산에 한 가지 나무만 나지
+            아니하고 들에 한 가지 꽃만 피지 아니한다. 여러 가지 나무가 어울려서 위대한 삼림의 아름다움을 이루고 백 가지 꽃이 섞여 피어서 봄들의 풍성한 경치를 이루는 것이다. 우리가 세우는 나라에는
+            유교도 성하고 불교도, 예수교도 자유로 발달하고 또 철학으로 보더라도 인류의 위대한 사상이 다 들어와서 꽃이 피고 열매를 맺게 할 것이니 이러하고야만 비로소 자유의 나라라 할 것이요, 이러한
+            자유의 나라에서만 인류의 가장 크고 가장 높은 문화가 발생할 것이다."
+          </p>
+          <p class="quote-translation">
+            "Therefore, to restrict the people's thoughts based on any single doctrine is as unjust as forcing a
+            national religion upon their faith. A mountain does not grow only a single kind of tree, and a field does
+            not bloom with only a single kind of flower. Various trees come together to create the magnificent beauty of
+            a great forest, and a hundred varieties of flowers bloom together to shape the abundant scenery of a spring
+            field. In the nation we build, Confucianism shall thrive, Buddhism and Christianity shall freely flourish,
+            and through philosophy, all of humanity's greatest thoughts shall enter, bloom, and bear fruit. Only then
+            can it truly be called a land of freedom, and only from such a land of freedom will humanity's greatest and
+            highest culture arise."
+            <br /><span style="font-size: 0.78rem; opacity: 0.85;">— Kim Gu, <em>My Wish</em> (백범일지)</span>
+          </p>
+        </blockquote>
+
+        <!-- <blockquote class="quote-item" style="margin-top: 28px;">
+          <p>
+            "예술은 불쾌한 현실에서 출발하여 이상적인 미를 지향함으로써 현실과 이상의 벌어진 간격을 좁히는 실천적 행위입니다. 그래서 예술작품에는 미에 대한 지향 의식과 추한 현실에 대한 저항의식이 담겨
+            있습니다. ... 고통이 있다는 건 의식과 사랑이 필요하다는 신호입니다. 모든 고통은 의식의 요청이기에 피하지 않고 충분한 의식이 이루어지면 해소될 수 있습니다. 예술은 우리 삶의 고통스러운
+            문제를 의식이 관조함으로써 억압되고 굳어진 대상을 자유롭게 하는 것입니다. 이것은 사랑의 결핍으로 인한 상처를 미의식으로 치유하는 행위입니다."
+          </p>
+          <p class="quote-translation">
+            "Art is a practical act that begins from unpleasant reality and aspires toward ideal beauty, narrowing the
+            gap between reality and the ideal. Thus, works of art embody both an aspiration toward beauty and a
+            resistance against ugly reality. ... The presence of pain is a signal that awareness and love are needed.
+            Because all suffering is a call for awareness, it can be resolved without avoidance once sufficient
+            awareness is brought to it. Art frees that which is repressed and hardened by allowing consciousness to
+            contemplate the painful struggles of our lives. It is the act of healing the wounds of a lack of love
+            through aesthetic consciousness."
+          </p>
+        </blockquote> -->
+
+        <figure style="margin: 32px 0 0 0; width: 100%; text-align: center;">
+          <div
+            style="border-radius: 8px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);">
+            <img src="/images/refugee-life.jpg" alt="Refugee Life 2 (피난생활 2) by Lim Eung-sik"
+              style="width: 100%; height: auto; display: block;" loading="lazy" />
+          </div>
+          <figcaption style="font-size: 0.82rem; color: var(--text-muted); margin-top: 12px; line-height: 1.6;">
+            <span style="color: var(--text-main); font-weight: 500;"><em>Refugee Life 2</em> (피난생활 2)</span> &bull; Lim
+            Eungsik (임응식)<br />
+            <span style="font-size: 0.78rem; opacity: 0.8;">Photo taken at the National Museum of Modern and
+              Contemporary Art (MMCA), Gwacheon</span>
+          </figcaption>
+        </figure>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi</p>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -9,6 +9,9 @@
 6. Rerender the visuals without Houdini watermarks.
 
 ## Changelog
+### 2026-08-21
+- Finished "In Memory of My Grandmother" project page.
+
 ### 2026-08-20
 - Added a Contact page.
 - Finished "Voices Floating Around My Head" project page.
