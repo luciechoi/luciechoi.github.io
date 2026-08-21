@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voices Floating around my Head (2024) — Lucie Choi</title>
+  <meta name="description" content="Visualization of words that were stuck in my head by Lucie Choi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- KaTeX for LaTeX Math & Numbers -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Voices Floating around my Head (2024)</h1>
+      <div class="project-detail-meta">
+        <span>2025 • Technical Art</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Three.js</span>
+        <span>3D Scanning</span>
+      </div>
+
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Embedded Video / Media -->
+      <div class="media-container">
+        <video controls playsinline preload="metadata" poster="/images/preview-floating-head.png"
+          style="width: 100%; max-height: 540px; background: #000; border-radius: 8px 8px 0 0;">
+          <source src="/videos/floating-head.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Motivation -->
+      <section class="detail-section">
+        <h3>Motivation</h3>
+        <p>
+          Over the years, I felt a powerful urge to express myself. I felt that words often evaded what I truly wanted
+          to convey. So I started learning computer graphics through <a href="https://threejs.org/" target="_blank"
+            rel="noopener noreferrer" class="text-link">Three.js</a>, and this is my
+          first visual piece.
+        </p>
+        <p>
+          The texts in the scene are some powerful words that have influenced me significantly in 2024. These quotes by
+          famous people have lingered in my mind, floating in my head and continuously unlocking new perspectives.
+        </p>
+      </section>
+
+      <!-- Words in the Scene -->
+      <section class="detail-section">
+        <h3>Words in the Scene</h3>
+
+        <div class="quotes-list">
+          <blockquote class="quote-item">
+            <p>
+              "오직 한없이 가지고 싶은 것은 높은 문화의 힘이다. 문화의 힘은 우리 자신을 행복하게 하고, 나아가서 남에게 행복을 주기 때문이다."
+            </p>
+            <p class="quote-translation">
+              "The only thing that I desire in infinite quantity is the power of a noble culture. This is because
+              the power of culture both makes ourselves happy and gives happiness to others."
+            </p>
+            <cite>— 김구 (Kim Gu), <em>나의 소원 (My Wish)</em></cite>
+          </blockquote>
+
+          <blockquote class="quote-item">
+            <p>"When something is important enough, you do it even if the odds are not in your favor."</p>
+            <cite>— Elon Musk</cite>
+          </blockquote>
+
+          <blockquote class="quote-item">
+            <p>"The meaning of life is to find your gift. The purpose of life is to give it away."</p>
+            <cite>— Pablo Picasso</cite>
+          </blockquote>
+
+          <blockquote class="quote-item">
+            <p>"A well-designed life is a life that makes sense. It's a life in which who you are, what you believe and
+              what you do all line up together."</p>
+            <cite>— Bill Burnett &amp; Dave Evans, <em>Designing Your Life</em></cite>
+          </blockquote>
+
+          <blockquote class="quote-item">
+            <p>"모든 분야에서 아마추어는 수비적이고 프로는 공격적입니다."</p>
+            <p class="quote-translation">
+              "In all fields, amateurs are defensive and professionals are offensive."
+            </p>
+            <cite>— 권오현 (Kwon Oh-hyun), <em>초격차 (Super Gap)</em></cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- Fun Facts -->
+      <section class="detail-section">
+        <h3>Fun Facts</h3>
+        <ul>
+          <li>
+            The 3D scan of myself was created using <a
+              href="https://store.creality.com/products/cr-scan-otter-3d-scanner" target="_blank"
+              rel="noopener noreferrer" class="text-link">Creality's "Otter" 3D Scanner</a>, which uses infrared light
+            and 4 different cameras to capture depth.
+          </li>
+          <li>
+            Hair is difficult to scan because it is thin and scatters light. I applied some lotion on my hair to make it
+            "matte".
+          </li>
+          <li>
+            I scanned it myself, so the back of my head is missing. It took several takes.
+          <li>
+            Then, I became curious how my cat would look like. (It's hard for a moving object...)
+            <div style="margin: 12px auto 0 auto; max-width: 150px;">
+              <img src="/images/cat-3d.png" alt="3D cat scan preview"
+                style="width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-light); display: block;"
+                loading="lazy" />
+            </div>
+          </li>
+          <li>
+            She didn't seem happy being scanned. ¯\_(ツ)_/¯
+            <div style="margin: 12px auto 0 auto; max-width: 150px;">
+              <img src="/images/cat-scanned.png" alt="Cat being scanned preview"
+                style="width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-light); display: block;"
+                loading="lazy" />
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi</p>
+    </footer>
+  </div>
+</body>
+
+</html>

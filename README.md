@@ -11,6 +11,7 @@
 ## Changelog
 ### 2026-08-20
 - Added a Contact page.
+- Finished "Voices Floating Around My Head" project page.
 
 ### 2026-08-19
 - Started Acoustic Peace Transfer project page.

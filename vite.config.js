@@ -18,7 +18,7 @@ export default defineConfig({
         pathTracer: resolve(__dirname, 'projects/path-tracer.html'),
         terrain: resolve(__dirname, 'projects/procedural-terrain.html'),
         clouds: resolve(__dirname, 'projects/volumetric-clouds.html'),
-        characterRig: resolve(__dirname, 'projects/character-rigging.html'),
+        voicesFloating: resolve(__dirname, 'projects/voices-floating-around-my-head.html'),
         artAndTech: resolve(__dirname, 'writing/art-and-technology.html'),
         spatialInterfaces: resolve(__dirname, 'writing/spatial-interfaces.html'),
       }
