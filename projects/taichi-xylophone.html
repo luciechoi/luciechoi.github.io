@@ -1,69 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Real-Time SPH Fluid Simulation — Lucie Choi</title>
-  <meta name="description" content="Case study on Smoothed Particle Hydrodynamics (SPH) real-time fluid simulation by Lucie Choi." />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <title>Taichi Xylophone — Lucie Choi</title>
+  <meta name="description"
+    content="Audiovisual Taichi Xylophone simulation featuring a custom ray marching renderer and physically synchronized sound synthesis by Lucie Choi." />
 
   <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .code-snippet-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .code-snippet-box code.hljs {
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .image-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 24px 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .image-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .image-card.medium {
+      max-width: 480px;
+      margin: 18px auto 22px auto;
+      height: auto;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .image-grid-2 .image-card img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-card-caption {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
+
 <body>
   <div class="site-container">
     <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
 
     <header class="project-detail-header">
-      <h1 class="project-detail-title">Real-Time SPH Fluid Simulation</h1>
+      <h1 class="project-detail-title">Taichi Xylophone</h1>
       <div class="project-detail-meta">
-        <span>2026</span>
-        <span>•</span>
-        <span>Physics Simulation / Compute Shaders</span>
-        <span>•</span>
-        <span>Graphics Engineering</span>
+        <span>2026 • Sound Synthesis / Rendering • 10 min read</span>
       </div>
 
       <div class="project-tags">
-        <span>SPH Fluid</span>
-        <span>Compute Shaders</span>
-        <span>C++ / OpenGL</span>
-        <span>Physics</span>
-        <span>Surface Reconstruction</span>
+        <span>Ray Marching</span>
+        <span>Taichi Lang</span>
+        <span>Librosa</span>
       </div>
 
       <div class="action-buttons">
-        <a href="https://github.com/luciechoi" target="_blank" rel="noopener noreferrer" class="action-btn">
-          View Repository &rarr;
-        </a>
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
       </div>
     </header>
 
     <main class="project-detail-content">
+      <!-- Embedded Visual Media / Hero Video -->
       <div class="media-container">
-        <img 
-          src="../images/preview-fluid.jpg" 
-          alt="SPH Fluid Simulation Snapshot" 
-        />
-        <div class="media-caption">Real-time particle fluid solver simulating surface tension, boundary collisions, and splashing dynamics.</div>
+        <video controls playsinline preload="metadata" poster="/images/preview-taichi-xylophone.png"
+          style="width: 100%; max-height: 540px; background: #000; border-radius: 8px 8px 0 0;">
+          <source src="/videos/xylophone.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
+      <!-- Process Pipeline -->
+      <section class="detail-section">
+        <h3>Process</h3>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="step-name">1. Ray Marching Renderer</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">2. Ball Physics Simulation</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">3. Collision Data Export</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">4. Sound Synthesis</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overview -->
       <section class="detail-section">
         <h3>Overview</h3>
         <p>
-          A high-performance particle-based fluid solver using <strong>Smoothed Particle Hydrodynamics (SPH)</strong>. The system evaluates density, pressure, and viscosity forces across tens of thousands of particles in real time using spatial hashing on GPU compute shaders.
+          This project implements a 3D xylophone simulation from scratch, using <a href="https://www.taichi-lang.org/"
+            target="_blank" rel="noopener noreferrer" class="text-link">Taichi Lang frameworks</a>. The system
+          pairs
+          a custom-built GPU ray marching renderer with physically driven sound synthesis.
         </p>
       </section>
 
+      <!-- Animation & Ray Marching Renderer -->
       <section class="detail-section">
-        <h3>Key Features</h3>
+        <h3>Ray Marching Renderer</h3>
+        <h4>Motivation</h4>
+        <p>
+          I started by testing basic ball bouncing on a bar using Taichi's default rendering.
+        </p>
+        <div class="image-card medium">
+          <img src="/images/taichi-xylophone-default-rendering.png" alt="Default Rendering Test" />
+          <div class="image-card-caption">Initial test with Taichi's default shapes</div>
+        </div>
+        <p>
+          However, the default visualization was very limited (e.g. no shadows) — something frameworks like Three.js or
+          Houdini provide out of the box. So I decided to build a custom <strong>ray marching renderer</strong>
+          (inspired by
+          <a href="https://www.shadertoy.com/" target="_blank" rel="noopener noreferrer"
+            class="text-link">Shadertoy</a>), which will give me full flexibility over camera setup, lighting, shading,
+          interactivity, and physics.
+        </p>
+        <h4>Rendering</h4>
+        <p>
+          The ray marcher evaluates Signed Distance Functions (SDFs) across the scene with configurable camera position,
+          look-at target, field of view (FOV), and render resolution. Since I'm modeling a xylophone and pingpong
+          balls, I only needed a few SDFs (cube and sphere) [1].
+        </p>
+        <pre class="code-snippet-box"><code class="language-python">@ti.kernel
+def render():
+    for i, j in pixels:  # Parallelized over screen pixels on GPU
+        # Normalized screen coordinates (u, v) centered at screen midpoint
+        u = (i - window_x * 0.5) / (window_y * 0.5)
+        v = (j - window_y * 0.5) / (window_y * 0.5)
+        
+        # Ray direction along camera basis vectors scaled by focal length (FOV)
+        ray_dir = (u * cam_right + v * cam_up + focal_length * cam_forward).normalized()
+
+        # Ray Marching &amp; Object Shading
+        t = 0.0
+        for _ in range(ray_marching_iterations):
+            pos = camera_position + t * ray_dir
+            dist, object_id = get_distance_to_scene(pos)
+            if dist &lt; hit_threshold:  # Hit surface
+                color = get_object_color(object_id)  # Bar hue or ball color
+                pixels[i, j] = compute_shading(color, pos, normal, light_dir, -ray_dir)
+                break
+            t += dist  # March forward</code></pre>
+
+        <h4>Anti-Aliasing</h4>
+        <p>
+          The initial cube exhibited severe aliasing at the edges, and there were several fixes to mitigate the issue.
+        </p>
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/taichi-xylophone-aliased.png" alt="Aliased Sharp Bars" />
+            <div class="image-card-caption">Without anti-aliasing</div>
+          </div>
+          <div class="image-card">
+            <img src="/images/taichi-xylophone-rounded.png" alt="Rounded Box SDF" />
+            <div class="image-card-caption">With SSAA and rounded corner SDF</div>
+          </div>
+        </div>
         <ul>
-          <li><strong>Spatial Grid Acceleration</strong>: Compact uniform grid spatial hashing for fast neighbor particle lookups.</li>
-          <li><strong>Müller &amp; WCSPH Formulations</strong>: Weakly Compressible SPH for incompressibility and realistic wave propagation.</li>
-          <li><strong>Screen-Space Fluid Rendering</strong>: Bilateral depth smoothing and normal extraction for fluid surface rendering.</li>
+          <li>
+            <strong>Fix 1 (Supersampling Anti-Aliasing)</strong>: I experimented with averaging sub-pixel samples, which
+            improved the aliasing, at the cost of huge FPS drop.
+            When tuning GPU parallelization loops in Taichi, I discovered that choosing the correct loop level to
+            parallelize matters for performance.
+          </li>
+          <li>
+            <strong>Fix 2 (Rounded Corner SDF)</strong>: Rounding the box corners mathematically in the SDF
+            formulation yielded a dramatically cleaner visual result with no performance penalty.
+          </li>
+        </ul>
+
+        <h4>Physics</h4>
+        <p>
+          The simulation is interactive and users can click directly on the bars to trigger notes. User clicks are
+          handled by casting rays into the scene and checking for intersections with the bars, using the same ray
+          marching algorithm.
+        </p>
+        <ul>
+          <li>
+            <strong>Ball Bouncing</strong>: Ball motion is calculated using explicit Euler
+            time-stepping, and its collisions with xylophone bars are detected using SDFs.
+          </li>
+          <li>
+            <strong>Ball Trajectory Computation</strong>: Instead of dropping balls at random times, in order to make
+            music, the timing of the collision must be predictable. Therefore, the initial velocities of the balls must
+            be calculated
+            so that the impact on the target bar occurs at the expected time. We can simply use the Kinematics
+            equations:
+
+            <p style="text-align: center; margin: 10px 0;">
+              $$\mathbf{v}_0 = \frac{\Delta\mathbf{p} - \frac{1}{2}\mathbf{g} t^2}{t}$$
+            </p>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+              where \(\Delta\mathbf{p} = \mathbf{p}_{\text{target}} - \mathbf{p}_{\text{start}}\) is the displacement
+              vector from the camera to the bar, \(\mathbf{g}\) is gravity, and \(t\) is the predetermined flight time.
+            </p>
+          </li>
+          <li>
+            <strong>Suspense Mode</strong>: Pressing the spacebar triggers a suspense mode where balls are thrown at
+            random notes with randomized initial velocities.
+          </li>
+        </ul>
+
+        <h4>Lighting &amp; Shading</h4>
+        <p>
+          Lighting is evaluated using a custom directional light with the <strong>Blinn-Phong shading model</strong>,
+          which combines ambient light, diffuse reflection, and specular highlights:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$I = \underbrace{k_a \mathbf{C}_{\text{base}}}_{\text{Ambient}} + S \cdot \Big[ \underbrace{k_d
+          \mathbf{C}_{\text{base}} (\mathbf{N} \cdot \mathbf{L})}_{\text{Diffuse}} + \underbrace{k_s I_{\text{light}}
+          (\mathbf{N} \cdot \mathbf{H})^\alpha}_{\text{Specular}} \Big]$$
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">
+          &bull; <strong>\(I\)</strong>: Final shaded pixel color.<br />
+          &bull; <strong>\(\mathbf{C}_{\text{base}}, I_{\text{light}}\)</strong>: Surface base color and light source
+          intensity.<br />
+          &bull; <strong>\(k_a, k_d, k_s, \alpha\)</strong>: Reflection coefficients for ambient, diffuse, and specular
+          components, where \(\alpha\) is the shininess exponent.<br />
+          &bull; <strong>\(\mathbf{N}, \mathbf{L}, \mathbf{H}\)</strong>: Surface normal \(\mathbf{N}\),
+          light direction \(\mathbf{L}\), and halfway vector \(\mathbf{H} =
+          \frac{\mathbf{L} + \mathbf{V}}{\|\mathbf{L} + \mathbf{V}\|}\) where \(\mathbf{V}\) is view direction.<br />
+          &bull; <strong>\(S \in [0, 1]\)</strong>: Shadow visibility factor (\(0 = \text{shadowed}\), \(1 = \text{fully
+          lit}\)).
+        </p>
+        <p>
+          <strong>Penumbra Shadow:</strong> A standard binary occlusion check produces harsh, blocky shadow edges. To
+          create realistic soft penumbra shadows, we track the closest approach of the shadow ray as it marches toward
+          the light:
+        </p>
+        <p style="text-align: center; margin: 12px 0;">
+          $$S = \min_{t} \left( \frac{w \cdot d(t)}{t} \right)$$
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">
+          &bull; <strong>\(t\)</strong>: Distance towards the light from the surface.<br />
+          &bull; <strong>\(d(t)\)</strong>: Shortest distance to the nearest obstacle, which does not need to lie in
+          the direction of the light.<br />
+          &bull; <strong>\(w\)</strong>: Shadow softness factor controlling how widely the penumbra diffuses.
+        </p>
+
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/taichi-xylophone-sharp-shadow.png" alt="Sharp Shadow Render" />
+            <div class="image-card-caption">Sharp Shadow</div>
+          </div>
+          <div class="image-card">
+            <img src="/images/taichi-xylophone-soft-shadow.png" alt="Soft Penumbra Shadow Render" />
+            <div class="image-card-caption">Soft Shadow</div>
+          </div>
+        </div>
+
+        <h4>Dual Execution Modes</h4>
+        <p>
+          Because handling user inputs and supersampling signifacntly reduce FPS, the simulation also supports offline
+          rendering mode. In <strong>offline mode</strong>, a fixed delta time (\(\Delta t\)) is enforced for physics,
+          while in <strong>real-time mode</strong>, dynamic delta time is used so that the ball bouncing animation plays
+          at the expected speed.
+        </p>
+
+      </section>
+
+      <!-- Sound Synthesis -->
+      <section class="detail-section">
+        <h3>Sound Synthesis</h3>
+        <h4>Collision Data Export</h4>
+        <p>
+          To synchronize the animation with audio, I have to record several physical properties for each collision
+          event [2].
+        </p>
+        <ul>
+          <li><code>bar_id</code>: The index of the bar struck (determining pitch).</li>
+          <li><code>delay</code>: Sub-frame collision timing offset within the current frame.</li>
+          <li><code>impact_impulse</code>: Impact impulse magnitude (\(m \cdot \Delta v\)). This determines
+            loudness.</li>
+          <li><code>vertical_distance</code>: Impact distance relative to the center of the bar. This affects how
+            resonant the sound is (i.e. striking the center produces the most resonance).
+          </li>
+        </ul>
+
+        <h4>Inharmonic Modal Frequencies</h4>
+        <p>
+          Xylophone bars are "inharmonic", meaning they produce non-integer overtones. Our auditory system cannot fuse
+          these into a single pitch, so they produce a more metallic or percussive timbre [3].
+        </p>
+        <p>
+          To capture this characteristic, the sound synthesizer combines the fundamental
+          pitch with two inharmonic overtones using damped sinusoids with exponential decay envelopes.
+        </p>
+        <p>
+          We can tune the exponential damping factors for the notes to sustain longer:
+        </p>
+
+        <div class="video-container" style="margin-top: 14px;">
+          <video controls playsinline preload="metadata" poster="/images/preview-taichi-xylophone.png"
+            style="width: 100%; border-radius: 8px; border: 1px solid var(--border-light); background: #000; display: block;">
+            <source src="/videos/xylophone_more_resonant.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul class="references-list" style="list-style-type: none; padding-left: 0;">
+          <li id="ref-1" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [1] Inigo Quilez. <a href="https://iquilezles.org/articles/distfunctions/" target="_blank"
+              rel="noopener noreferrer" class="text-link">3D Distance Functions</a>.
+          </li>
+          <li id="ref-2" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [2] Doug L. James. <a href="https://graphics.stanford.edu/courses/cs448z-15-fall/HW0/index.html"
+              target="_blank" rel="noopener noreferrer" class="text-link">CS448Z: Physically Based Animation and Sound
+              &mdash; HW0</a>. Stanford University.
+          </li>
+          <li id="ref-3" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [3] Doug L. James. <a href="https://dougjam.github.io/demos/modal-sound-explorer/" target="_blank"
+              rel="noopener noreferrer" class="text-link">Modal Sound Explorer</a>.
+          </li>
         </ul>
       </section>
     </main>
@@ -73,4 +384,5 @@
     </footer>
   </div>
 </body>
+
 </html>
