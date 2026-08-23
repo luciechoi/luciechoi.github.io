@@ -14,6 +14,7 @@
 ## Changelog
 ### 2026-08-22
 - Finished "Taichi Xylophone" project page.
+- Started "Be Kind To Yourself (2019)" project page.
 
 ### 2026-08-21
 - Finished "In Memory of My Grandmother" project page.
