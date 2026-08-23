@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Talk: Be Kind to Yourself — Lucie Choi</title>
+  <meta name="description"
+    content="A 2D keyframe animation and inverse kinematics (IK) system featuring mirror reflection kinematics, Jacobian optimization, and spline interpolation by Lucie Choi." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .code-snippet-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .code-snippet-box code.hljs {
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .image-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 24px 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .image-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .image-card.medium {
+      max-width: 540px;
+      margin: 18px auto 22px auto;
+      height: auto;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .image-card-caption {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 16px 0 22px 0;
+    }
+
+    .rubric-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.86rem;
+    }
+
+    .rubric-badge {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(22, 163, 74, 0.1);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Be Kind to Yourself (2019)</h1>
+      <div class="project-detail-meta">
+        <span>2025 • Animation • 15 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Inverse / Forward Kinematics</span>
+        <span>Keyframe Interpolation</span>
+        <span>Open Processing</span>
+      </div>
+
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Embedded Visual Media / Hero Video -->
+      <div class="media-container" style="max-width: 100%; width: 100%; margin: 0 0 28px 0;">
+        <video controls playsinline preload="metadata" poster="/images/preview-mp4-be-kind-to-yourself.jpg"
+          style="width: 100%; max-width: 100%; height: auto; background: #000; display: block;">
+          <source src="/videos/Be-Kind-To-Yourself-2019.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Motivation -->
+      <section class="detail-section">
+        <h3>Motivation</h3>
+        <p>
+          Self-love can be a difficult topic for many people. At least, it has been for me.
+        </p>
+        <p>
+          When I was going through a difficult period in my life, I was fortunate to meet a warm-hearted person who
+          helped me see the crux of the problem. She told me &ldquo;to be kind to myself&rdquo; &mdash; a concept I
+          had never truly fathomed before. But deep down, I knew that was it &mdash; and that it was one of the hardest
+          things I struggled with.
+        </p>
+        <p>
+          <em>&ldquo;But I have hundreds of problems to solve, responsibilities to fulfill, and ambitions to chase. What
+            does it mean to be kind to myself?&rdquo;</em>
+          I can buy nice things for myself, give myself ample space and time, cheer myself up that I am doing great and
+          accept my flaws. Yet, it can still feel awkward and not enough.
+        </p>
+        <p>
+          And here is the piece. In a private room, only you and yourself. What conversation do we have with
+          ourselves?
+        </p>
+      </section>
+
+      <!-- Overview -->
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          This project, as part of the assignment for <a href="https://graphics.stanford.edu/courses/cs248b-20s/"
+            target="_blank" rel="noopener noreferrer" class="text-link">CS248B: Animation and Simulation</a>, implements
+          a 2D character animation system. It contains forward kinematics (FK), inverse kinematics (IK) with
+          gradient descent optimization, weighted joint constraints, and different keyframe interpolation schemes.
+        </p>
+      </section>
+
+      <!-- Process Pipeline -->
+      <section class="detail-section">
+        <h3>Process</h3>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="step-name">1. Inverse / Forward Kinematics</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">2. Modeling with Constraints</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">3. Keyframe Interpolation Schemes</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">4. Animation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inverse / Forward Kinematics & Optimization -->
+      <section class="detail-section">
+        <h3>1. Inverse &amp; Forward Kinematics</h3>
+        <p>
+          The character is constructed as an articulated tree of transformation nodes (translations, hinges, and
+          fixed limbs). In <strong>Forward Kinematics (FK)</strong>, global joint positions are obtained by compounding
+          local transformation matrices down the kinematic chain. The <strong>Inverse Kinematics (IK)</strong>
+          subsystem allows users to attach interactive handles to any joint, numerically optimizing generalized joint
+          coordinates \(\mathbf{q}\) to guide end-effectors to targets in real time.
+        </p>
+
+        <h4>Mathematical Formulation</h4>
+        <p>
+          Let \(\mathbf{q} \in \mathbb{R}^n\) represent the vector of generalized joint coordinates (translations and
+          rotation angles), and let \(\mathbf{x}_i(\mathbf{q}) \in \mathbb{R}^2\) denote the global position of the
+          \(i\)-th joint handle obtained via forward kinematics. For \(m\) active IK handles with target positions
+          \(\mathbf{p}_i^*\), the objective function minimizes the squared Euclidean distance:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$E(\mathbf{q}) = \frac{1}{2} \sum_{i=1}^{m} \|\mathbf{x}_i(\mathbf{q}) - \mathbf{p}_i^*\|^2$$
+        </p>
+        <p>
+          The displacement rate of the end-effectors with respect to joint perturbations is given by the
+          <strong>Jacobian matrix</strong> \(J(\mathbf{q}) = \frac{\partial \mathbf{x}}{\partial \mathbf{q}}\). The
+          gradient of the objective function is:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\nabla_{\mathbf{q}} E(\mathbf{q}) = J^T \big(\mathbf{x}(\mathbf{q}) - \mathbf{p}^*\big)$$
+        </p>
+        <p>
+          The optimization loop iteratively updates joint parameters using gradient descent with step size \(\alpha\):
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{q}^{(k+1)} = \mathbf{q}^{(k)} - \alpha \nabla_{\mathbf{q}} E(\mathbf{q}^{(k)})$$
+        </p>
+
+        <h4>Multi-Handle Support &amp; Robustness</h4>
+        <ul>
+          <li>
+            <strong>Simultaneous Constraints</strong>: The solver supports at least 6 simultaneous IK handles without
+            performance degradation.
+          </li>
+          <li>
+            <strong>Dynamic Handle Management</strong>: Handles can be attached to any joint (maximum 1 handle per
+            joint) and removed in arbitrary order without resetting the active pose.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Modeling with Constraints & Coupled Mirror Kinematics -->
+      <section class="detail-section">
+        <h3>2. Modeling with Constraints &amp; Coupled Mirror Kinematics</h3>
+        <p>
+          To animate the mirror reflection convincingly in a 2D plane while maintaining natural physical posture,
+          the system couples character kinematics with weighted constraint optimization:
+        </p>
+
+        <h4>Pseudo-3D Perspective &amp; Scale Transforms</h4>
+        <p>
+          Because the scene is rendered in 2D, the mirror counterpart shares the horizontal translation and joint
+          rotations of the real character, but differs in vertical position (\(T_y\)) and depth scale (\(S\)).
+          A scale transform is introduced into the kinematic chain to provide a faux-3D depth effect as the character
+          moves toward or away from the mirror plane.
+        </p>
+
+        <h4>Projected IK Solver</h4>
+        <p>
+          Running independent gradient descent passes on both characters produces slight divergence in joint angles
+          \(\mathbf{q}\), which breaks mirror symmetry and introduces computational lag. Instead:
+        </p>
+        <ul>
+          <li>
+            <strong>Coordinate Frame Projection</strong>: All IK handles placed on the mirror reflection are projected
+            into the real character's local coordinate frame.
+          </li>
+          <li>
+            <strong>Unified Pose Solve</strong>: A single gradient descent pass computes the optimal \(\mathbf{q}\),
+            which is then mapped to both characters with appropriate translation and scale offsets. Moving the mirror
+            character directly updates the real character and vice versa.
+          </li>
+          <li>
+            <strong>Scale Isolation</strong>: Scale is excluded from the IK optimization gradient so that characters do
+            not unnaturally stretch or shrink to reach distant targets. However, scale remains an active DOF with
+            non-zero weight during keyframe interpolation.
+          </li>
+        </ul>
+
+        <h4>Weighted Constraints &amp; Regularization</h4>
+        <p>
+          A diagonal weight matrix \(W\) regularizes the optimization to produce natural postures:
+        </p>
+        <ul>
+          <li>
+            <strong>Vertical Translation Dampening</strong>: A small weight \(w_{\text{transY}}\) discourages
+            excessive vertical drift during limb manipulation.
+          </li>
+          <li>
+            <strong>Upright Posture Prior</strong>: Moderate torso hinge stiffness prevents extreme slouching or
+            unnatural back bends.
+          </li>
+          <li>
+            <strong>Joint Rotation Limits</strong>: Angular bounding constraints enforce anatomical limits on wrist
+            and ankle rotations.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Keyframe Interpolation -->
+      <section class="detail-section">
+        <h3>3. Keyframe Interpolation</h3>
+        <p>
+          Once poses of the character are keyframed, the system interpolates joint degrees of freedom across time.
+          The visual smoothness and realism of the resulting movement depend on the interpolation scheme:
+        </p>
+
+        <h4>3-1. Linear Interpolation (\(C^0\) Continuity)</h4>
+        <p>
+          Linear interpolation simply blends linearly between consecutive keyframes. This gives
+          <strong>\(C^0\) positional continuity</strong>, meaning the motion begins and ends at the exact given keys
+          without any spatial jumps or gaps.
+        </p>
+        <p>
+          However, because the velocity changes abruptly at every keyframe &mdash; starting, stopping, or shifting
+          directions instantly &mdash; the motion appears rigid, robotic, and mechanical. Natural human movement rarely
+          speeds up or turns with sudden, instantaneous velocity spikes.
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{p}(u) = (1 - u)\,\mathbf{p}_i + u\,\mathbf{p}_{i+1}, \quad u \in [0, 1]$$
+        </p>
+
+        <h4>3-2. Catmull-Rom Splines (\(C^1\) Continuity)</h4>
+        <p>
+          Catmull-Rom splines construct smooth cubic curves that pass directly through every authored keyframe
+          \(\mathbf{p}_i\). They provide <strong>\(C^1\) velocity continuity</strong>, meaning the speed and direction
+          (the first derivative) transition smoothly across keyframes.
+        </p>
+        <p>
+          This eliminates the sharp corners of linear interpolation, allowing limbs to swing smoothly through poses
+          without sudden jerkiness. For a normalized time parameter \(u \in [0, 1]\) between keyframes \(\mathbf{p}_i\)
+          and \(\mathbf{p}_{i+1}\), each pose is evaluated via matrix multiplication:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{p}(u) = \frac{1}{2} \begin{bmatrix} 1 & u & u^2 & u^3 \end{bmatrix} \begin{bmatrix} 0 & 2 & 0 & 0 \\
+          -1 & 0 & 1 & 0 \\ 2 & -5 & 4 & -1 \\ -1 & 3 & -3 & 1 \end{bmatrix} \begin{bmatrix} \mathbf{p}_{i-1} \\
+          \mathbf{p}_i \\ \mathbf{p}_{i+1} \\ \mathbf{p}_{i+2} \end{bmatrix}$$
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">
+          Boundary conditions at the start and end of the timeline are handled with dedicated endpoint tangent
+          extensions.
+        </p>
+
+        <h4>3-3. Uniform Cubic B-Splines (\(C^2\) Continuity)</h4>
+        <p>
+          Uniform cubic B-splines achieve even greater smoothness with <strong>\(C^2\) acceleration continuity</strong>.
+          By ensuring that acceleration (the second derivative) changes continuously across boundaries, the motion
+          completely eliminates sudden "jerk" &mdash; producing the softest, most organic and physically natural
+          animation.
+        </p>
+        <p>
+          <strong>Clamped Endpoint Handling:</strong> Because standard B-splines treat keyframes as guiding de Boor
+          control points rather than strictly passing through them, two duplicate keyframes are automatically inserted
+          at the beginning and end (\([\mathbf{d}_0, \mathbf{d}_0, \dots, \mathbf{d}_n, \mathbf{d}_n]\)). This clamps
+          the spline so the animation cleanly starts and stops at the exact intended poses.
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{p}(u) = \frac{1}{6} \begin{bmatrix} 1 & u & u^2 & u^3 \end{bmatrix} \begin{bmatrix} 1 & 4 & 1 & 0 \\
+          -3 & 0 & 3 & 0 \\ 3 & -6 & 3 & 0 \\ -1 & 3 & -3 & 1 \end{bmatrix} \begin{bmatrix} \mathbf{d}_{i-1} \\
+          \mathbf{d}_i \\ \mathbf{d}_{i+1} \\ \mathbf{d}_{i+2} \end{bmatrix}$$
+        </p>
+      </section>
+
+      <!-- Character Rigging & Animation -->
+      <section class="detail-section">
+        <h3>4. Character Rigging &amp; Animation</h3>
+        <div class="image-card" style="margin: 14px 0 20px 0;">
+          <img src="/images/preview-mp4-be-kind-to-yourself.jpg"
+            alt="Interactive 2D animation interface in OpenProcessing" />
+          <div class="image-card-caption">
+            Interactive OpenProcessing interface featuring multi-tab IK/FK solver architecture and keyframe timeline
+          </div>
+        </div>
+        <ul>
+          <li>
+            <strong>Articulated Rig</strong>: Designed a custom 2D articulated character with over 8 hinge joints and a
+            root joint capable of translation and rotation.
+          </li>
+          <li>
+            <strong>Keyframe Choreography</strong>: Crafted an expressive narrative sequence with over 10 distinct
+            keyframes combining FK posing and multi-target IK dragging.
+          </li>
+          <li>
+            <strong>Audio Design</strong>: Ambient background score extracted from <em>Yehezkel Raz &mdash; As Long as
+              in the Heart</em>, synchronized to the character's reflective movements.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Future Work / TODO -->
+      <section class="detail-section">
+        <h3>Future Investigations</h3>
+        <ul>
+          <li>
+            <strong>BTS &ldquo;Love Myself&rdquo;</strong>: Incorporate reflections on self-acceptance and inner
+            dialogue inspired by BTS's <em>Love Myself</em>.
+          </li>
+          <li>
+            <strong>Duchamp&rsquo;s Photograph</strong>: Explore multiple reflections, perspective planes, and identity
+            dialogue inspired by Marcel Duchamp's 1917 five-way mirror photograph.
+          </li>
+        </ul>
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul class="references-list" style="list-style-type: none; padding-left: 0;">
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [1] Doug L. James and Karen Liu. <a
+              href="https://docs.google.com/document/d/1x0HlBxUtYmNuCnKMm6o3R1X0034BlpshpWY2_UExH9g/edit?tab=t.0"
+              target="_blank" rel="noopener noreferrer" class="text-link">CS 248B: Animation and Simulation &mdash; P3:
+              Make it Move!</a> Stanford University.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [2] Graphics in 5 Minutes. <a
+              href="https://www.youtube.com/watch?v=YMl25iCCRew&list=PLWfDJ5nla8UpwShx-lzLJqcp575fKpsSO&index=17"
+              target="_blank" rel="noopener noreferrer" class="text-link">Splines in 5 minutes: Part 1 &mdash; cubic
+              curves</a>.
+          </li>
+          <li style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [3] Yehezkel Raz. <a href="https://www.youtube.com/watch?v=dM4nHtPUw_w&list=RDdM4nHtPUw_w" target="_blank"
+              rel="noopener noreferrer" class="text-link">As Long as in the Heart</a>.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>

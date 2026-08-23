@@ -20,6 +20,7 @@ export default defineConfig({
         clouds: resolve(__dirname, 'projects/volumetric-clouds.html'),
         voicesFloating: resolve(__dirname, 'projects/voices-floating-around-my-head.html'),
         memoryGrandmother: resolve(__dirname, 'projects/in-memory-of-my-grandmother.html'),
+        beKindToYourself: resolve(__dirname, 'projects/be-kind-to-yourself.html'),
         artAndTech: resolve(__dirname, 'writing/art-and-technology.html'),
         spatialInterfaces: resolve(__dirname, 'writing/spatial-interfaces.html'),
       }
