@@ -188,6 +188,15 @@ function switchTab(tabId) {
   } else {
     location.hash = `#${tabId}`;
   }
+
+  // Track tab switch in Google Analytics
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'tab_view', {
+      tab_name: tabId,
+      page_path: `/#${tabId}`,
+      page_title: `Lucie Choi - ${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`
+    });
+  }
 }
 
 tabButtons.forEach(button => {
@@ -225,6 +234,13 @@ subtabButtons.forEach(button => {
     const targetPane = document.getElementById(`subtab-${targetSubtab}`);
     if (targetPane) {
       targetPane.classList.add('active');
+    }
+
+    // Track subtab switch in Google Analytics
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'subtab_view', {
+        subtab_name: targetSubtab
+      });
     }
   });
 });

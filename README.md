@@ -7,6 +7,7 @@
 4. Draft other sections. or leave TODO.
 5. Finalize the website design.
 6. Rerender the visuals without Houdini watermarks.
+7. Add Google Analytics.
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
@@ -15,6 +16,7 @@
 ### 2026-08-22
 - Finished "Taichi Xylophone" project page.
 - Started "Be Kind To Yourself (2019)" project page.
+- Added Google Analytics.
 
 ### 2026-08-21
 - Finished "In Memory of My Grandmother" project page.
