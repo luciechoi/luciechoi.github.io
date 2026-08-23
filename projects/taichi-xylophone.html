@@ -337,12 +337,15 @@ def render():
 
         <h4>Inharmonic Modal Frequencies</h4>
         <p>
-          Xylophone bars are "inharmonic", meaning they produce non-integer overtones. Our auditory system cannot fuse
-          these into a single pitch, so they produce a more metallic or percussive timbre [3].
+          Xylophone bars are "inharmonic", meaning they produce non-integer overtones. Thus, our auditory system cannot
+          fuse
+          these into a single pitch, so they produce a more metallic or percussive timbre, misisng a single defining
+          pitch, unlike string instruments [3].
         </p>
         <p>
           To capture this characteristic, the sound synthesizer combines the fundamental
-          pitch with two inharmonic overtones using damped sinusoids with exponential decay envelopes.
+          pitch with two inharmonic overtones using damped sinusoids with exponential decay envelopes. The expoential
+          decay is because the amplitude is greatest at the impact and then decays over time.
         </p>
         <p>
           We can tune the exponential damping factors for the notes to sustain longer:
@@ -354,7 +357,11 @@ def render():
             Your browser does not support the audio element.
           </audio>
         </div>
-
+        <p style="margin-top: 16px;">
+          Overall, it was one of the most enjoyable projects I've ever worked on because it touched on many areas of
+          computer graphics, including rendering, parallel programming, physical simulation, gameplay, and audio
+          synthesis!
+        </p>
       </section>
 
       <!-- Future Work -->
@@ -362,8 +369,8 @@ def render():
         <h3>Future Investigations</h3>
         <ul>
           <li>
-            <strong>Acceleration Noise</strong>: It'll be nice to capture the sharp impact sound for the ball-bar
-            collision.
+            <strong>Acceleration Noise</strong>: For more realism, it would be great to capture the sharp impact sound
+            for the ball-bar collision.
           </li>
         </ul>
       </section>
