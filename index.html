@@ -6,7 +6,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KKRM5VCT5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-8KKRM5VCT5');
@@ -709,6 +709,27 @@
                         <a href="https://www.linkedin.com/in/clucie" target="_blank" rel="noopener noreferrer"
                             class="text-link">linkedin.com/in/clucie</a>
                     </div>
+                </div>
+
+                <!-- Anonymous Feedback Section -->
+                <div class="feedback-section">
+                    <div class="feedback-header">
+                        <h3 class="feedback-title">Anonymous Feedback</h3>
+                    </div>
+
+                    <form id="feedback-form" class="feedback-form">
+                        <div class="form-group">
+                            <textarea id="feedback-message" name="message" rows="4" class="form-textarea"
+                                placeholder="Feel free to leave me a note! This is completely anonymous."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="feedback-submit-btn" id="feedback-submit-btn">
+                            <span id="feedback-btn-text">Send Note</span>
+                        </button>
+
+                        <div id="feedback-status" class="feedback-status" aria-live="polite"></div>
+                    </form>
                 </div>
             </section>
 

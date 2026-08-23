@@ -893,6 +893,122 @@ body {
   flex-shrink: 0;
 }
 
+/* Anonymous Feedback Form */
+.feedback-section {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-light);
+}
+
+.feedback-header {
+  margin-bottom: 20px;
+}
+
+.feedback-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.feedback-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 520px;
+}
+
+.feedback-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedback-form .form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.feedback-form .required-star {
+  color: #ef4444;
+}
+
+.feedback-form .form-textarea {
+  width: 100%;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.feedback-form .form-textarea:focus {
+  background-color: var(--bg-color);
+  border-color: var(--border-active);
+  box-shadow: 0 0 0 1px var(--border-active);
+}
+
+.feedback-form .form-textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.feedback-submit-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  background-color: var(--text-main);
+  color: #ffffff;
+  border: 1px solid var(--text-main);
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  margin-top: 4px;
+}
+
+.feedback-submit-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.feedback-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-status {
+  font-size: 0.88rem;
+  margin-top: 4px;
+  min-height: 20px;
+  line-height: 1.4;
+  transition: opacity 0.2s ease;
+}
+
+.feedback-status.success {
+  color: #15803d;
+}
+
+.feedback-status.error {
+  color: #b91c1c;
+}
+
 .footer {
   margin-top: 60px;
   padding-top: 24px;

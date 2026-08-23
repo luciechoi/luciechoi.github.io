@@ -244,3 +244,72 @@ subtabButtons.forEach(button => {
     }
   });
 });
+
+/* ==========================================================================
+   ANONYMOUS FEEDBACK FORM (GOOGLE SHEETS / APPS SCRIPT)
+   ========================================================================== */
+
+// Replace with your deployed Google Apps Script Web App URL:
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwr5FrcmzQ1se5sMS668b_2eoNGFfOhA10aX4mPq9ypK8fjv-W_nQa3o1P9WzPTTOYM/exec';
+
+const feedbackForm = document.getElementById('feedback-form');
+const feedbackStatus = document.getElementById('feedback-status');
+const feedbackSubmitBtn = document.getElementById('feedback-submit-btn');
+const feedbackBtnText = document.getElementById('feedback-btn-text');
+
+if (feedbackForm) {
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+      feedbackStatus.textContent = 'Please paste your Google Apps Script Web App URL into src/main.js.';
+      feedbackStatus.className = 'feedback-status error';
+      return;
+    }
+
+    const message = document.getElementById('feedback-message')?.value || '';
+
+    if (!message.trim()) return;
+
+    // Loading state
+    feedbackSubmitBtn.disabled = true;
+    feedbackBtnText.textContent = 'Sending...';
+    feedbackStatus.textContent = '';
+    feedbackStatus.className = 'feedback-status';
+
+    try {
+      const payload = {
+        message: message,
+        timestamp: new Date().toISOString()
+      };
+
+      // Sending text/plain with no-cors avoids Google Apps Script 302 CORS redirection block
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      // Show success feedback
+      feedbackStatus.textContent = '✓ Thank you! Your note has been sent.';
+      feedbackStatus.className = 'feedback-status success';
+      feedbackForm.reset();
+
+      // Track submission event in Google Analytics
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'feedback_submitted');
+      }
+    } catch (error) {
+      console.error('Feedback submission error:', error);
+      feedbackStatus.textContent = 'Oops! Failed to send. Please try again.';
+      feedbackStatus.className = 'feedback-status error';
+    } finally {
+      feedbackSubmitBtn.disabled = false;
+      feedbackBtnText.textContent = 'Send Note';
+    }
+  });
+}
+

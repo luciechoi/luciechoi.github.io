@@ -8,6 +8,7 @@
 5. Finalize the website design.
 6. Rerender the visuals without Houdini watermarks.
 7. Add Google Analytics.
+8. Add anonymous feedback form. Fix the email notification issue?
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
@@ -17,6 +18,7 @@
 - Finished "Taichi Xylophone" project page.
 - Started "Be Kind To Yourself (2019)" project page.
 - Added Google Analytics.
+- Added Anonymous Feedback Form.
 
 ### 2026-08-21
 - Finished "In Memory of My Grandmother" project page.
