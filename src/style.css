@@ -304,12 +304,16 @@ body {
   transform: scale(1.05);
 }
 
-/* Disable zoom and pointer on non-clickable previews in Work & Experience */
-#tab-work .project-thumb-link {
+/* Disable zoom and pointer on non-clickable previews */
+#tab-work .project-thumb-link,
+#tab-learning .project-thumb-link:not(a),
+.project-thumb-link:not(a) {
   cursor: default;
 }
 
-#tab-work .project-item:hover .project-thumb-img {
+#tab-work .project-item:hover .project-thumb-img,
+#tab-learning .project-item:hover .project-thumb-link:not(a) .project-thumb-img,
+.project-item:hover .project-thumb-link:not(a) .project-thumb-img {
   transform: none;
 }
 
@@ -866,6 +870,21 @@ body {
 
 .text-link:hover {
   opacity: 0.7;
+}
+
+.text-link.disabled,
+span.text-link.disabled {
+  color: var(--text-subtle);
+  text-decoration: none;
+  cursor: not-allowed;
+  opacity: 0.55;
+  user-select: none;
+}
+
+.text-link.disabled:hover,
+span.text-link.disabled:hover {
+  opacity: 0.55;
+  color: var(--text-subtle);
 }
 
 /* ==========================================================================
