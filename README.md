@@ -12,8 +12,12 @@
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
+2. Add a Learning Journey Technical page for EE263 Material!
 
 ## Changelog
+### 2026-08-23
+- Finished "Be Kind To Yourself (2019)" project page.
+
 ### 2026-08-22
 - Finished "Taichi Xylophone" project page.
 - Started "Be Kind To Yourself (2019)" project page.

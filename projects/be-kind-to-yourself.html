@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KKRM5VCT5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-8KKRM5VCT5');
@@ -125,7 +125,7 @@
     <header class="project-detail-header">
       <h1 class="project-detail-title">Be Kind to Yourself (2019)</h1>
       <div class="project-detail-meta">
-        <span>2025 • Animation • 15 min read</span>
+        <span>2025 • Animation • 30 min read</span>
       </div>
 
       <div class="project-tags">
@@ -161,7 +161,7 @@
           When I was going through a tough period in my life in 2019, I was fortunate to meet a warm-hearted person who
           helped me see the crux of the problem. She told me &ldquo;to be kind to myself&rdquo; &mdash; a concept I
           had never truly fathomed before. But deep down, I knew that was it &mdash; and that it was one of the hardest
-          things I struggled with and, indeed, what was creating a chain of more problems.
+          things I struggled with.
         </p>
         <p>
           <em>&ldquo;I have hundreds of problems to solve, responsibilities to fulfill, and ambitions to chase. What
@@ -174,7 +174,7 @@
           being kind to myself.
         </p>
         <p>
-          In a private room, only you and yourself. What conversation do you have with yourself?
+          In a private room, only you and yourself. What conversation are we having with ourselves?
         </p>
       </section>
 
@@ -185,7 +185,8 @@
           This project, as part of the assignment for <a href="https://graphics.stanford.edu/courses/cs248b-20s/"
             target="_blank" rel="noopener noreferrer" class="text-link">CS248B: Animation and Simulation</a>, implements
           a 2D character animation system. It contains forward kinematics (FK), inverse kinematics (IK) with
-          gradient descent optimization, weighted joint constraints, and different keyframe interpolation schemes.
+          gradient descent optimization, weighted constraints for regularized least squares, and different keyframe
+          interpolation schemes.
         </p>
       </section>
 
@@ -198,15 +199,19 @@
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">2. Modeling with Constraints</span>
+            <span class="step-name">2. Weighted Constraints</span>
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">3. Keyframe Interpolation Schemes</span>
+            <span class="step-name">3. Mirror Reflection</span>
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">4. Animation</span>
+            <span class="step-name">4. Keyframe Interpolation Schemes</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">5. Create Animation</span>
           </div>
         </div>
       </section>
@@ -215,27 +220,103 @@
       <section class="detail-section">
         <h3>1. Inverse &amp; Forward Kinematics</h3>
         <p>
-          The character is constructed as an articulated tree of transformation nodes (translations, hinges, and
-          fixed limbs). In <strong>Forward Kinematics (FK)</strong>, global joint positions are obtained by compounding
+          The character is constructed as an articulated tree of transformation nodes: the root (the spine of the
+          character) may translate horizontally and vertically (\(T_x, T_y\)), while each joint can rotate
+          individually (\(\theta_j\)). In <strong>Forward Kinematics (FK)</strong>, global joint positions are obtained
+          by compounding
           local transformation matrices down the kinematic chain. The <strong>Inverse Kinematics (IK)</strong>
-          subsystem allows users to attach interactive handles to any joint, numerically optimizing generalized joint
-          coordinates \(\mathbf{q}\) to guide end-effectors to targets in real time.
+          allows users to attach interactive handles to any joint to guide end-effectors to targets. This is achieved in
+          a best effort manner through iterative gradient descent.
         </p>
 
-        <h4>Mathematical Formulation</h4>
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/trimmed-fk.gif" alt="Forward Kinematics (FK) Demonstration" loading="lazy" />
+            <div class="image-card-caption">Forward Kinematics (FK)</div>
+          </div>
+          <div class="image-card">
+            <img src="/images/trimmed-ik.gif" alt="Inverse Kinematics (IK) Demonstration" loading="lazy" />
+            <div class="image-card-caption">Inverse Kinematics (IK) with constraints</div>
+          </div>
+        </div>
+
+        <h4>Gradient Descent Optimization</h4>
         <p>
-          Let \(\mathbf{q} \in \mathbb{R}^n\) represent the vector of generalized joint coordinates (translations and
-          rotation angles), and let \(\mathbf{x}_i(\mathbf{q}) \in \mathbb{R}^2\) denote the global position of the
+          The full kinematic state of the character is parameterized by a generalized coordinate vector \(\mathbf{q}\),
+          stacking the 2D root translation and all individual joint angles:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{q} = \begin{bmatrix} T_x \\ T_y \\ \theta_1 \\ \theta_2 \\ \vdots \\ \theta_k \end{bmatrix} \in
+          \mathbb{R}^n$$
+        </p>
+        <p>
+          Let \(\mathbf{x}_i(\mathbf{q}) \in \mathbb{R}^2\) denote the global position of the
           \(i\)-th joint handle obtained via forward kinematics. For \(m\) active IK handles with target positions
           \(\mathbf{p}_i^*\), the objective function minimizes the squared Euclidean distance:
         </p>
         <p style="text-align: center; margin: 14px 0;">
-          $$E(\mathbf{q}) = \frac{1}{2} \sum_{i=1}^{m} \|\mathbf{x}_i(\mathbf{q}) - \mathbf{p}_i^*\|^2$$
+          $$E(\mathbf{q}) = \sum_{i=1}^{m} \|\mathbf{x}_i(\mathbf{q}) - \mathbf{p}_i^*\|^2$$
         </p>
         <p>
-          The displacement rate of the end-effectors with respect to joint perturbations is given by the
-          <strong>Jacobian matrix</strong> \(J(\mathbf{q}) = \frac{\partial \mathbf{x}}{\partial \mathbf{q}}\). The
-          gradient of the objective function is:
+          Given \(m\) active handles, the displacement rate of the end-effectors with respect to joint perturbations is
+          given by the <strong>Jacobian matrix</strong> \(J(\mathbf{q}) \in \mathbb{R}^{2m \times n}\):
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$J(\mathbf{q}) = \frac{\partial \mathbf{x}}{\partial \mathbf{q}} = \begin{bmatrix}
+          \frac{\partial x_1}{\partial T_x} & \frac{\partial x_1}{\partial T_y} & \frac{\partial x_1}{\partial \theta_1}
+          & \cdots & \frac{\partial x_1}{\partial \theta_k} \\[4pt]
+          \frac{\partial y_1}{\partial T_x} & \frac{\partial y_1}{\partial T_y} & \frac{\partial y_1}{\partial \theta_1}
+          & \cdots & \frac{\partial y_1}{\partial \theta_k} \\[4pt]
+          \vdots & \vdots & \vdots & \ddots & \vdots \\[4pt]
+          \frac{\partial x_m}{\partial T_x} & \frac{\partial x_m}{\partial T_y} & \frac{\partial x_m}{\partial \theta_1}
+          & \cdots & \frac{\partial x_m}{\partial \theta_k} \\[4pt]
+          \frac{\partial y_m}{\partial T_x} & \frac{\partial y_m}{\partial T_y} & \frac{\partial y_m}{\partial \theta_1}
+          & \cdots & \frac{\partial y_m}{\partial \theta_k}
+          \end{bmatrix}$$
+        </p>
+        <p>
+          Each column of the Jacobian describes how handle position \(\mathbf{x}_i = (x_i, y_i)\)
+          changes with respect to a single degree of freedom. Let \(\mathbf{p}_j = (p_{x,j}, p_{y,j})\) denote the
+          global position of joint hinge \(j\):
+        </p>
+        <ul style="margin: 10px 0 16px 20px; line-height: 1.65;">
+          <li>
+            <strong>Root Translations (\(T_x, T_y\))</strong>: Translating the root shifts all attached handles by a
+            constant unit displacement:
+            <div style="text-align: center; margin: 8px 0;">
+              $$\frac{\partial \mathbf{x}_i}{\partial T_x} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad \frac{\partial
+              \mathbf{x}_i}{\partial T_y} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$$
+            </div>
+          </li>
+          <li>
+            <strong>Hinge Rotations (\(\theta_j\))</strong>: The local rotation matrix derivative with respect to angle
+            \(\theta_j\) is obtained by differentiating \(R(\theta_j) = \begin{bmatrix} \cos\theta_j & -\sin\theta_j \\
+            \sin\theta_j & \cos\theta_j \end{bmatrix}\):
+            <div style="text-align: center; margin: 8px 0;">
+              $$\frac{\partial R(\theta_j)}{\partial \theta_j} = \begin{bmatrix}
+              -\sin\theta_j & -\cos\theta_j \\
+              \cos\theta_j & -\sin\theta_j
+              \end{bmatrix}$$
+            </div>
+          </li>
+        </ul>
+
+        <p>
+          The global handle position derivative is evaluated by compounding the chain via the matrix product rule:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\frac{\partial \mathbf{x}_i}{\partial q_j} = \left( T_{\text{left}} \cdot \frac{\partial T_j}{\partial
+          q_j} \cdot T_{\text{right}} \right) \mathbf{p}_{\text{local}, i}$$
+        </p>
+        <p>
+          where \(T_{\text{left}}\) is the transformation from the root to joint \(j\)&rsquo;s parent,
+          \(\frac{\partial T_j}{\partial q_j}\) is the local derivative matrix, \(T_{\text{right}}\) is the
+          transformation from joint \(j\) to handle \(i\), and \(\mathbf{p}_{\text{local}, i}\) is the
+          handle&rsquo;s position relative to its attached joint.
+        </p>
+        <p>
+          Using the computed Jacobian, the gradient of the error function with respect to generalized coordinates
+          \(\mathbf{q}\) evaluates to:
         </p>
         <p style="text-align: center; margin: 14px 0;">
           $$\nabla_{\mathbf{q}} E(\mathbf{q}) = J^T \big(\mathbf{x}(\mathbf{q}) - \mathbf{p}^*\big)$$
@@ -246,181 +327,223 @@
         <p style="text-align: center; margin: 14px 0;">
           $$\mathbf{q}^{(k+1)} = \mathbf{q}^{(k)} - \alpha \nabla_{\mathbf{q}} E(\mathbf{q}^{(k)})$$
         </p>
+        <p>
+          We iterate this process until the error \(E(\mathbf{q})\) falls below a predefined threshold \(\epsilon\) (or
+          a maximum iteration budget is reached).
+        </p>
+      </section>
 
-        <h4>Multi-Handle Support &amp; Robustness</h4>
+      <!-- 2. Weighted Constraints -->
+      <section class="detail-section">
+        <h3>2. Weighted Constraints</h3>
+        <p>
+          To animate the character naturally, in a way that we expect humans to move, we need to tell our
+          IK solver what movement is preferred than others. If not, the solver cannot differentiate between different
+          poses and move in unnatural ways, for example, translating the torso to reach the target instead of rotating
+          the shoulder joint.
+        </p>
+
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/trimmed-ik-no-constraints.gif" alt="Inverse Kinematics without constraints"
+              loading="lazy" />
+            <div class="image-card-caption">Without Constraints (unnatural torso drift)</div>
+          </div>
+          <div class="image-card">
+            <img src="/images/trimmed-ik.gif" alt="Inverse Kinematics with constraints" loading="lazy" />
+            <div class="image-card-caption">With Weighted Constraints (natural arm reach)</div>
+          </div>
+        </div>
+
+        <p>
+          To do this, we add "weighted constraints" to our IK solver, which act like regularization terms to our
+          minimization problem explained above. The higher the weight, the more the solver prefers that movement.
+          Simply, we multiply the gradient with weights:
+        </p>
+
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{g} = W J^T \big(\mathbf{x}(\mathbf{q}) - \mathbf{p}^*\big)$$
+        </p>
+        <p>
+          where \(W = \operatorname{diag}(w_1, w_2, \dots, w_n) \in \mathbb{R}^{n \times n}\) is a diagonal matrix of
+          transformation weights. For each degree of freedom \(i\), the gradient update is scaled by its weight \(w_i\):
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$g_i = w_i \cdot \big[ J^T (\mathbf{x}(\mathbf{q}) - \mathbf{p}^*) \big]_i$$
+        </p>
+        <p>
+          By tuning the weights, we can enforce priorities on the character's movement. Here are some examples of
+          weights I used in the project:
+        </p>
         <ul>
           <li>
-            <strong>Simultaneous Constraints</strong>: The solver supports at least 6 simultaneous IK handles without
-            performance degradation.
+            <strong>Shoulder &amp; Arm Priority</strong>: High weight ensures the
+            character reaches for targets primarily with its arms.
           </li>
           <li>
-            <strong>Dynamic Handle Management</strong>: Handles can be attached to any joint (maximum 1 handle per
-            joint) and removed in arbitrary order without resetting the active pose.
+            <strong>Hip &amp; Leg Priority</strong>: Moderate weight for lower-body posing.
+          </li>
+          <li>
+            <strong>Spine &amp; Torso Stiffness</strong>: Low weight prevents excessive
+            torso bending.
+          </li>
+          <li>
+            <strong>Base Translation</strong>: Very small weight! It discourages the entire body from floating.
+          </li>
+          <li>
+            <strong>Max Wrist Rotation</strong>: If wrist rotations exceed anatomical limits
+            (\(|\theta_{\text{wrist}}| > 120^\circ\)), the weight is dropped to resist over-rotation.
           </li>
         </ul>
       </section>
 
-      <!-- Modeling with Constraints & Coupled Mirror Kinematics -->
+      <!-- 3. Mirror Reflection -->
       <section class="detail-section">
-        <h3>2. Modeling with Constraints &amp; Coupled Mirror Kinematics</h3>
+        <h3>3. Mirror Reflection</h3>
         <p>
-          To animate the mirror reflection convincingly in a 2D plane while maintaining natural physical posture,
-          the system couples character kinematics with weighted constraint optimization:
+          The core of this work is a mirror system where a transformation in one character is mirrored in the
+          other.
         </p>
 
-        <h4>Pseudo-3D Perspective &amp; Scale Transforms</h4>
         <p>
-          Because the scene is rendered in 2D, the mirror counterpart shares the horizontal translation and joint
-          rotations of the real character, but differs in vertical position (\(T_y\)) and depth scale (\(S\)).
-          A scale transform is introduced into the kinematic chain to provide a faux-3D depth effect as the character
-          moves toward or away from the mirror plane.
+          One of the key design decisions was whether to create another independent character (i.e. new degrees of
+          freedom in our state vector \(\mathbf{q}\)). The short answer is no &mdash; separate degrees of freedom would
+          allow the two figures to diverge into different poses when solving for IK, breaking the mirror reflection.
+          <strong>Instead, the character and its reflection should share gradient descent updates.</strong>
         </p>
 
-        <h4>Projected IK Solver</h4>
+        <h4>Coupled Transformation Hierarchy</h4>
         <p>
-          Running independent gradient descent passes on both characters produces slight divergence in joint angles
-          \(\mathbf{q}\), which breaks mirror symmetry and introduces computational lag. Instead:
+          First, we need to handle the "mirroring" of transformations, when applying gradient descent updates.
         </p>
         <ul>
           <li>
-            <strong>Coordinate Frame Projection</strong>: All IK handles placed on the mirror reflection are projected
-            into the real character's local coordinate frame.
+            <strong>Translation</strong>: Vertical translation (\(T_y\)) is reflected across the
+            ground plane with some offset, creating the illusion of standing opposite each other. Horizontal
+            translation (\(T_x\)) keeps the same direction, it should just get adjusted with some small scaling factor.
           </li>
           <li>
-            <strong>Unified Pose Solve</strong>: A single gradient descent pass computes the optimal \(\mathbf{q}\),
-            which is then mapped to both characters with appropriate translation and scale offsets. Moving the mirror
-            character directly updates the real character and vice versa.
+            <strong>Rotation</strong>: Joint angles
+            (\(\theta_j\)) are synchronized across both characters so they share the exact same pose.
           </li>
           <li>
-            <strong>Scale Isolation</strong>: Scale is excluded from the IK optimization gradient so that characters do
-            not unnaturally stretch or shrink to reach distant targets. However, scale remains an active DOF with
-            non-zero weight during keyframe interpolation.
+            <strong>Scaling</strong>: In order to add the illusion of depth in a 2D system, I added a new type of
+            Transformation. As the character steps closer to the mirror, both the character and the reflection are
+            scaled up.
           </li>
         </ul>
 
-        <h4>Weighted Constraints &amp; Regularization</h4>
+        <h4>Bidirectional IK via Local Coordinate Inversion</h4>
         <p>
-          A diagonal weight matrix \(W\) regularizes the optimization to produce natural postures:
+          An important design goal was allowing the user to interactively pose the scene by dragging handles on
+          <em>either</em> character:
         </p>
         <ul>
           <li>
-            <strong>Vertical Translation Dampening</strong>: A small weight \(w_{\text{transY}}\) discourages
-            excessive vertical drift during limb manipulation.
+            <strong>Local Frame Inversion (\(T^{-1}\))</strong>: When a handle is created or dragged at mouse position
+            \(\mathbf{p}_{\text{mouse}}\), it is reflected in the counterpart figure. Simply apply the inverse
+            transformation to get the local coordinate and multiply with the counterpart's global transformation
+            matrix:
+            <div style="text-align: center; margin: 10px 0;">
+              $$\mathbf{p}_{\text{target-counterpart}} = T_{\text{counterpart}} \, T^{-1}
+              \begin{bmatrix} x_{\text{mouse}} \\ y_{\text{mouse}} \end{bmatrix}$$
+            </div>
           </li>
           <li>
-            <strong>Upright Posture Prior</strong>: Moderate torso hinge stiffness prevents extreme slouching or
-            unnatural back bends.
-          </li>
-          <li>
-            <strong>Joint Rotation Limits</strong>: Angular bounding constraints enforce anatomical limits on wrist
-            and ankle rotations.
+            <strong>Scale Isolation</strong>: Scale degrees of freedom are excluded from the IK gradient descent solver
+            so the character does not unnaturally stretch or shrink limbs to reach targets, similar to the problem we
+            had with translation. Scaling was only reserved for Forward Kinematics and interpolation.
           </li>
         </ul>
+        <p>
+          Additionally, the reflection was tinted with a lighter color for subtle differentiation. =D
+        </p>
+
+        <div class="image-card" style="max-width: 70%; min-width: 320px; margin: 16px auto 20px auto;">
+          <img src="/images/trimmed-mirror-ik.gif" alt="Bidirectional Mirror Inverse Kinematics" loading="lazy" />
+          <div class="image-card-caption">
+            Bidirectional Handles
+          </div>
+        </div>
       </section>
 
-      <!-- Keyframe Interpolation -->
+      <!-- 4. Keyframe Interpolation Schemes -->
       <section class="detail-section">
-        <h3>3. Keyframe Interpolation</h3>
+        <h3>4. Keyframe Interpolation Schemes</h3>
         <p>
-          Once poses of the character are keyframed, the system interpolates joint degrees of freedom across time.
+          Once poses of the character are keyframed, the system interpolates degrees of freedom across time.
           The visual smoothness and realism of the resulting movement depend on the interpolation scheme:
         </p>
 
-        <h4>3-1. Linear Interpolation (\(C^0\) Continuity)</h4>
+        <h4>4-1. Linear Interpolation (\(C^0\) Continuity)</h4>
         <p>
-          Linear interpolation simply blends linearly between consecutive keyframes. This gives
-          <strong>\(C^0\) positional continuity</strong>, meaning the motion begins and ends at the exact given keys
-          without any spatial jumps or gaps.
-        </p>
-        <p>
-          However, because the velocity changes abruptly at every keyframe &mdash; starting, stopping, or shifting
-          directions instantly &mdash; the motion appears rigid, robotic, and mechanical. Natural human movement rarely
-          speeds up or turns with sudden, instantaneous velocity spikes.
+          Linear interpolation blends linearly between consecutive keyframes \(\mathbf{p}_i\) and \(\mathbf{p}_{i+1}\):
         </p>
         <p style="text-align: center; margin: 14px 0;">
-          $$\mathbf{p}(u) = (1 - u)\,\mathbf{p}_i + u\,\mathbf{p}_{i+1}, \quad u \in [0, 1]$$
+          $$\mathbf{p}(t) = (1 - t)\,\mathbf{p}_i + t\,\mathbf{p}_{i+1}, \quad t \in [0, 1]$$
+        </p>
+        <p>
+          This gives <strong>\(C^0\) positional continuity</strong>, meaning the motion begins and ends at the exact
+          given keys.
+          However, this results in sudden velocity changes &mdash; starting, stopping, or shifting
+          directions instantly. Natural human movement rarely does this.
         </p>
 
-        <h4>3-2. Catmull-Rom Splines (\(C^1\) Continuity)</h4>
+        <h4>4-2. Catmull-Rom Interpolation (\(C^1\) Continuity)</h4>
         <p>
           Catmull-Rom splines construct smooth cubic curves that pass directly through every authored keyframe
-          \(\mathbf{p}_i\). They provide <strong>\(C^1\) velocity continuity</strong>, meaning the speed and direction
-          (the first derivative) transition smoothly across keyframes.
+          \(\mathbf{p}_i\). They provide <strong>\(C^1\) velocity continuity</strong>, meaning the velocity transitions
+          smoothly across keyframes.
         </p>
         <p>
-          This eliminates the sharp corners of linear interpolation, allowing limbs to swing smoothly through poses
-          without sudden jerkiness. For a normalized time parameter \(u \in [0, 1]\) between keyframes \(\mathbf{p}_i\)
-          and \(\mathbf{p}_{i+1}\), each pose is evaluated via matrix multiplication:
+          This eliminates the sharp corners of linear interpolation. For \(t \in [0, 1]\), each pose is evaluated via
+          matrix multiplication:
         </p>
         <p style="text-align: center; margin: 14px 0;">
-          $$\mathbf{p}(u) = \frac{1}{2} \begin{bmatrix} 1 & u & u^2 & u^3 \end{bmatrix} \begin{bmatrix} 0 & 2 & 0 & 0 \\
-          -1 & 0 & 1 & 0 \\ 2 & -5 & 4 & -1 \\ -1 & 3 & -3 & 1 \end{bmatrix} \begin{bmatrix} \mathbf{p}_{i-1} \\
+          $$\mathbf{p}(t) = \frac{1}{2} \begin{bmatrix} t^3 & t^2 & t & 1 \end{bmatrix} \begin{bmatrix} -1 & 3 & -3 & 1
+          \\
+          2 & -5 & 4 & -1 \\ -1 & 0 & 1 & 0 \\ 0 & 2 & 0 & 0 \end{bmatrix} \begin{bmatrix} \mathbf{p}_{i-1} \\
           \mathbf{p}_i \\ \mathbf{p}_{i+1} \\ \mathbf{p}_{i+2} \end{bmatrix}$$
         </p>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">
-          Boundary conditions at the start and end of the timeline are handled with dedicated endpoint tangent
-          extensions.
-        </p>
 
-        <h4>3-3. Uniform Cubic B-Splines (\(C^2\) Continuity)</h4>
+        <h4>4-3. B-Spline Interpolation (\(C^2\) Continuity)</h4>
         <p>
-          Uniform cubic B-splines achieve even greater smoothness with <strong>\(C^2\) acceleration continuity</strong>.
-          By ensuring that acceleration (the second derivative) changes continuously across boundaries, the motion
-          completely eliminates sudden "jerk" &mdash; producing the softest, most organic and physically natural
-          animation.
+          B-splines achieve superior smoothness with <strong>\(C^2\) acceleration continuity</strong>,
+          ensuring that both velocity and acceleration transition continuously across boundaries.
         </p>
         <p>
-          <strong>Clamped Endpoint Handling:</strong> Because standard B-splines treat keyframes as guiding de Boor
-          control points rather than strictly passing through them, two duplicate keyframes are automatically inserted
-          at the beginning and end (\([\mathbf{d}_0, \mathbf{d}_0, \dots, \mathbf{d}_n, \mathbf{d}_n]\)). This clamps
-          the spline so the animation cleanly starts and stops at the exact intended poses.
+          Each cubic segment is defined across four consecutive <strong>de Boor control points</strong>
+          \(\mathbf{B}_{i-1}, \mathbf{B}_i, \mathbf{B}_{i+1}, \mathbf{B}_{i+2}\) via the B-spline basis matrix \(M_b\):
         </p>
         <p style="text-align: center; margin: 14px 0;">
-          $$\mathbf{p}(u) = \frac{1}{6} \begin{bmatrix} 1 & u & u^2 & u^3 \end{bmatrix} \begin{bmatrix} 1 & 4 & 1 & 0 \\
-          -3 & 0 & 3 & 0 \\ 3 & -6 & 3 & 0 \\ -1 & 3 & -3 & 1 \end{bmatrix} \begin{bmatrix} \mathbf{d}_{i-1} \\
-          \mathbf{d}_i \\ \mathbf{d}_{i+1} \\ \mathbf{d}_{i+2} \end{bmatrix}$$
+          $$\mathbf{p}(t) = \mathbf{T} M_b \mathbf{B} = \frac{1}{6} \begin{bmatrix} t^3 & t^2 & t & 1 \end{bmatrix}
+          \begin{bmatrix} -1 & 3 & -3 & 1 \\ 3 & -6 & 3 & 0 \\ -3 & 0 & 3 & 0 \\ 1 & 4 & 1 & 0 \end{bmatrix}
+          \begin{bmatrix} \mathbf{B}_{i-1} \\ \mathbf{B}_i \\ \mathbf{B}_{i+1} \\ \mathbf{B}_{i+2} \end{bmatrix}$$
+        </p>
+        <p>
+          Unlike linear and Catmull-Rom splines, B-splines are <em>approximating</em> curves &mdash; the keyframes act
+          as guiding de Boor control points rather than points the curve must pass through. As a result, B-splines
+          do not preserve the exact keyframed positions. This is important to keep in mind when animating.
         </p>
       </section>
 
-      <!-- Character Rigging & Animation -->
+      <!-- 5. Create Animation -->
       <section class="detail-section">
-        <h3>4. Character Rigging &amp; Animation</h3>
-        <div class="image-card" style="margin: 14px 0 20px 0;">
-          <img src="/images/preview-mp4-be-kind-to-yourself.jpg"
-            alt="Interactive 2D animation interface in OpenProcessing" />
-          <div class="image-card-caption">
-            Interactive OpenProcessing interface featuring multi-tab IK/FK solver architecture and keyframe timeline
-          </div>
-        </div>
-        <ul>
-          <li>
-            <strong>Articulated Rig</strong>: Designed a custom 2D articulated character with over 8 hinge joints and a
-            root joint capable of translation and rotation.
-          </li>
-          <li>
-            <strong>Keyframe Choreography</strong>: Crafted an expressive narrative sequence with over 10 distinct
-            keyframes combining FK posing and multi-target IK dragging.
-          </li>
-          <li>
-            <strong>Audio Design</strong>: Ambient background score extracted from <em>Yehezkel Raz &mdash; As Long as
-              in the Heart</em>, synchronized to the character's reflective movements.
-          </li>
-        </ul>
-      </section>
-
-      <!-- Future Work / TODO -->
-      <section class="detail-section">
-        <h3>Future Investigations</h3>
-        <ul>
-          <li>
-            <strong>BTS &ldquo;Love Myself&rdquo;</strong>: Incorporate reflections on self-acceptance and inner
-            dialogue inspired by BTS's <em>Love Myself</em>.
-          </li>
-          <li>
-            <strong>Duchamp&rsquo;s Photograph</strong>: Explore multiple reflections, perspective planes, and identity
-            dialogue inspired by Marcel Duchamp's 1917 five-way mirror photograph.
-          </li>
-        </ul>
+        <h3>5. Create Animation</h3>
+        <p>
+          The animation was crafted by carefully placing lots of keyframes with FK and IK. I especially enjoyed
+          animating the "self-hugging" part.
+        </p>
+        <p>
+          Having worked on rigging and animation in Maya before, I'd always wondered what was happening under the hood.
+          Building this system from scratch was so rewarding and demystifying!
+        </p>
+        <p>
+          Check out more <a href="https://www.youtube.com/watch?v=9mwRYgMmSGE" target="_blank" rel="noopener noreferrer"
+            class="text-link">musical</a> and <a
+            href="https://archive.nt2.uqam.ca/revuecaptures-org/image/portrait-multiple-de-marcel-duchamp-five-way-portrait-marcel-duchamp%C2%A01917-0.html"
+            target="_blank" rel="noopener noreferrer" class="text-link">art</a> inspirations on self-love!
+        </p>
       </section>
 
       <!-- References -->
