@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="100%">
+  <defs>
+    <!-- Arrow markers for shear distance -->
+    <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1.5 L6.5,4 L1,6.5 Z" fill="#0f172a" />
+    </marker>
+    <marker id="arrowHeadStart" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto">
+      <path d="M7,1.5 L1.5,4 L7,6.5 Z" fill="#0f172a" />
+    </marker>
+
+    <!-- Subtle Drop Shadow for Badge -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <style>
+    .bg-card { fill: #fafafa; stroke: #e2e8f0; stroke-width: 1; rx: 12px; }
+    .face-left { fill: #d1d5db; stroke: #0f172a; stroke-width: 2.2; stroke-linejoin: round; }
+    .face-right { fill: #9ca3af; stroke: #0f172a; stroke-width: 2.2; stroke-linejoin: round; }
+    .edge-line { stroke: #0f172a; stroke-width: 2.4; stroke-linecap: round; }
+    .shear-line { stroke: #0f172a; stroke-width: 2.2; stroke-dasharray: 6 5; stroke-linecap: round; }
+    .pt-dot { r: 5.5; fill: #0f172a; }
+    .text-math { font-family: 'Newsreader', 'Times New Roman', Georgia, serif; font-weight: 700; font-style: normal; font-size: 22px; fill: #0f172a; }
+    .text-sub { font-family: 'Newsreader', 'Times New Roman', Georgia, serif; font-size: 14px; font-weight: 700; }
+  </style>
+
+  <!-- Container Box -->
+  <rect x="4" y="4" width="752" height="312" class="bg-card" />
+
+  <!-- Left Face Triangle: p2(300, 60), p3(170, 245), p1(430, 180) -->
+  <polygon points="300,60 170,245 430,180" class="face-left" />
+
+  <!-- Right Face Triangle: p2(300, 60), p1(430, 180), p4(590, 205) -->
+  <polygon points="300,60 430,180 590,205" class="face-right" />
+
+  <!-- Shared Stretch Edge (p2 - p1) -->
+  <line x1="300" y1="60" x2="430" y2="180" class="edge-line" />
+
+  <!-- Cross-Wing Shear Distance (p3 to p4) -->
+  <line x1="180" y1="243" x2="580" y2="207" class="shear-line" marker-start="url(#arrowHeadStart)" marker-end="url(#arrowHead)" />
+
+  <!-- Shear Length Dimension Badge -->
+  <g transform="translate(300, 210)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="160" height="32" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+    <text x="80" y="22" class="text-math" font-size="18" text-anchor="middle">&#8214;p<tspan class="text-sub" dy="2">3</tspan><tspan dy="-2"></tspan> &#8722; p<tspan class="text-sub" dy="2">4</tspan><tspan dy="-2">&#8214;</tspan></text>
+  </g>
+
+  <!-- Vertex Dots -->
+  <circle cx="300" cy="60" class="pt-dot" />
+  <circle cx="170" cy="245" class="pt-dot" />
+  <circle cx="430" cy="180" class="pt-dot" />
+  <circle cx="590" cy="205" class="pt-dot" />
+
+  <!-- Vertex Labels -->
+  <!-- p2 (top hinge) -->
+  <text x="285" y="40" class="text-math">p<tspan class="text-sub" dy="3">2</tspan></text>
+  <!-- p3 (left wing) -->
+  <text x="150" y="268" class="text-math">p<tspan class="text-sub" dy="3">3</tspan></text>
+  <!-- p1 (bottom hinge) -->
+  <text x="445" y="160" class="text-math" text-anchor="start">p<tspan class="text-sub" dy="3">1</tspan></text>
+  <!-- p4 (right wing) -->
+  <text x="610" y="200" class="text-math">p<tspan class="text-sub" dy="3">4</tspan></text>
+</svg>

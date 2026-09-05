@@ -21,6 +21,7 @@ export default defineConfig({
         voicesFloating: resolve(__dirname, 'projects/voices-floating-around-my-head.html'),
         memoryGrandmother: resolve(__dirname, 'projects/in-memory-of-my-grandmother.html'),
         beKindToYourself: resolve(__dirname, 'projects/be-kind-to-yourself.html'),
+        clothPbd: resolve(__dirname, 'projects/cloth-pbd.html'),
       }
     }
   },

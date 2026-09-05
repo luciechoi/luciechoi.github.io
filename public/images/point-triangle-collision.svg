@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="100%" height="100%">
+  <defs>
+    <!-- Arrowhead marker -->
+    <marker id="arrowHead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M1,1.5 L7.5,4.5 L1,7.5 Z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <style>
+    .bg-card { fill: #fafafa; stroke: #e2e8f0; stroke-width: 1; rx: 12px; }
+    .tri-face { fill: #d1d5db; stroke: #0f172a; stroke-width: 2.2; stroke-linejoin: round; }
+    .plane-line { stroke: #0f172a; stroke-width: 2.4; stroke-linecap: round; }
+    .normal-vec { stroke: #0f172a; stroke-width: 2.2; stroke-linecap: round; }
+    .proj-dash { stroke: #0f172a; stroke-width: 1.6; stroke-dasharray: 5 4; }
+    .pt-dot { r: 5.5; fill: #0f172a; }
+    .text-math-bold { font-family: 'Newsreader', 'Times New Roman', Georgia, serif; font-weight: 700; font-size: 22px; fill: #0f172a; }
+    .text-math-italic { font-family: 'Newsreader', 'Times New Roman', Georgia, serif; font-style: italic; font-size: 22px; fill: #0f172a; }
+    .text-sub { font-family: 'Newsreader', 'Times New Roman', Georgia, serif; font-size: 14px; font-weight: 700; }
+  </style>
+
+  <!-- Container Card Box -->
+  <rect x="4" y="4" width="752" height="272" class="bg-card" />
+
+  <!-- ==================== LEFT: 3D PERSPECTIVE VIEW ==================== -->
+  <!-- Triangle Polygon: p1(270, 190), p2(150, 60), p3(110, 220) -->
+  <polygon points="270,190 150,60 110,220" class="tri-face" />
+
+  <!-- Triangle Vertices Dots -->
+  <circle cx="270" cy="190" class="pt-dot" />
+  <circle cx="150" cy="60" class="pt-dot" />
+  <circle cx="110" cy="220" class="pt-dot" />
+
+  <!-- Triangle Vertices Labels -->
+  <!-- p1 -->
+  <text x="270" y="218" class="text-math-bold" text-anchor="middle">p<tspan class="text-sub" dy="3">1</tspan></text>
+  <!-- p2 -->
+  <text x="135" y="45" class="text-math-bold" text-anchor="end">p<tspan class="text-sub" dy="3">2</tspan></text>
+  <!-- p3 -->
+  <text x="95" y="210" class="text-math-bold" text-anchor="end">p<tspan class="text-sub" dy="3">3</tspan></text>
+
+  <!-- Normal Vector n from face -->
+  <line x1="165" y1="150" x2="65" y2="105" class="normal-vec" marker-end="url(#arrowHead)" />
+  <text x="50" y="95" class="text-math-bold" text-anchor="end">n</text>
+
+  <!-- Query Particle q (Hovering above face) -->
+  <circle cx="105" cy="155" class="pt-dot" />
+  <text x="90" y="160" class="text-math-bold" text-anchor="end">q</text>
+
+  <!-- Dashed Projection Line from q to Face -->
+  <line x1="105" y1="155" x2="185" y2="190" class="proj-dash" />
+
+
+  <!-- ==================== RIGHT: 2D CROSS-SECTION VIEW ==================== -->
+  <!-- Triangle Plane Line: p3(430, 230) to p1(640, 195) with p2(565, 207) -->
+  <line x1="430" y1="230" x2="640" y2="195" class="plane-line" />
+
+  <!-- Vertices on Line -->
+  <circle cx="430" cy="230" class="pt-dot" />
+  <circle cx="565" cy="207" class="pt-dot" />
+  <circle cx="640" cy="195" class="pt-dot" />
+
+  <!-- Labels for Line Vertices -->
+  <!-- p3 -->
+  <text x="420" y="260" class="text-math-bold" text-anchor="middle">p<tspan class="text-sub" dy="3">3</tspan></text>
+  <!-- p2 -->
+  <text x="565" y="235" class="text-math-bold" text-anchor="middle">p<tspan class="text-sub" dy="3">2</tspan></text>
+  <!-- p1 -->
+  <text x="655" y="220" class="text-math-bold" text-anchor="start">p<tspan class="text-sub" dy="3">1</tspan></text>
+
+  <!-- Normal Vector n Perpendicular to Plane Line -->
+  <line x1="535" y1="212" x2="515" y2="85" class="normal-vec" marker-end="url(#arrowHead)" />
+  <text x="535" y="80" class="text-math-bold" text-anchor="start">n</text>
+
+  <!-- Query Particle q in 2D View -->
+  <circle cx="475" cy="140" class="pt-dot" />
+  <text x="460" y="130" class="text-math-bold" text-anchor="end">q</text>
+
+  <!-- Height / Thickness Distance h (Dashed Line) -->
+  <line x1="475" y1="140" x2="490" y2="220" class="proj-dash" />
+  <text x="470" y="190" class="text-math-italic" text-anchor="end">h</text>
+</svg>

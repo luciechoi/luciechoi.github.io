@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KKRM5VCT5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8KKRM5VCT5');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PBD Cloth Solver — Lucie Choi</title>
+  <meta name="description"
+    content="A Position Based Dynamics (PBD) cloth simulation engine implemented in Houdini by Lucie Choi." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .code-snippet-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .code-snippet-box code.hljs {
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 18px 0 24px 0;
+    }
+
+    .rubric-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+    }
+
+    .rubric-badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(22, 163, 74, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+
+    .rubric-badge.todo {
+      color: #d97706;
+      background: rgba(217, 119, 6, 0.1);
+    }
+
+    .feature-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 18px 0;
+    }
+
+    .feature-tag {
+      font-size: 0.82rem;
+      padding: 4px 10px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .image-grid-2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin: 18px 0 14px 0;
+      align-items: stretch;
+    }
+
+    .image-grid-equal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0 14px 0;
+      align-items: stretch;
+    }
+
+    .image-grid-modeling {
+      display: grid;
+      grid-template-columns: 0.563fr 1fr;
+      gap: 16px;
+      margin: 18px 0 14px 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+
+      .image-grid-2,
+      .image-grid-equal,
+      .image-grid-modeling {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+    }
+
+    .image-card.medium {
+      max-width: 560px;
+      margin: 18px auto 20px auto;
+      height: auto;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      flex-grow: 1;
+    }
+
+    .image-card:has(.image-card-caption) img {
+      height: calc(100% - 38px);
+    }
+
+    .image-card.medium img {
+      height: auto;
+      max-height: 380px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .image-card.diagram {
+      height: auto;
+    }
+
+    .image-card.diagram img,
+    .image-card.medium.diagram img {
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      background: transparent;
+      padding: 6px;
+    }
+
+    .image-card-caption {
+      padding: 6px 6px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .image-card-caption a {
+      color: var(--text-main);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+      transition: opacity 0.15s ease;
+    }
+
+    .image-card-caption a:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">PBD Cloth Solver</h1>
+      <div class="project-detail-meta">
+        <span>2026 • Simulation • 30 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Position Based Dynamics</span>
+        <span>Cloth</span>
+        <span>Houdini</span>
+      </div>
+
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Embedded Visual Media / Hero Image -->
+      <div class="media-container">
+        <img src="/images/preview-cloth-pbd.png" alt="PBD Cloth Solver Simulation Render" loading="lazy" />
+      </div>
+
+      <!-- Motivation -->
+      <section class="detail-section">
+        <h3>Motivation</h3>
+        <p>
+          <strong>Cloth</strong> is how I first got interested in Computer Graphics.
+        </p>
+
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/cloth-sim1.gif" alt="ZARA | Digital Fashion Show" loading="lazy" />
+            <div class="image-card-caption">
+              <a href="https://www.youtube.com/watch?v=Lgle1Sz-DcU" target="_blank" rel="noopener noreferrer">ZARA
+                Digital Fashion Show </a>
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="/images/cloth-sim2.gif" alt="HANIFA Virtual Fashion Show" loading="lazy" />
+            <div class="image-card-caption">
+              <a href="https://www.youtube.com/watch?v=LZ1h0Zj5gAs&list=LL&index=61" target="_blank"
+                rel="noopener noreferrer">HANIFA Virtual Fashion Show</a>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 12px;">I soon found out that cloth simulation is used not only in CGI for movies and
+          games, but
+          also in the actual Fashion industry. <a href="https://www.clo3d.com/en/" target="_blank"
+            rel="noopener noreferrer" class="text-link">Clo3D</a> is
+          the standard tool used widely in the industry, which lets you design, fit, and test garments digitally, in the
+          most optimized and precise manner, preventing fabric waste. </p>
+      </section>
+
+      <!-- Overview -->
+      <section class="detail-section">
+        <h3>Project Overview</h3>
+        <p>
+          This project implements a custom <strong>Position Based Dynamics (PBD)</strong> cloth solver in Houdini,
+          following the approach specified in the
+          <a href="https://matthias-research.github.io/pages/publications/posBasedDyn.pdf" target="_blank"
+            rel="noopener noreferrer" class="text-link">paper</a>.
+        </p>
+        <p>
+          In a traditional mass-spring system, cloth is modeled as a network of point masses interconnected by
+          springs that exert elastic forces governed by Hooke's law. However,
+          this force-based approach requires extremely small time steps to avoid numerical explosion.
+        </p>
+        <p>
+          In contrast, PBD doesn't use force-based methods but instead directly manipulates vertex positions to satisfy
+          the given geometric constraints. This allows unconditional stability and easy handling of constraints, making
+          it a good choice for simulation algorithm behind modeling software.
+        </p>
+        <p style="margin-top: 14px;"><strong>Supported Features:</strong></p>
+        <p>The solver primarily consists of the following features.</p>
+        <ul>
+          <li><strong>Cloth Parameters</strong>: Stretch, shear, and bending stiffness of the fabric.</li>
+          <li><strong>Pin Constraints</strong>: Fixed immovable points on cloth for hanging garments on props.</li>
+          <li><strong>Object Collisions</strong>: How cloth interacts with other objects.</li>
+          <li><strong>Self-Collision</strong>: How cloth interacts with itself.</li>
+        </ul>
+      </section>
+
+      <!-- Process Pipeline -->
+      <section class="detail-section">
+        <h3>Process</h3>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="step-name">Cloth Modeling</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">Constraints Definition</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">Preprocessing</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">Solver</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">Postprocessing</span>
+          </div>
+        </div>
+        <p style="margin-top: 14px;">
+          During development, the solver was first tested and validated on a simple square grid mesh before being
+          connected to the actual 3D garment cloth.
+        </p>
+        <ul style="margin-top: 12px;">
+          <li><strong>Cloth Modeling</strong>: Prepares the raw 3D garment geometry and creates a clean
+            triangulated mesh.</li>
+          <li><strong>Constraints Definition</strong>: Defines cloth parameters such as stiffness levels (stretch,
+            shear, bending), pinned points on the cloth, collision objects, thickness, and friction, as well as
+            simulation parameters such as constraint iterations and time step size.
+          </li>
+          <li><strong>Preprocessing</strong>: Initializes properties like velocities and point masses, and
+            precomputes rest-state geometric constraints and mesh topology for the solver.</li>
+          <li><strong>Solver</strong>: Iteratively solves and corrects particle positions and velocities based on the
+            defined constraints and collision responses.</li>
+          <li><strong>Postprocessing</strong>: Applies surface smoothing and adds thickness to the final garment.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Technical Details: Preprocessing -->
+      <section class="detail-section">
+        <h3>1. Preprocessing &amp; Mesh Topology</h3>
+        <p>
+          Before running the physical simulation, raw 3D garment meshes must be processed into a clean topological
+          structure. After triangulating the fabric using the <strong>Remesh</strong> or <strong>Divide
+            SOP</strong>, I implemented custom
+          Houdini
+          Python SOPs to extract connectivity information, initialize point attributes, and precalculate all rest-state
+          geometric constraints into global geometry attributes for the solver.
+        </p>
+        <p>
+          Note: Because Houdini's native geometry attributes cannot store arbitrary Python classes or custom objects,
+          all mesh connectivity and constraint relationships are decomposed into native flat numeric arrays (such as
+          vertex index lists).
+        </p>
+
+        <h4>1.1 Point Attributes &amp; Pinning Initialization</h4>
+        <p>
+          Initializes particle velocity \(\mathbf{v} = (0, 0, 0)\) and default inverse mass \(w = 1.0\). We use
+          inverse mass \(w = 1 / m\) so that immovable fixed points (such as collar or waistband anchor points in the
+          <code>fixed_points</code> group) can simply be assigned \(w = 0.0\) with no other corner case handling. It
+          will be explained in the later section.
+        </p>
+        <div class="code-snippet-box">
+          <pre><code class="language-python"># Initialize point velocity
+if geo.findPointAttrib("v") is None:
+    geo.addAttrib(hou.attribType.Point, "v", hou.Vector3(0, 0, 0))
+
+# Initialize inverse mass (w = 1.0 by default)
+if geo.findPointAttrib("w") is None:
+    geo.addAttrib(hou.attribType.Point, "w", 1.0)
+
+# Pin constraints -- assign w = 0.0 (infinite mass)
+pin_group = geo.findPointGroup("fixed_points")
+if pin_group is not None:
+    for pt in pin_group.points():
+        pt.setAttribValue("w", 0.0)</code></pre>
+        </div>
+
+        <h4>1.2 Stretch Rest Lengths</h4>
+        <p>
+          Traverses all triangle primitives to extract unique undirected mesh edges \((p_0, p_1)\), calculates their
+          Euclidean rest lengths \(d_0 = \|\mathbf{p}_0 - \mathbf{p}_1\|\), and packages them into global attributes:
+        </p>
+        <div class="image-card medium diagram">
+          <img src="/images/stretch-constraint.svg" alt="Stretch Rest Length Diagram" loading="lazy" />
+          <div class="image-card-caption">Rest Length d and Positional Corrections &Delta;p<sub>1</sub>,
+            &Delta;p<sub>2</sub></div>
+        </div>
+        <div class="code-snippet-box">
+          <pre><code class="language-python">seen_edges = set()
+stretch_edge_v0 = []
+stretch_edge_v1 = []
+rest_lengths = []
+
+# Loop through all triangle primitives to extract unique edges
+for prim in geo.prims():
+    pts = prim.points()
+    n = len(pts)
+
+    for i in range(n):
+        p0 = pts[i].number()
+        p1 = pts[(i + 1) % n].number()
+        edge = (min(p0, p1), max(p0, p1))
+
+        if edge in seen_edges:
+            continue
+        seen_edges.add(edge)
+
+        dist = (pts[i].position() - pts[(i + 1) % n].position()).length()
+        stretch_edge_v0.append(edge[0])
+        stretch_edge_v1.append(edge[1])
+        rest_lengths.append(dist)
+
+# Export as global attributes for vectorized solver
+geo.addAttrib(hou.attribType.Global, "stretch_edge_v0", stretch_edge_v0)
+geo.addAttrib(hou.attribType.Global, "stretch_edge_v1", stretch_edge_v1)
+geo.addAttrib(hou.attribType.Global, "rest_lengths", rest_lengths)</code></pre>
+        </div>
+
+        <h4>1.3 Bending, Shear, and Triangle Topology</h4>
+        <p>
+          We initialize attributes derived from the triangle connectivity of the mesh.
+        </p>
+        <ul>
+          <li>
+            <strong>Rest Dihedral Angle (\(\phi_0\))</strong>: Evaluates face normals \(\mathbf{n}_1, \mathbf{n}_2\):
+            $$\phi_0 = \arccos(\text{clip}(\mathbf{n}_1 \cdot \mathbf{n}_2, -1.0, 1.0))$$
+            <div class="image-card medium diagram">
+              <img src="/images/dihedral-angle.svg" alt="Dihedral Angle Diagram" loading="lazy" />
+              <div class="image-card-caption">Rest Dihedral Angle (&phi;<sub>0</sub>) between Face Normals</div>
+            </div>
+          </li>
+          <li>
+            <strong>Rest Shear Length</strong>: Measured as the initial Euclidean distance between opposite wing
+            vertices \(\|\mathbf{p}_3 - \mathbf{p}_4\|\):
+            <div class="image-card medium diagram">
+              <img src="/images/shear-length.svg" alt="Shear Length Diagram" loading="lazy" />
+              <div class="image-card-caption">Rest Shear Length ||p<sub>3</sub> &minus; p<sub>4</sub>|| between Wing
+                Vertices</div>
+            </div>
+          </li>
+          <li>
+            <strong>Triangle Connectivity</strong>: Serializes the flat triangulated connectivity list (where every 3
+            consecutive indices define a triangle face). Storing a fixed triangle list is critical because PBD solvers
+            project constraints and resolve collisions iteratively in-place (Gauss-Seidel style); maintaining a strictly
+            consistent iteration order across substeps ensures deterministic, reproducible simulation and avoids
+            order-dependent jittering.
+          </li>
+        </ul>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">import numpy as np
+
+def get_triangle_topology():
+    """
+    Extracts mesh triangle connectivity and builds an adjacency map pairing
+    shared interior edges (p1, p2) with opposite wing vertices (p3, p4).
+
+    Returns:
+        triangles: Flat list of vertex indices (every 3 entries form a triangle).
+        adjacent_triangles: Dict mapping (p1, p2) -> [p3, p4] for manifold interior edges.
+    """
+    triangles = []
+    edge_to_opposite_vertex = dict()
+
+    # Collect triangles and build edge-to-opposite-vertex adjacency
+    for prim in geo.prims():
+        pts = [p.number() for p in prim.points()]
+        triangles.extend(pts)
+
+        for i in range(3):
+            p0, p1, p2 = pts[i], pts[(i + 1) % 3], pts[(i + 2) % 3]
+            edge = (min(p0, p1), max(p0, p1))
+            edge_to_opposite_vertex.setdefault(edge, []).append(p2)
+
+    # Filter out boundary edges (keep interior edges shared by exactly 2 triangles)
+    adjacent_triangles = {k: v for k, v in edge_to_opposite_vertex.items() if len(v) == 2}
+    return triangles, adjacent_triangles
+
+
+def calculate_angle(p1, p2, p3, p4):
+    """
+    Computes the rest dihedral angle between two adjacent triangles sharing edge (p1, p2)
+    with opposite wing vertices p3 and p4 from their face normals.
+    """
+    pt1 = geo.point(p1).position()
+    pt2 = geo.point(p2).position()
+    pt3 = geo.point(p3).position()
+    pt4 = geo.point(p4).position()
+
+    e0 = pt2 - pt1
+    e1 = pt3 - pt1
+    e2 = pt4 - pt1
+
+    n1 = np.cross(e0, e1)
+    n1 = n1 / np.linalg.norm(n1)
+
+    n2 = np.cross(e0, e2)
+    n2 = n2 / np.linalg.norm(n2)
+
+    return np.arccos(np.clip(np.dot(n1, n2), -1.0, 1.0))
+
+
+def calculate_shear(p3, p4):
+    """
+    Computes rest shear length as the Euclidean distance between opposite wing vertices.
+    """
+    return (geo.point(p3).position() - geo.point(p4).position()).length()
+
+
+# 1. Extract mesh topology
+triangles, adjacent_triangles = get_triangle_topology()
+
+# 2. Compute rest geometric attributes for bending and shear constraints
+bend_shared_edge_v0 = []
+bend_shared_edge_v1 = []
+bend_non_shared_edge_v0 = []
+bend_non_shared_edge_v1 = []
+rest_angles = []
+shear_lengths = []
+
+for (p1, p2), (p3, p4) in adjacent_triangles.items():
+    p3, p4 = min(p3, p4), max(p3, p4)
+    bend_shared_edge_v0.append(p1)
+    bend_shared_edge_v1.append(p2)
+    bend_non_shared_edge_v0.append(p3)
+    bend_non_shared_edge_v1.append(p4)
+    rest_angles.append(calculate_angle(p1, p2, p3, p4))
+    shear_lengths.append(calculate_shear(p3, p4))
+
+# 3. Export global attributes for vectorized solver
+geo.addAttrib(hou.attribType.Global, "bend_shared_edge_v0", bend_shared_edge_v0)
+geo.addAttrib(hou.attribType.Global, "bend_shared_edge_v1", bend_shared_edge_v1)
+geo.addAttrib(hou.attribType.Global, "bend_non_shared_edge_v0", bend_non_shared_edge_v0)
+geo.addAttrib(hou.attribType.Global, "bend_non_shared_edge_v1", bend_non_shared_edge_v1)
+geo.addAttrib(hou.attribType.Global, "rest_angles", rest_angles)
+geo.addAttrib(hou.attribType.Global, "shear_lengths", shear_lengths)
+geo.addAttrib(hou.attribType.Global, "triangles", triangles)</code></pre>
+        </div>
+      </section>
+
+      <!-- Solver Loop -->
+      <section class="detail-section">
+        <h3>2. PBD Solver Loop</h3>
+        <p>
+          The solver updates particle positions in two discrete phases per substep \(\Delta t = \frac{1}{\text{FPS}
+          \cdot
+          \text{substeps}}\).
+        </p>
+        <ol style="padding-left: 20px; margin-bottom: 16px;">
+          <li style="margin-bottom: 8px;">
+            <strong>Unconstrained Motion Prediction (Euler Step)</strong>: From Newton's second law \(\mathbf{f} = m
+            \mathbf{a}\), particle acceleration is computed directly using inverse mass \(w_i = 1 / m_i\):
+            $$\mathbf{a}_i = \frac{\mathbf{f}_{\text{ext}}(\mathbf{x}_i)}{m_i} = w_i \,
+            \mathbf{f}_{\text{ext}}(\mathbf{x}_i)$$
+            Integrating acceleration and velocity damping yields candidate predicted positions \(\mathbf{p}_i\):
+            $$\mathbf{v}_i \leftarrow \mathbf{v}_i + \Delta t \, w_i \, \mathbf{f}_{\text{ext}}(\mathbf{x}_i)$$
+            $$\mathbf{v}_i \leftarrow \mathbf{v}_i \cdot k_{\text{damping}}$$
+            $$\mathbf{p}_i \leftarrow \mathbf{x}_i + \Delta t \, \mathbf{v}_i$$
+            where pinned vertices (\(w_i = 0\)) naturally receive zero acceleration.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Constraint Projection Loop (Gauss-Seidel)</strong>: Now that we have predicted particle positions
+            given forces, we have to check and fix if the constraints are violated. We do this by projecting
+            candidate positions
+            \(\mathbf{p}_i\) over \(n_{\text{iter}}\) iterations to satisfy stretch, bending, shear, and collision
+            constraints. <br /> <br />
+            <p style="margin-left: 10px; font-style: italic;">
+              <em>Gauss-Seidel vs. Jacobi</em>: In a <strong>Gauss-Seidel</strong> solver, particle positions are
+              updated
+              <strong>immediately in-place</strong>, allowing corrections
+              to propagate within the same iteration for faster convergence. In contrast, a
+              <strong>Jacobi</strong> solver evaluates constraints in parallel using stale positions and updates
+              the positions all at once at the end of the iteration.
+            </p>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Verlet Velocity &amp; Position Update</strong>: Derive final velocities from the positional
+            displacement:
+            $$\mathbf{v}_i \leftarrow \frac{\mathbf{p}_i - \mathbf{x}_i}{\Delta t}$$
+            $$\mathbf{x}_i \leftarrow \mathbf{p}_i$$
+          </li>
+        </ol>
+        <p>
+          Below is the high-level pseudocode.
+        </p>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python"># Position Based Dynamics (PBD) Solver Loop
+def pbd_solve():
+    for substep in range(SUBSTEPS):
+        # 1. Unconstrained motion prediction (Euler step)
+        for i in particles:
+            vel[i] += dt * inv_mass[i] * get_external_force(pos[i])
+            vel[i] *= damping_factor
+            predicted_pos[i] = pos[i] + dt * vel[i]
+
+        # 2. Gauss-Seidel constraint projection loop
+        for iteration in range(CONSTRAINT_ITERATIONS):
+            project_stretch_constraints()
+            project_bend_constraints()
+            project_shear_constraints()
+            project_obstacle_collisions()
+            project_self_collisions()
+
+        # 3. Velocity update and position commit (Verlet integration)
+        for i in particles:
+            vel[i] = (predicted_pos[i] - pos[i]) / dt
+            pos[i] = predicted_pos[i]</code></pre>
+        </div>
+        <h3>Constraint Projections</h3>
+        <p>
+          Constraints are solved in order of strictness. For example, self-collisions take higher
+          priority than stretch constraints, so it's solved later (i.e. we prefer cloth to slightly elongate than
+          penetrate itself).
+        </p>
+        <h4 style="margin-top: 16px;">Stretch Constraints</h4>
+        <p>
+          For every triangle mesh edge connecting vertices \(\mathbf{p}_1\) and \(\mathbf{p}_2\) with rest length
+          \(d_0\),
+          the bilateral distance constraint is:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$C_{\text{dist}}(\mathbf{p}_1, \mathbf{p}_2) = |\mathbf{p}_1 - \mathbf{p}_2| - d_0$$
+        </p>
+        <p>
+          The position corrections conserving linear and angular momentum are:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\Delta \mathbf{p}_1 = - \frac{w_1}{w_1 + w_2} (|\mathbf{p}_1 - \mathbf{p}_2| - d_0) \frac{\mathbf{p}_1 -
+          \mathbf{p}_2}{|\mathbf{p}_1 - \mathbf{p}_2|}$$
+          $$\Delta \mathbf{p}_2 = + \frac{w_2}{w_1 + w_2} (|\mathbf{p}_1 - \mathbf{p}_2| - d_0) \frac{\mathbf{p}_1 -
+          \mathbf{p}_2}{|\mathbf{p}_1 - \mathbf{p}_2|}$$
+        </p>
+        <p>
+          With this, the inverse mass approach works naturally with fixed (pinned) points: when a vertex is pinned (\(w
+          = 0\)), its displacement correction \(\Delta \mathbf{p}\) naturally evaluates to \(0\), and acceleration
+          (\(\mathbf{a} = w\mathbf{f}\)) is free of division-by-zero errors.
+        </p>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">def project_stretch_constraints():
+    k_prime = 1 - (1 - k_stretch) ** (1 / substeps)
+
+    for i in range(len(stretch_edge_v0)):
+        idx0, idx1 = stretch_edge_v0[i], stretch_edge_v1[i]
+        p0, p1 = pos[idx0], pos[idx1]
+        w0, w1 = inv_mass[idx0], inv_mass[idx1]
+
+        if (w0 + w1) &lt; EPSILON:
+            continue
+
+        length = np.linalg.norm(p0 - p1)
+        diff = length - rest_lengths[i]
+        n = (p0 - p1) / (length + EPSILON)
+
+        pos[idx0] += -w0 / (w0 + w1) * diff * n * k_prime
+        pos[idx1] +=  w1 / (w0 + w1) * diff * n * k_prime</code></pre>
+        </div>
+        <!-- TODO: Add image for testing stretch constraints -->
+
+        <h4 style="margin-top: 16px;">Bending Constraints</h4>
+        <p>
+          Bending resistance is modeled between adjacent triangles sharing a common edge \((\mathbf{p}_1,
+          \mathbf{p}_2)\)
+          with opposite wing vertices \(\mathbf{p}_3\) and \(\mathbf{p}_4\). The dihedral angle \(\phi\) between normal
+          vectors \(\mathbf{n}_1\) and \(\mathbf{n}_2\) is constrained to rest angle \(\phi_0\):
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$C_{\text{bend}}(\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3, \mathbf{p}_4) = \arccos(\mathbf{n}_1 \cdot
+          \mathbf{n}_2) - \phi_0$$
+        </p>
+        <p>
+          Let \(d = \mathbf{n}_1 \cdot \mathbf{n}_2\). Setting \(\mathbf{p}_1 = \mathbf{0}\) as the relative origin and
+          evaluating the gradients of normalized face normals yields direction vectors \(\mathbf{q}_i\):
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\mathbf{q}_3 = \frac{\mathbf{p}_2 \times \mathbf{n}_2 + (\mathbf{n}_1 \times \mathbf{p}_2)d}{|\mathbf{p}_2
+          \times \mathbf{p}_3|}$$
+          $$\mathbf{q}_4 = \frac{\mathbf{p}_2 \times \mathbf{n}_1 + (\mathbf{n}_2 \times \mathbf{p}_2)d}{|\mathbf{p}_2
+          \times \mathbf{p}_4|}$$
+          $$\mathbf{q}_2 = -\frac{\mathbf{p}_3 \times \mathbf{n}_2 + (\mathbf{n}_1 \times \mathbf{p}_3)d}{|\mathbf{p}_2
+          \times \mathbf{p}_3|} - \frac{\mathbf{p}_4 \times \mathbf{n}_1 + (\mathbf{n}_2 \times
+          \mathbf{p}_4)d}{|\mathbf{p}_2 \times \mathbf{p}_4|}$$
+          $$\mathbf{q}_1 = -\mathbf{q}_2 - \mathbf{q}_3 - \mathbf{q}_4$$
+        </p>
+        <p>
+          The final position corrections are then computed as:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\Delta \mathbf{p}_i = - \frac{w_i \sqrt{1 - d^2}(\arccos(d) - \phi_0)}{\sum_j w_j |\mathbf{q}_j|^2}
+          \mathbf{q}_i$$
+        </p>
+        <p>
+          Importantly, because this formulation operates purely on the dihedral angle between normal vectors, this
+          bending constraint is <strong>independent of stretch constraints</strong>.
+        </p>
+        <p>
+          <strong>Testing</strong>: Because gravity alone in a static hanging configuration does not
+          generate curvature to test the bending deformation, we can test by adding external horizontal force like wind.
+        </p>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">def project_bend_constraints():
+    k_prime = 1 - (1 - k_bend) ** (1 / substeps)
+
+    for i in range(len(bend_shared_edge_v0)):
+        idx1, idx2 = bend_shared_edge_v0[i], bend_shared_edge_v1[i]
+        idx3, idx4 = bend_non_shared_edge_v0[i], bend_non_shared_edge_v1[i]
+        p1, p2, p3, p4 = pos[idx1], pos[idx2], pos[idx3], pos[idx4]
+        w1, w2, w3, w4 = inv_mass[idx1], inv_mass[idx2], inv_mass[idx3], inv_mass[idx4]
+
+        e2, e3, e4 = p2 - p1, p3 - p1, p4 - p1
+        n1 = np.cross(e2, e3) / (np.linalg.norm(np.cross(e2, e3)) + EPSILON)
+        n2 = np.cross(e2, e4) / (np.linalg.norm(np.cross(e2, e4)) + EPSILON)
+
+        d = np.dot(n1, n2)
+        diff_angle = np.arccos(np.clip(d, -1.0, 1.0)) - rest_angles[i]
+
+        q3 = (np.cross(e2, n2) + d * np.cross(n1, e2)) / (np.linalg.norm(np.cross(e2, e3)) + EPSILON)
+        q4 = (np.cross(e2, n1) + d * np.cross(n2, e2)) / (np.linalg.norm(np.cross(e2, e4)) + EPSILON)
+        q2 = -(np.cross(e3, n2) + d * np.cross(n1, e3)) / (np.linalg.norm(np.cross(e2, e3)) + EPSILON) \
+             -(np.cross(e4, n1) + d * np.cross(n2, e4)) / (np.linalg.norm(np.cross(e2, e4)) + EPSILON)
+        q1 = -q2 - q3 - q4
+
+        denom = w1 * np.dot(q1, q1) + w2 * np.dot(q2, q2) + w3 * np.dot(q3, q3) + w4 * np.dot(q4, q4)
+        if denom &lt; EPSILON:
+            continue
+
+        coeff = (np.sqrt(1 - d * d) * diff_angle / denom) * k_prime
+        pos[idx1] -= w1 * q1 * coeff
+        pos[idx2] -= w2 * q2 * coeff
+        pos[idx3] -= w3 * q3 * coeff
+        pos[idx4] -= w4 * q4 * coeff</code></pre>
+        </div>
+        <!-- TODO: Add image for testing bend constraints with wind -->
+
+        <h4 style="margin-top: 16px;">Shear Constraints</h4>
+        <p>
+          While initially omitted, early tests revealed that the mesh experienced severe diagonal
+          skewing when stretched. Introducing diagonal shear constraints between opposite wing vertices
+          \(\mathbf{p}_3\) and \(\mathbf{p}_4\) better preserves the triangle area.
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$C_{\text{shear}}(\mathbf{p}_3, \mathbf{p}_4) = |\mathbf{p}_3 - \mathbf{p}_4| - d_{\text{shear}}$$
+        </p>
+        <p>
+          The position corrections are formulated as a bilateral distance constraint between the non-shared wing
+          vertices:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$\Delta \mathbf{p}_3 = - \frac{w_3}{w_3 + w_4} (|\mathbf{p}_3 - \mathbf{p}_4| - d_{\text{shear}})
+          \frac{\mathbf{p}_3 - \mathbf{p}_4}{|\mathbf{p}_3 - \mathbf{p}_4|}$$
+          $$\Delta \mathbf{p}_4 = + \frac{w_4}{w_3 + w_4} (|\mathbf{p}_3 - \mathbf{p}_4| - d_{\text{shear}})
+          \frac{\mathbf{p}_3 - \mathbf{p}_4}{|\mathbf{p}_3 - \mathbf{p}_4|}$$
+        </p>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">def project_shear_constraints():
+    k_prime = 1 - (1 - k_shear) ** (1 / substeps)
+
+    for i in range(len(bend_non_shared_edge_v0)):
+        idx1, idx2 = bend_non_shared_edge_v0[i], bend_non_shared_edge_v1[i]
+        p1, p2 = pos[idx1], pos[idx2]
+        w1, w2 = inv_mass[idx1], inv_mass[idx2]
+
+        if (w1 + w2) &lt; EPSILON:
+            continue
+
+        diff_vec = p1 - p2
+        curr_len = np.linalg.norm(diff_vec)
+        diff = curr_len - shear_lengths[i]
+        n = diff_vec / (curr_len + EPSILON)
+
+        pos[idx1] += -w1 / (w1 + w2) * diff * n * k_prime
+        pos[idx2] +=  w2 / (w1 + w2) * diff * n * k_prime</code></pre>
+        </div>
+
+        <h4 style="margin-top: 16px;">Iteration-Independent Stiffness</h4>
+        <p>
+          Multiplying position corrections directly by stiffness \(k \in [0, 1]\) creates a non-linear effect across
+          multiple solver iterations.
+        </p>
+        <p>
+          To make the effective stiffness linearly dependent on \(k\) and independent of the constraint's iteration
+          count, corrections are scaled by \(k'\) instead:
+        </p>
+        <p style="text-align: center; margin: 14px 0;">
+          $$k' = 1 - (1 - k)^{1 / n_s}$$
+        </p>
+      </section>
+
+      <!-- Collision Handling & Optimization -->
+      <section class="detail-section">
+        <h3>3. Collision Handling</h3>
+
+        <h4>Obstacle Collision</h4>
+        <p>
+          Collision with rigid environment props (hangers, clothing racks, laundry basket, mirror) is handled using
+          volumetric Signed Distance Fields (SDF) generated via Houdini's <strong>VDB from Polygons</strong> node:
+        </p>
+
+        <p>
+          <strong>1. SDF Distance Sampling</strong>: For each vertex \(\mathbf{p}\), the signed distance function
+          \(\phi(\mathbf{p})\) is queried from the VDB grid of the collision object. Penetration is detected whenever
+          \(\phi(\mathbf{p}) \lt
+          \text{thickness}\):
+        </p>
+        <ul style="margin: 6px 0 12px 24px; color: var(--text-secondary); line-height: 1.6;">
+          <li>\(\phi(\mathbf{p}) \lt 0\): Inside the obstacle (penetrating)</li>
+          <li>\(\phi(\mathbf{p}) = 0\): Exactly on the obstacle's surface</li>
+          <li>\(\phi(\mathbf{p}) \gt 0\): Outside in free space</li>
+        </ul>
+
+        <p>
+          <strong>2. Position Projection</strong>: The outward surface normal \(\mathbf{n}\) is
+          obtained from the normalized spatial gradient \(\nabla \phi(\mathbf{p})\), and the vertex is pushed out to the
+          collision boundary:
+        </p>
+        <p style="text-align: center; margin: 10px 0;">
+          $$\mathbf{n} = \frac{\nabla \phi(\mathbf{p})}{|\nabla \phi(\mathbf{p})|}, \quad \mathbf{p}_{\text{corrected}}
+          =
+          \mathbf{p} + (\text{thickness} - \phi(\mathbf{p}))\,\mathbf{n}$$
+        </p>
+
+        <p>
+          <strong>3. Contact Friction &amp; Restitution</strong>: Vertex displacement \(\mathbf{d} =
+          \mathbf{p}_{\text{new}}
+          - \mathbf{p}_{\text{prev}}\) is separated into normal \(\mathbf{d}_n\) and tangential \(\mathbf{d}_t\)
+          components to apply friction and restitution:
+        </p>
+        <p style="text-align: center; margin: 10px 0;">
+          $$\mathbf{d}_n = (\mathbf{d} \cdot \mathbf{n})\,\mathbf{n}, \quad \mathbf{d}_t = \mathbf{d} - \mathbf{d}_n$$
+          $$\mathbf{p} \mathrel{-}= \mathbf{d}_t \cdot \mu_{\text{friction}}, \quad \mathbf{p} \mathrel{+}= \mathbf{d}_n
+          \cdot \epsilon_{\text{restitution}}$$
+        </p>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">def project_obstacle_collisions():
+    if not collision_vdb:
+        return
+
+    # 1. Sample signed distances and filter penetrating vertices
+    distances = np.array([collision_vdb.sample(pt.tolist()) for pt in pos])
+    penetrated = (distances &lt; object_collision_thickness)
+    if not np.any(penetrated):
+        return
+
+    # Extract 1D array of vertex indices from tuple
+    hit_indices = np.where(penetrated)[0]
+    hit_pos = pos[hit_indices]
+
+    # 2. Compute outward surface normals from VDB gradients
+    gradients = np.array([collision_vdb.gradient(p.tolist()) for p in hit_pos])
+    normals = gradients / (np.linalg.norm(gradients, axis=1, keepdims=True) + EPSILON)
+    push_distances = (object_collision_thickness - distances[hit_indices]).reshape(-1, 1)
+
+    # 3. Position projection (Move-to-Hit)
+    pos[hit_indices] += normals * push_distances
+
+    # 4. Apply tangential friction &amp; normal restitution
+    displacement = pos[hit_indices] - prev_pos[hit_indices]
+    disp_n_mag = np.sum(displacement * normals, axis=1, keepdims=True)
+    disp_n = disp_n_mag * normals
+    disp_t = displacement - disp_n
+
+    pos[hit_indices] -= disp_t * friction
+    pos[hit_indices] += disp_n * restitution</code></pre>
+        </div>
+
+        <p>
+          <strong>Narrow-Band SDF</strong>: Houdini's <em>VDB from Polygons</em> node creates a sparse
+          volume constrained by <strong>Exterior Band Voxels</strong>, meaning accurate distance gradients are only
+          evaluated within a narrow band around the surface. For fast-moving obstacles, solver substeps must be
+          increased so that the distance between object and cloth stays within this band, preventing
+          geometry from skipping the detection zone and tunneling.
+        </p>
+        <div class="image-card medium">
+          <img src="/images/cloth-collision.gif" alt="Cloth Obstacle Collision Simulation" loading="lazy" />
+          <div class="image-card-caption">Obstacle collision</div>
+        </div>
+
+        <h4>Self-Collision</h4>
+        <p>
+          Unlike obstacle collisions that query a signed distance field, self-collision requires distance
+          queries between the cloth's own vertices and triangles. We don't have such Houdini's native API, so we should
+          build our own distance checking and optimization methods.
+        </p>
+
+        <p>
+          <strong>1. Broad-Phase Culling (Spatial Hashing)</strong>: 3D space is divided into a uniform grid of cells of
+          size <code>cell_size</code>. Triangle centroids of the cloth are hashed into cell buckets:
+        </p>
+        <p style="text-align: center; margin: 10px 0;">
+          $$\text{cell\_id} = \left\lfloor \frac{\mathbf{c}_{\text{tri}}}{\text{cell\_size}} \right\rfloor$$
+        </p>
+        <p>
+          For each vertex, the solver only queries candidate triangles located in its immediate \(3 \times 3 \times 3\)
+          neighboring cells (27 cells total), culling distant geometry in \(O(N)\) time. The cell size must be chosen
+          to be around the size of the triangle edge length.
+        </p>
+
+        <p>
+          <strong>2. Narrow-Phase Geometric Test (Point-Triangle &amp; Barycentric Test)</strong>:
+          For candidate triangles in neighboring buckets:
+        </p>
+        <ul style="margin: 6px 0 12px 24px; color: var(--text-secondary); line-height: 1.6;">
+          <li>Skip triangle if vertex \(\mathbf{p}\) is one of its own corners (\(i \in \{A, B, C\}\)).</li>
+          <li>Compute point-to-plane signed distance \(d = (\mathbf{p} - A) \cdot \mathbf{n}\). If \(|d| \ge
+            d_{\text{thickness}}\), reject.</li>
+          <li>If less than \(d_{\text{thickness}}\), project \(\mathbf{p}\) onto the triangle plane
+            \(\mathbf{p}_{\text{proj}}=\mathbf{p} - d\mathbf{n}\). Then, evaluate barycentric coordinates \((u, v, w)\).
+            A penetration is confirmed if \(u \ge 0, v \ge 0, w \ge 0\).</li>
+        </ul>
+
+        <p>
+          <strong>3. PBD Position Correction</strong>: When penetration occurs, the vertex is pushed outward along the
+          triangle normal:
+        </p>
+        <p style="text-align: center; margin: 10px 0;">
+          $$\Delta \mathbf{p} = (d_{\text{thickness}} - d)\,\mathbf{n} \left(\frac{w_{\text{point}}}{w_{\text{point}} +
+          w_{\text{tri}}}\right)$$
+        </p>
+        <p>
+          To conserve linear momentum, an opposing reaction displacement is distributed across the triangle vertices
+          weighted by their barycentric coordinates:
+        </p>
+        <p style="text-align: center; margin: 10px 0;">
+          $$\Delta A = -u \, \Delta \mathbf{p}, \quad \Delta B = -v \, \Delta \mathbf{p}, \quad \Delta C = -w \, \Delta
+          \mathbf{p}$$
+        </p>
+
+        <div class="image-card medium diagram">
+          <img src="/images/point-triangle-collision.svg" alt="Point-Triangle Collision Constraint Diagram"
+            loading="lazy" />
+          <div class="image-card-caption">Point-Triangle Proximity Test</div>
+        </div>
+
+        <div class="code-snippet-box">
+          <pre><code class="language-python">def build_spatial_hash_grid(pos, triangles):
+    """Broad-phase: Hash triangle centroids into 3D grid cells."""
+    hash_grid = dict()
+    tri_centroids = np.mean(pos[triangles], axis=1)
+    cell_coords = np.floor(tri_centroids / CELL_SIZE).astype(int)
+
+    for tri_idx, cell_id in enumerate(cell_coords):
+        hash_grid.setdefault(tuple(cell_id), []).append(tri_idx)
+    return hash_grid
+
+
+def resolve_point_triangle_collision(pt_idx, tri_idx):
+    """Narrow-phase: Point-triangle proximity test and PBD position correction."""
+    tri_indices = triangles[tri_idx]
+    if pt_idx in tri_indices:
+        return  # Skip triangle's own corner vertices
+
+    p_i = pos[pt_idx]
+    w_i = inv_mass[pt_idx]
+    A, B, C = pos[tri_indices]
+    w_tri_sum = np.sum(inv_mass[tri_indices])
+    total_w = w_i + w_tri_sum
+    if total_w &lt; EPSILON:
+        return
+
+    # Point-to-plane signed distance
+    normal = np.cross(B - A, C - A)
+    unit_normal = normal / np.linalg.norm(normal)
+    distance = np.dot(p_i - A, unit_normal)
+
+    # Barycentric test &amp; PBD impulse distribution
+    if abs(distance) &lt; SELF_COLLISION_THICKNESS:
+        proj_pt = p_i - (distance * unit_normal)
+        u, v, w = get_barycentric_coords(proj_pt, A, B, C)
+        if u &gt;= 0 and v &gt;= 0 and w &gt;= 0:
+            push_dir = unit_normal if distance &gt; 0 else -unit_normal
+            push = (SELF_COLLISION_THICKNESS - distance) * push_dir
+            # Push particle along the normal
+            pos[pt_idx] += push * (w_i / total_w)
+            # Push triangle vertices in the opposite direction
+            pos[tri_indices] -= push * (w_tri_sum / total_w) * np.array([u, v, w]).reshape(-1, 1)
+
+
+def project_self_collisions():
+    # 1. Broad-phase: Hash triangle centroids into spatial grid
+    hash_grid = build_spatial_hash_grid(pos, triangles)
+
+    # 2. Narrow-phase: Query 3x3x3 neighbor cells for each vertex
+    for i in range(num_pts):
+        cell_id = tuple(np.floor(pos[i] / CELL_SIZE).astype(int))
+
+        for dx, dy, dz in itertools.product([-1, 0, 1], repeat=3):
+            neighbor_cell = (cell_id[0] + dx, cell_id[1] + dy, cell_id[2] + dz)
+            if neighbor_cell not in hash_grid:
+                continue
+
+            for tri_idx in hash_grid[neighbor_cell]:
+                resolve_point_triangle_collision(i, tri_idx)</code></pre>
+        </div>
+        <p>
+          <strong>Performance Limitation</strong>: Because spatial hashing goes through all vertices and must be rebuilt
+          dynamically at every iteration, self-collision is the most time-consuming constraint in the solver pipeline.
+        </p>
+
+        <div class="image-card medium">
+          <img src="/images/cloth-self-collision.gif" alt="Cloth Self-Collision Simulation" loading="lazy" />
+          <div class="image-card-caption">Garment self-collision resolution using spatial hashing</div>
+        </div>
+      </section>
+
+      <!-- Modeled Assets & Materials -->
+      <section class="detail-section">
+        <h3>4. Garment & Scene Modeling</h3>
+        <p>
+          The garment was built manually using <strong>Vellum</strong> nodes in Houdini, and after seams are stitched,
+          the cloth simulation was performed using the custom Python solver explained above.
+        </p>
+        <div
+          style="display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 18px 0 20px 0;">
+          <div class="image-card medium" style="width: fit-content; margin: 0;">
+            <img src="/images/cloth-cloth-modeling.png" alt="Garment Modeling in Houdini" loading="lazy"
+              style="background: transparent;" />
+          </div>
+          <div class="image-card medium" style="width: fit-content; margin: 0;">
+            <img src="/images/cloth-scene-modeling.png" alt="Scene Environment Modeling in Houdini" loading="lazy"
+              style="background: transparent;" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Future Investigations -->
+      <section class="detail-section">
+        <h3>Future Investigations</h3>
+        <ul>
+          <li>
+            <strong>Implement Tearing</strong>: Dynamically split mesh topology and remove constraint connections when
+            edge strain exceeds a threshold.
+          </li>
+          <li>
+            <strong>Implement with Taichi</strong>: Port the solver to <a href="https://www.taichi-lang.org/"
+              target="_blank" rel="noopener noreferrer" class="text-link">Taichi Lang</a> to leverage GPU
+            parallelism.
+          </li>
+          <li>
+            <strong>Compare Cloth Simulation Approaches</strong>: Implement and compare alternative cloth simulation
+            methods, such as mass-spring systems and <a
+              href="https://matthias-research.github.io/pages/publications/XPBD.pdf" target="_blank"
+              rel="noopener noreferrer" class="text-link">Extended Position Based Dynamics (XPBD)</a> to achieve true
+            time-step- and iteration-independent compliance with physical material parameters.
+          </li>
+          <li>
+            <strong>Dynamic BVH &amp; Edge-Edge Collisions</strong>: Implement Bounding Volume Hierarchies (BVH)
+            and continuous edge-edge collision detection to handle high-speed self-collisions and thin folds.
+          </li>
+          <li>
+            <strong>Marvelous Designer</strong>: I would love to learn more complex garment modeling as well as the
+            cloth simulation algorithm behind the software.
+          </li>
+        </ul>
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul>
+          <li>
+            <strong>Position Based Dynamics</strong> &mdash; Matthias Müller, Bruno Heidelberger, Marcus Hennix, John
+            Ratcliff (VRIPHYS 2006).
+            <a href="https://matthias-research.github.io/pages/publications/posBasedDyn.pdf" target="_blank"
+              rel="noopener noreferrer" class="text-link">PDF</a>
+          </li>
+          <li>
+            <strong>Ten Minute Physics: Spatial Hashing &amp; Cloth Simulation</strong> &mdash; Matthias Müller.
+            <a href="https://matthias-research.github.io/pages/tenMinutePhysics/index.html" target="_blank"
+              rel="noopener noreferrer" class="text-link">Website</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi &bull; <a href="../index.html#projects" class="text-link">Back to Projects</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -15,6 +15,9 @@
 2. Add a Learning Journey Technical page for EE263 Material!
 
 ## Changelog
+### 2026-09-04
+-  Complete "PBD Cloth Solver" project page. Only thing remaining is update GIFs and videos.
+
 ### 2026-08-23
 - Finished "Be Kind To Yourself (2019)" project page.
 
