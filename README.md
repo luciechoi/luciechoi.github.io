@@ -15,6 +15,9 @@
 2. Add a Learning Journey Technical page for EE263 Material!
 
 ## Changelog
+### 2026-09-07
+- Update images in the PBD Cloth project page.
+
 ### 2026-09-05
 - Start Fire Sound Synthesis project page.
 - Update card styles

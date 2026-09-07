@@ -147,15 +147,15 @@
       flex-grow: 1;
     }
 
-    .image-card:has(.image-card-caption) img {
+    .image-card:not(.medium):has(.image-card-caption) img {
       height: calc(100% - 38px);
     }
 
     .image-card.medium img {
+      width: 100%;
       height: auto;
-      max-height: 380px;
-      object-fit: contain;
-      background: #000;
+      object-fit: cover;
+      display: block;
     }
 
     .image-card.diagram {
@@ -329,6 +329,15 @@
           <li><strong>Postprocessing</strong>: Applies surface smoothing and adds thickness to the final garment.
           </li>
         </ul>
+        <div class="image-card" style="height: auto; max-width: 100%; margin: 20px 0 24px 0;">
+          <img src="/images/houdini_pbd_nodes.png" alt="Houdini PBD Solver Node Network" loading="lazy"
+            style="width: 100%; height: auto; display: block;" />
+          <div class="image-card-caption">Houdini Node Network</div>
+        </div>
+        <div class="image-card medium" style="max-width: 260px;">
+          <img src="/images/cloth_parameters.png" alt="Cloth Simulation Parameters" loading="lazy" />
+          <div class="image-card-caption">Cloth Parameters</div>
+        </div>
       </section>
 
       <!-- Technical Details: Preprocessing -->
@@ -604,6 +613,10 @@ def pbd_solve():
             pos[i] = predicted_pos[i]</code></pre>
         </div>
         <h3>Constraint Projections</h3>
+        <div class="image-card medium">
+          <img src="/images/cloth-stretch.gif" alt="Cloth Stretch Simulation" loading="lazy" />
+          <div class="image-card-caption">Stretch constraint</div>
+        </div>
         <p>
           Constraints are solved in order of strictness. For example, self-collisions take higher
           priority than stretch constraints, so it's solved later (i.e. we prefer cloth to slightly elongate than
@@ -788,8 +801,11 @@ def pbd_solve():
       <!-- Collision Handling & Optimization -->
       <section class="detail-section">
         <h3>3. Collision Handling</h3>
-
         <h4>Obstacle Collision</h4>
+        <div class="image-card medium">
+          <img src="/images/object-collision.gif" alt="Cloth Obstacle Collision Simulation" loading="lazy" />
+          <div class="image-card-caption">Obstacle collision</div>
+        </div>
         <p>
           Collision with rigid environment props (hangers, clothing racks, laundry basket, mirror) is handled using
           volumetric Signed Distance Fields (SDF) generated via Houdini's <strong>VDB from Polygons</strong> node:
@@ -870,12 +886,12 @@ def pbd_solve():
           increased so that the distance between object and cloth stays within this band, preventing
           geometry from skipping the detection zone and tunneling.
         </p>
-        <div class="image-card medium">
-          <img src="/images/cloth-collision.gif" alt="Cloth Obstacle Collision Simulation" loading="lazy" />
-          <div class="image-card-caption">Obstacle collision</div>
-        </div>
 
         <h4>Self-Collision</h4>
+        <div class="image-card medium">
+          <img src="/images/cloth-self-collision.gif" alt="Cloth Self-Collision Simulation" loading="lazy" />
+          <div class="image-card-caption">Self-collision</div>
+        </div>
         <p>
           Unlike obstacle collisions that query a signed distance field, self-collision requires distance
           queries between the cloth's own vertices and triangles. We don't have such Houdini's native API, so we should
@@ -995,11 +1011,6 @@ def project_self_collisions():
           <strong>Performance Limitation</strong>: Because spatial hashing goes through all vertices and must be rebuilt
           dynamically at every iteration, self-collision is the most time-consuming constraint in the solver pipeline.
         </p>
-
-        <div class="image-card medium">
-          <img src="/images/cloth-self-collision.gif" alt="Cloth Self-Collision Simulation" loading="lazy" />
-          <div class="image-card-caption">Garment self-collision resolution using spatial hashing</div>
-        </div>
       </section>
 
       <!-- Modeled Assets & Materials -->
@@ -1009,15 +1020,12 @@ def project_self_collisions():
           The garment was built manually using <strong>Vellum</strong> nodes in Houdini, and after seams are stitched,
           the cloth simulation was performed using the custom Python solver explained above.
         </p>
-        <div
-          style="display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 18px 0 20px 0;">
-          <div class="image-card medium" style="width: fit-content; margin: 0;">
-            <img src="/images/cloth-cloth-modeling.png" alt="Garment Modeling in Houdini" loading="lazy"
-              style="background: transparent;" />
+        <div class="image-grid-modeling">
+          <div class="image-card" style="height: auto;">
+            <img src="/images/cloth-cloth-modeling.png" alt="Garment Modeling in Houdini" loading="lazy" />
           </div>
-          <div class="image-card medium" style="width: fit-content; margin: 0;">
-            <img src="/images/cloth-scene-modeling.png" alt="Scene Environment Modeling in Houdini" loading="lazy"
-              style="background: transparent;" />
+          <div class="image-card" style="height: auto;">
+            <img src="/images/cloth-scene-modeling.png" alt="Scene Environment Modeling in Houdini" loading="lazy" />
           </div>
         </div>
       </section>
