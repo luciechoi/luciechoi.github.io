@@ -13,8 +13,13 @@
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
 2. Add a Learning Journey Technical page for EE263 Material!
+3. Add UC Berkeley vs Stanford Class comparison journal
+4. Recreate fire sound at higher rate than 240Hz.
 
 ## Changelog
+### 2026-09-08
+- Update PBD Cloth final video.
+
 ### 2026-09-07
 - Update images in the PBD Cloth project page.
 
