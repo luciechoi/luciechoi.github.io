@@ -225,6 +225,7 @@ const subtabPanes = document.querySelectorAll('.subtab-pane');
 
 subtabButtons.forEach(button => {
   button.addEventListener('click', () => {
+    if (button.disabled || button.classList.contains('disabled')) return;
     const targetSubtab = button.getAttribute('data-subtab');
 
     subtabButtons.forEach(btn => btn.classList.remove('active'));

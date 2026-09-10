@@ -538,9 +538,9 @@
                 <!-- Sub Navigation for About Me -->
                 <div class="subtabs-nav">
                     <button class="subtab-btn active" data-subtab="writing">Writing</button>
-                    <button class="subtab-btn" data-subtab="inspirations">Works of Inspiration</button>
-                    <button class="subtab-btn" data-subtab="quotes">Quotes To Live By</button>
                     <button class="subtab-btn" data-subtab="books">Impactful Books</button>
+                    <button class="subtab-btn disabled" disabled data-subtab="inspirations">Works of Inspiration</button>
+                    <button class="subtab-btn disabled" disabled data-subtab="quotes">Quotes To Live By</button>
                 </div>
 
                 <!-- Subtab 1: Writing -->
@@ -570,45 +570,7 @@
                     </div>
                 </div>
 
-                <!-- Subtab 2: Works of Inspiration -->
-                <div class="subtab-pane" id="subtab-inspirations">
-                    <div class="inspiration-list">
-                        <div class="inspire-row">
-                            <span class="inspire-label">Generative &amp; Computational Art</span>
-                            <p>Explorations where mathematical algorithms produce organic visual beauty and interactive
-                                behaviors.</p>
-                        </div>
-                        <div class="inspire-row">
-                            <span class="inspire-label">Minimalist Product Design</span>
-                            <p>Dieter Rams' Ten Principles for Good Design, Braun industrial aesthetics, and Bauhaus
-                                functionalism.</p>
-                        </div>
-                        <div class="inspire-row">
-                            <span class="inspire-label">Open Web &amp; Creative Tools</span>
-                            <p>Tools that empower people to build, think, and express ideas freely through software.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Subtab 3: Quotes To Live By -->
-                <div class="subtab-pane" id="subtab-quotes">
-                    <div class="quotes-list">
-                        <blockquote class="quote-item">
-                            <p>"Simplicity is prerequisite for reliability."</p>
-                            <cite>— Edsger W. Dijkstra</cite>
-                        </blockquote>
-                        <blockquote class="quote-item">
-                            <p>"The best way to predict the future is to invent it."</p>
-                            <cite>— Alan Kay</cite>
-                        </blockquote>
-                        <blockquote class="quote-item">
-                            <p>"Make it work, make it right, make it fast."</p>
-                            <cite>— Kent Beck</cite>
-                        </blockquote>
-                    </div>
-                </div>
-
-                <!-- Subtab 4: Impactful Books -->
+                <!-- Subtab 2: Impactful Books -->
                 <div class="subtab-pane" id="subtab-books">
                     <div class="books-list">
                         <div class="book-row">
@@ -681,6 +643,36 @@
                             </div>
                             <p class="book-description">An actionable framework for compound micro-improvements,
                                 habit systems, and identity-based change.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtab 3: Works of Inspiration -->
+                <div class="subtab-pane" id="subtab-inspirations">
+                    <div class="journal-entries">
+                        <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Works of Inspiration</h4>
+                            <p>
+                                A curated collection of art, minimalist design, and creative software that inspire my work.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtab 4: Quotes To Live By -->
+                <div class="subtab-pane" id="subtab-quotes">
+                    <div class="journal-entries">
+                        <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Quotes To Live By</h4>
+                            <p>
+                                Words and philosophies that ground my perspective on engineering and life.
+                            </p>
                         </div>
                     </div>
                 </div>
