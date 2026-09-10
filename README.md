@@ -17,6 +17,9 @@
 4. Recreate fire sound at higher rate than 240Hz.
 
 ## Changelog
+### 2026-09-09
+- Finish "Fire Sound Synthesis" project page.
+
 ### 2026-09-08
 - Update PBD Cloth final video.
 

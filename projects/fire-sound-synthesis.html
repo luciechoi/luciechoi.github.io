@@ -217,8 +217,9 @@
     }
 
     .callout-box {
-      background-color: var(--bg-subtle);
-      border-left: 3px solid var(--text-main);
+      background-color: #f0fdf4;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-left: 4px solid #16a34a;
       padding: 14px 16px;
       margin: 16px 0 20px 0;
       border-radius: 0 8px 8px 0;
@@ -227,13 +228,14 @@
     }
 
     .callout-box strong {
-      color: var(--text-main);
+      color: #14532d;
     }
 
     .callout-title {
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       font-family: var(--font-heading);
+      color: #15803d;
     }
   </style>
 </head>
@@ -245,12 +247,12 @@
     <header class="project-detail-header">
       <h1 class="project-detail-title">Undying Passion (2026)</h1>
       <div class="project-detail-meta">
-        <span>2026 • Sound Synthesis</span>
+        <span>2026 • Sound Synthesis • 20 min read</span>
       </div>
 
       <div class="project-tags">
+        <span>Fire Sound Synthesis</span>
         <span>Spectral Bandwidth Extension</span>
-        <span>Pyro</span>
         <span>Houdini</span>
       </div>
 
@@ -276,45 +278,40 @@
         <h3>Process Pipeline</h3>
         <div class="pipeline-flow">
           <div class="pipeline-step">
-            <span class="step-name">1. Pyro Solver (Houdini)</span>
+            <span class="step-name">1. Pyro Solver</span>
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">2. Isosurface Flux Integral</span>
+            <span class="step-name">2. Flux Integral Calculation</span>
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">3. Audio-Rate Sampling</span>
+            <span class="step-name">3. Low-Frequency Sound Synthesis</span>
           </div>
           <div class="pipeline-connector">&rarr;</div>
           <div class="pipeline-step">
-            <span class="step-name">4. Low-Frequency Roar</span>
-          </div>
-          <div class="pipeline-connector">&rarr;</div>
-          <div class="pipeline-step">
-            <span class="step-name">5. Bandwidth Extension</span>
-          </div>
-          <div class="pipeline-connector">&rarr;</div>
-          <div class="pipeline-step">
-            <span class="step-name">6. Mantra &amp; Composition</span>
+            <span class="step-name">4. Bandwidth Extension</span>
           </div>
         </div>
       </section>
 
       <!-- Overview & Physics -->
       <section class="detail-section">
-        <h3>Overview &amp; Acoustic Physics of Fire</h3>
+        <h3>Overview</h3>
+        <p>
+          This project implements the fire sound synthesis approach proposed in the <a
+            href="https://www.cs.cornell.edu/projects/Sound/fire/FireSound2011.pdf" target="_blank"
+            rel="noopener noreferrer" class="text-link">paper</a> [1].
+        </p>
         <p>
           Unlike rigid-body impact sound or modal vibrations of solid shells, open flame combustion sound is governed by
           <strong>unsteady volumetric expansion</strong>. When combustible fuel-air gases enter the flame front, rapid
           chemical reactions dramatically elevate temperature, causing the gas volume to violently expand.
         </p>
         <p>
-          Following the acoustic formulation by Chadwick et al. [1], the far-field acoustic pressure \(p(t)\) emitted by
-          a compact
-          flame monopole source is directly proportional to the time derivative of the total volumetric expansion flux
-          across the
-          flame reaction isosurface \(S(t)\):
+          Following the acoustic formulation, the acoustic pressure \(p(t)\) emitted by
+          a compact flame source is directly proportional to the time derivative of the total volumetric expansion flux
+          across the flame reaction isosurface \(S(t)\):
         </p>
 
         <p style="text-align: center; margin: 18px 0;">
@@ -334,20 +331,20 @@
         </p>
 
         <p>
-          Because macroscopic fluid solvers cannot efficiently resolve high-frequency turbulent acoustics at 44.1 kHz,
-          this project adopts a two-scale synthesis strategy:
+          However, because we cannot realistically sample at the audio rate 44.1 kHz, this project adopts a two-scale
+          synthesis strategy:
         </p>
         <ol style="margin-left: 20px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">
           <li><strong>Low-Frequency Roar (\(&lt; 120\text{ Hz}\))</strong>: Evaluated directly from the physical
             expansion flux integral \(I(t)\) of the Houdini Pyro simulation.</li>
           <li><strong>High-Frequency Sizzle (\(120\text{ Hz} - 10\text{ kHz}\))</strong>: Synthesized via spectral
-            bandwidth extension obeying Kolmogorov turbulent combustion scaling laws.</li>
+            bandwidth extension.</li>
         </ol>
       </section>
 
       <!-- Houdini Pyro & Sound Data Preparation -->
       <section class="detail-section">
-        <h3>Houdini Simulation &amp; Sound Data Preparation</h3>
+        <h3>Sound Data Preparation</h3>
 
         <h4>1. Pyro Simulation Setup</h4>
         <p>
@@ -382,7 +379,7 @@
           </li>
         </ul>
 
-        <h4>3. Audio-Rate Sampling &amp; Data Verification</h4>
+        <h4>3. Audio-Rate Sampling at 240 FPS</h4>
         <p>
           The flux integral was simulated and recorded at <strong>240 FPS</strong> (\(f_s^{\text{sim}} = 240\text{
           Hz}\)), corresponding to a Nyquist frequency of \(f_{\text{Nyquist}} = 120\text{ Hz}\).
@@ -390,12 +387,20 @@
         </p>
 
         <div class="callout-box">
-          <div class="callout-title">Physical Flux Curve Verification</div>
+          <div class="callout-title">Flux Integration</div>
           <p>
             The exported flux integral \(I(t)\) exhibits strong physical coherence: it rapidly ramps up from ignition as
-            expanding gas envelopes the ignition points,
-            subsequently settles into turbulent periodic oscillations, and occasionally reaches negative instantaneous
-            flux values during rapid localized gas cooling and contraction.
+            expanding gas envelopes the ignition points, subsequently settling into turbulent periodic oscillations.
+            While instantaneous flux occasionally dips into slight negative values—primarily an artifact of the
+            non-physical combustion divergence model in the Pyro solver rather than true physical gas
+            contraction—acoustic
+            pressure is evaluated strictly through the time derivative \(p(t) \propto \frac{dI}{dt}\), preserving
+            proper transient acoustics.
+          </p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+            <em>Note on Sampling Rate</em>: Because 240 FPS is relatively low for audio (Nyquist of 120 Hz), the final
+            sound is mostly hearing the synthesized noise model. The purpose is mainly to describe the overall pipeline
+            for synthesizing fire sound.
           </p>
         </div>
       </section>
@@ -411,16 +416,12 @@
         </p>
         <ul>
           <li>
-            <strong>Integral-Domain Upsampling</strong>: We apply cubic spline interpolation
-            (<code>scipy.interpolate.CubicSpline</code>)
-            directly to the <strong>flux integral \(I(t)\)</strong> rather than the finite-difference derivative
-            \(\frac{dI}{dt}\).
-            Interpolating before differentiation ensures a \(C^2\)-continuous pressure curve \(p(t) = \frac{d}{dt}I(t)\)
-            without discrete derivative discretization noise.
+            <strong>Spline Upsampling</strong>: We apply cubic spline interpolation for smooth upsampling to the audio
+            rate (44.1 kHz).
           </li>
           <li>
-            <strong>Acoustic Pressure Evaluation</strong>: Central finite differences on the upsampled continuous flux
-            produce the low-frequency audio signal (<code>fire_sound_low.wav</code>).
+            <strong>Acoustic Pressure</strong>: We compute the time derivative \(p(t) \propto \frac{dI}{dt}\) using
+            <code>np.gradient(...)</code> to produce the low-frequency pressure waveform.
           </li>
         </ul>
       </section>
@@ -431,8 +432,8 @@
         <h4>The Physics of Fire Hiss</h4>
         <p>
           While the low-frequency rumble captures bulk combustion dynamics, natural fire emits a rich, broad-band
-          crackle and hiss
-          spanning up to several kilohertz. According to turbulent combustion acoustics, the sound power spectrum of
+          crackle and hiss spanning up to several kilohertz. According to turbulent combustion acoustics, the sound
+          power spectrum of
           turbulent flame fronts
           empirically satisfies an <strong>inverse power law</strong> decay:
         </p>
@@ -446,85 +447,48 @@
           yielding a sharp, crisp hiss, while higher values (\(\alpha \approx 3.4\)) produce a smoother, warmer timbre.
         </p>
 
-        <h4>Short-Time Windowing &amp; Synthesis Pipeline</h4>
+        <h4>Spectral Bandwidth Extension</h4>
         <div class="image-card diagram">
           <img src="/images/fire-sound-bandwidth-extension-diagram.png"
             alt="Spectral Bandwidth Extension Pipeline Diagram" loading="lazy" />
-          <div class="image-card-caption">
-            Short-time windowed synthesis pipeline: low-frequency pressure \(p(t)\) is windowed and matched in energy
-            with shaped noise \(N_W(t)\) following \(f^{-\alpha/2}\).
-          </div>
         </div>
 
         <p>
-          The synthesis algorithm processes the audio via an overlap-add Short-Time Fourier Transform (STFT)
-          architecture:
+          The synthesis algorithm processes the audio in short time windows to generate matching high-frequency hiss:
         </p>
         <ol style="margin-left: 20px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 14px;">
-          <li><strong>Windowing</strong>: The upsampled pressure signal is segmented into overlapping Hann windows
-            \(w(t)\) to produce windowed frames \(p_W(t)\).</li>
-          <li><strong>Noise Generation &amp; Spectral Shaping</strong>: White noise frames \(N_W(t)\) are generated,
-            transformed to frequency domain, and shaped by the \(f^{-\alpha/2}\) power-law filter.</li>
-          <li>
-            <strong>Dynamic Energy Matching (\(\beta\) Scaling)</strong>: To seamlessly attach the synthetic
-            high-frequency spectrum to the physical low-frequency simulation, a scaling factor \(\beta\) is computed per
-            frame:
-            <p style="text-align: center; margin: 12px 0;">
-              $$\beta = \frac{E_{\text{low}} \cdot
-              \left(\frac{\text{Area}_{\text{high}}}{\text{Area}_{\text{low}}}\right)}{E_{\text{noise}}}$$
-            </p>
-            where \(E_{\text{low}}\) is the low-frequency simulation energy in the frame, and \(E_{\text{noise}}\) is
-            the shaped noise energy.
-          </li>
-          <li><strong>Temporal Smoothing</strong>: A Gaussian blur filter is applied across consecutive \(\beta\) values
-            to prevent audible energy fluttering between adjacent frames.</li>
-          <li><strong>Spectral Blending &amp; Overlap-Add</strong>: The low-frequency spectrum and scaled noise spectrum
-            are blended with smooth transition weights across the cutoff boundary (\(f_{\text{cut}} = 120\text{ Hz}\)),
-            followed by Inverse FFT (IFFT) and overlap-add buffer accumulation.</li>
+          <li><strong>Windowing</strong>: Divide the low-frequency audio into short, overlapping segments.</li>
+          <li><strong>Noise Shaping</strong>: Generate white noise and filter it to follow the \(f^{-\alpha/2}\)
+            power-law decay curve.</li>
+          <li><strong>Energy Matching</strong>: Scale the volume of the synthetic noise in each segment so it matches
+            the physical simulation's intensity.</li>
+          <li><strong>Temporal Smoothing</strong>: Smooth volume transitions over time to eliminate audible clicks or
+            fluttering.</li>
+          <li><strong>Blending &amp; Reconstruction</strong>: Blend the low-frequency roar with the high-frequency hiss
+            across the 120 Hz boundary, then stitch the segments back together.</li>
         </ol>
 
-        <h4>Debugging &amp; Implementation Insights</h4>
-        <ul>
-          <li>
-            <strong>Issue 1 (Overpowering Hiss &amp; Lost Low-Frequency Pattern)</strong>: In early implementations, the
-            high-frequency hiss overwhelmed the signal, masking the roar.
-            This was caused by improper frequency band masking when combining low and high bands. Implementing smooth
-            transition blend weights restored low-frequency clarity.
-          </li>
-          <li>
-            <strong>Issue 2 (Disappearing High Frequencies / Beta Collapse)</strong>: After fixing Issue 1, high
-            frequencies vanished entirely because \(\beta\) collapsed to \(\sim 10^{-15}\).
-            Debugging revealed that evaluating the \(0\text{ Hz}\) DC bin with \((0 + \epsilon)^{-\alpha/2}\) produced a
-            massive singularity that inflated the noise denominator.
-            Excluding the 0 Hz DC bin from energy integration completely resolved the scaling bug.
-          </li>
-        </ul>
+        <div class="callout-box">
+          <div class="callout-title">Why Use FFT &amp; IFFT?</div>
+          <p>
+            Shaping noise to follow the theoretical \(f^{-\alpha/2}\) power law is difficult to calculate directly on
+            time-domain audio samples, but simple in the frequency domain:
+          </p>
+          <ul style="margin: 8px 0 8px 20px; font-size: 0.92rem; line-height: 1.6;">
+            <li><strong>FFT (Time &rarr; Frequency)</strong>: Converts the audio from time-domain waveforms into
+              frequency
+              components.</li>
+            <li><strong>Filter &amp; Scale</strong>: Multiplies the frequency spectrum by \(f^{-\alpha/2}\) and scales
+              its volume
+              by the simulation's physical energy factor \(\beta\).</li>
+            <li><strong>IFFT (Frequency &rarr; Time)</strong>: Converts the shaped frequencies back into continuous
+              time-domain audio waves that can be played through speakers.</li>
+          </ul>
+        </div>
       </section>
 
       <!-- Spectrogram Analysis & Results -->
       <section class="detail-section">
-        <h3>Spectrogram Analysis &amp; Results</h3>
-        <p>
-          FFT spectrogram analysis demonstrates the clear difference between the raw low-frequency simulation sound and
-          the extended broad-band synthesis:
-        </p>
-
-        <div class="image-grid-2">
-          <div class="image-card">
-            <img src="/images/fire-sound-low-spectrogram.png" alt="Low-Frequency FFT Spectrogram" loading="lazy" />
-            <div class="image-card-caption">
-              <strong>Low-Frequency FFT Spectrogram</strong><br />
-              Acoustic energy drops sharply above the 120 Hz Nyquist cutoff.
-            </div>
-          </div>
-          <div class="image-card">
-            <img src="/images/fire-sound-extended-spectrogram.png" alt="Extended Spectrogram" loading="lazy" />
-            <div class="image-card-caption">
-              <strong>Extended Spectrogram (\(\alpha = 2.2\))</strong><br />
-              Smooth turbulent power-law decay extended across the audible spectrum (up to 10 kHz).
-            </div>
-          </div>
-        </div>
 
         <h4>Audio-Visual Synthesis Comparison</h4>
         <p>
@@ -538,73 +502,24 @@
             <source src="/videos/fire-comparison.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div class="media-caption">
-            Audio-visual comparison: Raw Low-Frequency Roar vs. Spectral Bandwidth Extension.
-          </div>
-        </div>
-
-        <h4>Performance Benchmarks</h4>
-        <p>
-          The bandwidth extension algorithm is exceptionally fast, allowing offline or real-time sound generation orders
-          of magnitude faster than fluid simulation:
-        </p>
-
-        <div class="perf-table-container">
-          <table class="perf-table">
-            <thead>
-              <tr>
-                <th>Synthesis Stage</th>
-                <th>Processing Time</th>
-                <th>Throughput</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Low-Frequency Spline Upsampling &amp; Pressure Gradient</td>
-                <td>0.0120 s</td>
-                <td>416x real-time</td>
-              </tr>
-              <tr>
-                <td>Spectral Bandwidth Extension (\(\alpha = 2.2\), STFT/IFFT)</td>
-                <td>0.0441 s</td>
-                <td>113x real-time</td>
-              </tr>
-              <tr>
-                <td>Total Sound Synthesis Pipeline</td>
-                <td>0.0560 s</td>
-                <td><strong>89.3x real-time</strong> (5.00s audio)</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
 
-      <!-- Burning Typography Animation & Composition -->
+      <!-- Behind the Title -->
       <section class="detail-section">
-        <h3>Animation &amp; Final Composition</h3>
-        <h4>Burning Text Simulation</h4>
+        <h3>Behind the Title</h3>
         <p>
-          For the final composition, "Undying Passion (2026)", a 3D typography geometry ("448Z") was modeled and set
-          alight using progressive ignition spreading in Houdini Pyro SOP.
+          This was a class project for Stanford's CS 448Z (Physically Based Animation and Sound). While working on it, I
+          was undergoing a biopsy for breast cancer, not knowing what was to come.
         </p>
-        <ul>
-          <li>
-            <strong>Cache Optimization</strong>: Because simulating at 240 FPS generated massive volume data,
-            optimizations including OpenVDB sparse grids, 16-bit half-float compression,
-            and tight bounding box empty space culling were employed, bringing the 5-second high-density cache to ~100
-            GB.
-          </li>
-          <li>
-            <strong>Audio-Video Alignment</strong>: The synthesized audio is aligned with the video at the tail end
-            rather than frame 0.
-            Because combustion begins with minimal flame surface at frame 0 and progressively consumes the typography,
-            the sound volume naturally swells over time as the burning surface area increases.
-          </li>
-          <li>
-            <strong>Mantra &amp; DaVinci Resolve</strong>: Rendered in Houdini Mantra with volumetric blackbody emission
-            and composited in DaVinci Resolve for final audio mastering and color grading.
-          </li>
-        </ul>
+        <p style="margin-top: 12px;">
+          Reflecting on how many things I still wanted to create and had yet to do, I decided that I want to pursue
+          Graphics and VFX no matter what. Hence the title, <em>Undying Passion (2026)</em> — Graphics is what I can
+          truly call my passion.
+        </p>
+        <p style="margin-top: 12px; font-size: 0.92rem; color: var(--text-muted); font-style: italic;">
+          *Note: I later found out the result was benign — just harmless "noise"!
+        </p>
       </section>
 
       <!-- References -->
