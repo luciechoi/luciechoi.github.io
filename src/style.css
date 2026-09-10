@@ -692,7 +692,6 @@ body {
 }
 
 .subtab-btn:hover:not(:disabled):not(.disabled) {
-  color: var(--text-main);
   border-color: #cbd5e1;
 }
 
@@ -706,7 +705,8 @@ body {
   border-color: var(--border-light);
 }
 
-.subtab-btn.active {
+.subtab-btn.active,
+.subtab-btn.active:hover {
   background-color: var(--text-main);
   color: #ffffff;
   border-color: var(--text-main);
