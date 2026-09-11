@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KKRM5VCT5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8KKRM5VCT5');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphics❤️ — Lucie Choi</title>
+  <meta name="description"
+    content="A dynamic drawing simulation in Houdini featuring proximity-based VEX painting, POP graphite particles, and RBD fracture by Lucie Choi." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .code-snippet-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .code-snippet-box code.hljs {
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Graphics❤️</h1>
+      <div class="project-detail-meta">
+        <span>2026 • Technical Art • 3 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Houdini</span>
+        <span>VEX</span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Hero Image -->
+      <div class="media-container" style="max-width: 780px; margin: 0 auto 28px auto;">
+        <img src="/images/preview-graphics-heart.jpg" alt="Graphics Heart Render in Houdini"
+          style="width: 100%; height: auto; border-radius: 8px 8px 0 0; display: block;" />
+      </div>
+
+      <!-- Overview -->
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          This playful simulation demonstrates my interest in Computer Graphics early on.
+          The drawing strokes are generated algorithmically by the pencil tips that follow the curve.
+        </p>
+      </section>
+
+      <!-- Project Details -->
+      <section class="detail-section">
+        <h3>Project Details</h3>
+        <p>
+          The letters are manually drawn using Bézier curves, with the pencils following the trajectory via a
+          <code>Follow Path</code> SOP.
+          The paper rectangle is divided into a fine grid, just like pixels on a screen, which acts as the canvas.
+          To simulate the physical drawing on the paper, a feedback Solver SOP executes on every frame:
+        </p>
+        <ul>
+          <li>For each grid face on the paper, we find the closest point on the pencil lead using
+            <code>nearpoint()</code>.
+          </li>
+          <li>If the distance is within contact threshold (\(&lt; 0.008\)), the color of the lead is stamped onto the
+            paper face.</li>
+          <li>Previous frame colors are retained across the simulation so strokes stay permanent.</li>
+          <li>The colored pencil has a thicker lead geometry, automatically producing a wider, bolder stroke.</li>
+        </ul>
+
+        <pre class="code-snippet-box"><code class="language-cpp">// Copy the existing color from previous frame
+vector existing_color = prim(1, "Cd", @primnum);
+if (i@colored != 1) {
+    @Cd = existing_color;
+}
+
+// Closest point on the pencil to the current paper face
+int close_pt_id = nearpoint(2, @P);
+
+// Get the color of the lead
+vector lead_color = point(2, "Cd", close_pt_id);
+
+// Get the position of the closest point on pencil
+vector pencil_pos = point(2, "P", close_pt_id);
+
+// Check the distance between this face and the pencil
+float dist = distance(@P, pencil_pos);
+
+// If the pencil is close enough, paint it with the lead color
+float threshold = 0.008;
+if (dist &lt; threshold) {
+    @Cd = lead_color;
+    i@colored = 1;
+}</code></pre>
+
+        <p>
+          Particle Dust and Lead Fracture were simulated using POP Solver and RBD Bullet Solver.
+        </p>
+      </section>
+
+      <!-- Future Work -->
+      <section class="detail-section">
+        <h3>Future Work</h3>
+        <p>
+          In the future, I want to extend this to watercolor simulation—modeling fluid diffusion, paper absorption, and
+          realistic pigment bleeding.
+        </p>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi</p>
+    </footer>
+  </div>
+</body>
+
+</html>

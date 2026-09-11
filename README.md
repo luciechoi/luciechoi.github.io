@@ -17,6 +17,12 @@
 4. Recreate fire sound at higher rate than 240Hz.
 
 ## Changelog
+### 2026-09-11
+- Finished Graphics <3 project decription. 
+
+### 2026-09-10
+- Update Cloth final video.
+
 ### 2026-09-09
 - Finish "Fire Sound Synthesis" project page.
 
