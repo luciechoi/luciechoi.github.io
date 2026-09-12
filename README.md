@@ -1,24 +1,21 @@
 # Website Development History
 
 ## TODO
-1. Add more projects to the cards.
-2. Update individual project with technical details.
-3. Prepare and link to resume in PDF format.
-4. Draft other sections. or leave TODO.
-5. Finalize the website design.
-6. Rerender the visuals without Houdini watermarks.
-7. Add Google Analytics.
-8. Add anonymous feedback form. Fix the email notification issue?
+1. Prepare and link to resume in PDF format.
+2. Finalize the website design.
+3. Fix the email notification issue?
+4. Add Source Code?
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
 2. Add a Learning Journey Technical page for EE263 Material!
 3. Add UC Berkeley vs Stanford Class comparison journal
 4. Recreate fire sound at higher rate than 240Hz.
+5. Add my thoughts on Aesthetics.
 
 ## Changelog
 ### 2026-09-11
-- Finished Graphics <3 project decription. 
+- Finished Graphics <3 project. 
 
 ### 2026-09-10
 - Update Cloth final video.

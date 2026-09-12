@@ -59,10 +59,12 @@
     </header>
 
     <main class="project-detail-content">
-      <!-- Hero Image -->
-      <div class="media-container" style="max-width: 780px; margin: 0 auto 28px auto;">
-        <img src="/images/preview-graphics-heart.jpg" alt="Graphics Heart Render in Houdini"
-          style="width: 100%; height: auto; border-radius: 8px 8px 0 0; display: block;" />
+      <div class="media-container">
+        <video controls playsinline preload="metadata" poster="/images/preview-graphics-heart3.jpg"
+          style="width: 100%; max-height: 540px; background: #000; border-radius: 8px 8px 0 0;">
+          <source src="/videos/graphics-heart.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       <!-- Overview -->
@@ -81,7 +83,17 @@
           The letters are manually drawn using Bézier curves, with the pencils following the trajectory via a
           <code>Follow Path</code> SOP.
           The paper rectangle is divided into a fine grid, just like pixels on a screen, which acts as the canvas.
-          To simulate the physical drawing on the paper, a feedback Solver SOP executes on every frame:
+        </p>
+
+        <div class="media-container" style="margin: 20px 0 24px 0;">
+          <img src="/images/drawing-curve.png" alt="Bézier curve paths in Houdini" loading="lazy" />
+          <div class="media-caption">
+            Bézier curve trajectories guiding the pencil paths.
+          </div>
+        </div>
+
+        <p>
+          To simulate the physical drawing on the paper, a Solver SOP executes on every frame:
         </p>
         <ul>
           <li>For each grid face on the paper, we find the closest point on the pencil lead using
