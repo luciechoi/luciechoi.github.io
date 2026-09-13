@@ -14,12 +14,13 @@ export default defineConfig({
         acoustic: resolve(__dirname, 'projects/acoustic-peace-transfer.html'),
         fireSound: resolve(__dirname, 'projects/fire-sound-synthesis.html'),
         taichi: resolve(__dirname, 'projects/taichi-xylophone.html'),
-        pathTracer: resolve(__dirname, 'projects/path-tracer.html'),
+        cardinal3d: resolve(__dirname, 'projects/cardinal-3d.html'),
         voicesFloating: resolve(__dirname, 'projects/voices-floating-around-my-head.html'),
         memoryGrandmother: resolve(__dirname, 'projects/in-memory-of-my-grandmother.html'),
         beKindToYourself: resolve(__dirname, 'projects/be-kind-to-yourself.html'),
         clothPbd: resolve(__dirname, 'projects/cloth-pbd.html'),
         graphicsHeart: resolve(__dirname, 'projects/graphics-heart.html'),
+        jigsawPuzzle: resolve(__dirname, 'projects/procedural-jigsaw-puzzle.html'),
       }
     }
   },

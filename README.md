@@ -11,9 +11,15 @@
 2. Add a Learning Journey Technical page for EE263 Material!
 3. Add UC Berkeley vs Stanford Class comparison journal
 4. Recreate fire sound at higher rate than 240Hz.
-5. Add my thoughts on Aesthetics.
+5. Add my thoughts on the topic of Aesthetics.
+6. Add Houdini file for procedural puzzle generator and Graphics <3.
+7. Add "More Houdini Works+" project page at the bottom.
+
 
 ## Changelog
+### 2026-09-12
+- Finished Procedural Jigsaw Puzzle project page.
+
 ### 2026-09-11
 - Finished Graphics <3 project. 
 
