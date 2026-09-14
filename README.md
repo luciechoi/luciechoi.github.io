@@ -3,8 +3,9 @@
 ## TODO
 1. Prepare and link to resume in PDF format.
 2. Finalize the website design.
-3. Fix the email notification issue?
-4. Add Source Code?
+3. Add my professional picture.
+4. Fix the email notification issue?
+5. Add Source Code?
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
