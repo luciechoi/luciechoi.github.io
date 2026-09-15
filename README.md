@@ -9,15 +9,13 @@
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
-2. Add a Learning Journey Technical page for EE263 Material!
-3. Add UC Berkeley vs Stanford Class comparison journal
-4. Recreate fire sound at higher rate than 240Hz.
-5. Add my thoughts on the topic of Aesthetics.
-6. Add Houdini file for procedural puzzle generator and Graphics <3.
-7. Add "More Houdini Works+" project page at the bottom.
+2. Add "More Houdini Works+" project page at the bottom.
 
 
 ## Changelog
+### 2026-09-14
+- Finished Acoustic Peace Transfer project page.
+
 ### 2026-09-12
 - Finished Procedural Jigsaw Puzzle project page.
 

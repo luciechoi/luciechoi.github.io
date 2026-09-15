@@ -380,6 +380,12 @@ body {
   opacity: 0.7;
 }
 
+.title-sub {
+  font-size: 0.88em;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
 .project-meta {
   font-size: 0.78rem;
   color: var(--text-muted);
@@ -1234,23 +1240,23 @@ span.text-link.disabled:hover {
 }
 
 .detail-section {
-  margin-bottom: 32px;
+  margin-bottom: 56px;
 }
 
 .detail-section h3 {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .detail-section h4 {
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-main);
-  margin: 18px 0 8px 0;
+  margin: 36px 0 12px 0;
 }
 
 .detail-section p {
