@@ -4,8 +4,9 @@
 1. Prepare and link to resume in PDF format.
 2. Finalize the website design.
 3. Add my professional picture.
-4. Fix the email notification issue?
-5. Add Source Code?
+4. Fix the email notification issue.
+5. Add Source Code for projects.
+6. Reread and polish the project pages after awhile.
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
@@ -16,7 +17,7 @@
 ## Changelog
 ### 2026-09-14
 - Finished Acoustic Peace Transfer project page.
-- First test deployment.
+- First test deployment. 🚀
 
 ### 2026-09-12
 - Finished Procedural Jigsaw Puzzle project page.
