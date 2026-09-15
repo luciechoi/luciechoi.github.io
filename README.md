@@ -10,11 +10,13 @@
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
 2. Add "More Houdini Works+" project page at the bottom.
+3. Add Path Tracer & Mesh Processing Project.
 
 
 ## Changelog
 ### 2026-09-14
 - Finished Acoustic Peace Transfer project page.
+- First test deployment.
 
 ### 2026-09-12
 - Finished Procedural Jigsaw Puzzle project page.
