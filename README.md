@@ -78,3 +78,15 @@
 - Added ThreeJS support
 - Intro wording updated
 - Basic Project Cards Structure and Ordering
+
+### 2024-12-22
+- Incubated a thought of creating my own website.
+    - Introduction
+    - Projects
+    - CV (Work)
+    - Learning Journey
+    - About Me
+        - Journals (aka amorphic brain dump)
+        - Works of Inspiration
+        - Quotes To Live By
+        - Books
