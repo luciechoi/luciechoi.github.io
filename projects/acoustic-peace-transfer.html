@@ -250,7 +250,7 @@
             Your browser does not support the audio element.
           </audio>
           <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 6px;">
-            Synthesized Audio
+            Clear Beating Pattern
           </div>
         </div>
 
@@ -296,13 +296,18 @@
               <li style="margin-bottom: 8px;"><strong>3. Solve Emitter Strengths</strong>:
                 The emitter strengths \(\mathbf{q}\) are solved directly using regularized least squares:
                 $$\mathbf{q} = (\mathbf{A}^H \mathbf{A} + \lambda \mathbf{I})^{-1} \mathbf{A}^H \mathbf{v}$$
-                where \(\mathbf{I}\) is the identity matrix and \(\lambda\) is a small damping parameter that ensures numerical stability during matrix inversion. This direct linear solve avoids convergence stalls and takes only seconds per frequency.
+                where \(\mathbf{I}\) is the identity matrix and \(\lambda\) is a small damping parameter that ensures
+                numerical stability during matrix inversion. This direct linear solve avoids convergence stalls and
+                takes only seconds per frequency.
               </li>
               <li><strong>4. Evaluate Sound at Any Listener Position</strong>:
                 Once the emitter strengths \(\mathbf{q}\) are known, the sound pressure at any 3D listener position is
                 computed by summing the wave contributions from all internal emitters:
                 $$p(\mathbf{r}_{\text{listen}}) = \sum_{j} q_j \frac{e^{ik R_j}}{4\pi R_j}$$
-                where \(R_j = \|\mathbf{r}_{\text{listen}} - \mathbf{r}'_j\|\) is the distance from the \(j\)-th emitter to the listener, \(k = \omega/c = 2\pi f / c\) is the acoustic wavenumber, and \(i = \sqrt{-1}\) is the imaginary unit encoding the wave's phase delay. The Sound Pressure Level (SPL in dB) is then directly evaluated from \(p\).
+                where \(R_j = \|\mathbf{r}_{\text{listen}} - \mathbf{r}'_j\|\) is the distance from the \(j\)-th emitter
+                to the listener, \(k = \omega/c = 2\pi f / c\) is the acoustic wavenumber, and \(i = \sqrt{-1}\) is the
+                imaginary unit encoding the wave's phase delay. The Sound Pressure Level (SPL in dB) is then directly
+                evaluated from \(p\).
               </li>
             </ul>
           </li>

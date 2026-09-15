@@ -7,6 +7,7 @@
 4. Fix the email notification issue.
 5. Add Source Code for projects.
 6. Reread and polish the project pages after awhile.
+7. Add Korean translation for the intro.
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
@@ -15,6 +16,9 @@
 4. Add more writings.
 
 ## Changelog
+### 2026-09-15
+- Added more cards in the writing section.
+
 ### 2026-09-14
 - Finished Acoustic Peace Transfer project page.
 - First test deployment. 🚀
