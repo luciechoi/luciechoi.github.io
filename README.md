@@ -12,7 +12,7 @@
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
 2. Add "More Houdini Works+" project page at the bottom.
 3. Add Path Tracer & Mesh Processing Project.
-
+4. Add more writings.
 
 ## Changelog
 ### 2026-09-14
