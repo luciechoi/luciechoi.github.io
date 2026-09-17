@@ -16,6 +16,9 @@
 4. Add more writings.
 
 ## Changelog
+### 2026-09-17
+- Finish Resume and link it.
+
 ### 2026-09-16
 - Make "Lucie Choi" title clickable.
 
