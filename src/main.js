@@ -210,14 +210,26 @@ tabButtons.forEach(button => {
   });
 });
 
+// Home links (Site Title & Footer author redirect to main page/tab)
+const homeLinks = document.querySelectorAll('.site-title-link, .footer-author-link');
+homeLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchTab('intro');
+  });
+});
+
 // Handle direct hash navigation (e.g., #projects, #cv, #about)
 function checkInitialHash() {
   const hash = window.location.hash.replace('#', '');
   if (hash && document.getElementById(`tab-${hash}`)) {
     switchTab(hash);
+  } else if (!hash) {
+    switchTab('intro');
   }
 }
 window.addEventListener('popstate', checkInitialHash);
+window.addEventListener('hashchange', checkInitialHash);
 checkInitialHash();
 
 /* ==========================================================================

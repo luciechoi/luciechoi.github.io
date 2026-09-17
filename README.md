@@ -16,6 +16,9 @@
 4. Add more writings.
 
 ## Changelog
+### 2026-09-16
+- Make "Lucie Choi" title clickable.
+
 ### 2026-09-15
 - Added more cards in the writing section.
 
