@@ -166,7 +166,16 @@ function initThreeBackground() {
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanes = document.querySelectorAll('.tab-pane');
 
-function switchTab(tabId) {
+const TAB_TITLES = {
+  intro: 'Lucie Choi',
+  projects: 'Projects — Lucie Choi',
+  work: 'Work & Experience — Lucie Choi',
+  learning: 'Learning Journey — Lucie Choi',
+  about: 'About Me — Lucie Choi',
+  contact: 'Contact — Lucie Choi'
+};
+
+function switchTab(tabId, isInitialLoad = false) {
   tabButtons.forEach(btn => {
     if (btn.getAttribute('data-tab') === tabId) {
       btn.classList.add('active');
@@ -183,8 +192,13 @@ function switchTab(tabId) {
     }
   });
 
-  // Scroll to top of content smoothly
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Track title for Analytics only (keeps browser tab title unchanged)
+  const pageTitle = TAB_TITLES[tabId] || `Lucie Choi - ${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`;
+
+  // Scroll to top of content smoothly (skip if initial load to preserve natural scroll)
+  if (!isInitialLoad) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   // Update hash
   if (history.pushState) {
@@ -193,13 +207,27 @@ function switchTab(tabId) {
     location.hash = `#${tabId}`;
   }
 
-  // Track tab switch in Google Analytics
+  // Track page view in Google Analytics (proper GA4 page_view event)
+  // Skip duplicate event on initial load of default intro tab (already recorded by gtag config)
   if (typeof window.gtag === 'function') {
-    window.gtag('event', 'tab_view', {
-      tab_name: tabId,
-      page_path: `/#${tabId}`,
-      page_title: `Lucie Choi - ${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`
-    });
+    const isDefaultInitial = isInitialLoad && tabId === 'intro';
+    if (!isDefaultInitial) {
+      const pagePath = `/#${tabId}`;
+      const pageLocation = `${window.location.origin}${window.location.pathname}#${tabId}`;
+
+      window.gtag('event', 'page_view', {
+        page_title: pageTitle,
+        page_path: pagePath,
+        page_location: pageLocation
+      });
+
+      // Also keep custom tab_view event for event reports
+      window.gtag('event', 'tab_view', {
+        tab_name: tabId,
+        page_path: pagePath,
+        page_title: pageTitle
+      });
+    }
   }
 }
 
@@ -223,14 +251,36 @@ homeLinks.forEach(link => {
 function checkInitialHash() {
   const hash = window.location.hash.replace('#', '');
   if (hash && document.getElementById(`tab-${hash}`)) {
-    switchTab(hash);
+    switchTab(hash, true);
   } else if (!hash) {
-    switchTab('intro');
+    switchTab('intro', true);
   }
 }
 window.addEventListener('popstate', checkInitialHash);
 window.addEventListener('hashchange', checkInitialHash);
 checkInitialHash();
+
+// Track clicks on project links and cards
+document.addEventListener('click', (e) => {
+  const projectLink = e.target.closest('a[href*="projects/"]');
+  if (projectLink && typeof window.gtag === 'function') {
+    const href = projectLink.getAttribute('href') || '';
+    const projectItem = projectLink.closest('.project-item');
+    const projectName = projectItem?.querySelector('.project-name')?.textContent?.trim() || href;
+
+    window.gtag('event', 'project_click', {
+      project_name: projectName,
+      project_url: href,
+      page_location: window.location.href
+    });
+
+    window.gtag('event', 'select_content', {
+      content_type: 'project',
+      item_id: href,
+      project_name: projectName
+    });
+  }
+});
 
 /* ==========================================================================
    ABOUT ME SUBTAB NAVIGATION LOGIC
@@ -255,6 +305,15 @@ subtabButtons.forEach(button => {
 
     // Track subtab switch in Google Analytics
     if (typeof window.gtag === 'function') {
+      const subtabTitle = `About Me (${targetSubtab.charAt(0).toUpperCase() + targetSubtab.slice(1)}) — Lucie Choi`;
+      const subtabPath = `/#about/${targetSubtab}`;
+
+      window.gtag('event', 'page_view', {
+        page_title: subtabTitle,
+        page_path: subtabPath,
+        page_location: `${window.location.origin}${window.location.pathname}#about/${targetSubtab}`
+      });
+
       window.gtag('event', 'subtab_view', {
         subtab_name: targetSubtab
       });

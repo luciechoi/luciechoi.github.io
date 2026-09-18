@@ -19,6 +19,7 @@
 ## Changelog
 ### 2026-09-18
 - Projects reordering based on Gemini recommendation.
+- Fixed Google Analytics tabs and pages tracking miss.
 
 ### 2026-09-17
 - Finish Resume and link it.
