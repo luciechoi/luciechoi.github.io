@@ -1,13 +1,14 @@
 # Website Development History
 
 ## TODO
-1. Prepare and link to resume in PDF format.
+1. Fix Google Analytics traffic tracking.
 2. Finalize the website design.
 3. Add my professional picture.
-4. Fix the email notification issue.
-5. Add Source Code for projects.
-6. Reread and polish the project pages after awhile.
-7. Add Korean translation for the intro.
+4. Consider adding my mandala chart.
+5. Fix the email notification issue.
+6. Add Source Code for projects.
+7. Reread and polish the project pages after awhile.
+8. Add Korean translation for the intro.
 
 ### Project Detail Pages TODO List
 1. Add Bresenheim's algithm, triangle edge rule, transformation, alpha compositing equations to the page
