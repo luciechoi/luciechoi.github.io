@@ -17,6 +17,9 @@
 4. Add more writings.
 
 ## Changelog
+### 2026-09-18
+- Projects reordering based on Gemini recommendation.
+
 ### 2026-09-17
 - Finish Resume and link it.
 
