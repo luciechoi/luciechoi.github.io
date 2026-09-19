@@ -21,6 +21,7 @@
 - Projects reordering based on Gemini recommendation.
 - Fixed Google Analytics tabs and pages tracking miss.
 - Exclude localhost from appearing in Google analytics.
+- Resume update with GPA.
 
 ### 2026-09-17
 - Finish Resume and link it.
