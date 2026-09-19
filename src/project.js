@@ -1,3 +1,4 @@
+import './analytics.js';
 import 'katex/dist/katex.min.css';
 import renderMathInElement from 'katex/dist/contrib/auto-render.mjs';
 import 'highlight.js/styles/github.css';
