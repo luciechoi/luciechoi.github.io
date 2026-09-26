@@ -1,8 +1,804 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lucie Choi</title>
+    <meta name="description"
+        content="Personal website of Lucie Yoonsun Choi. Explore projects, CV, learning journey, and thoughts." />
+
+    <link rel="stylesheet" href="/src/style.css" />
+    <!-- <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+    </script> -->
 </head>
-<body> Hello World </body>
+
+<body>
+    <!-- Minimalist Three.js 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="site-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1 class="site-title"><a href="#intro" class="site-title-link">Lucie Choi</a></h1>
+                <p class="site-subtitle">Algorithms + Systems + Art</p>
+            </div>
+
+            <!-- Main Navigation Tabs -->
+            <nav class="tabs-nav" aria-label="Main Navigation">
+                <button class="tab-btn active" data-tab="intro">Intro</button>
+                <button class="tab-btn" data-tab="projects">Projects</button>
+                <button class="tab-btn" data-tab="work">Work & Experience</button>
+                <button class="tab-btn" data-tab="learning">Learning Journey</button>
+                <button class="tab-btn" data-tab="about">About Me</button>
+                <button class="tab-btn" data-tab="contact">Contact</button>
+            </nav>
+        </header>
+
+        <!-- Tab Contents Container -->
+        <main class="content-area">
+
+            <!-- TAB 1: INTRO -->
+            <section class="tab-pane active" id="tab-intro">
+                <div class="intro-block">
+                    <p class="lead-text">
+                        Hi! I'm Lucie Choi. I’m a software engineer with a strong focus on Computer Graphics,
+                        where I love bringing visually intriguing art forms to life through algorithms and systems.
+                        <br />
+                        <br />
+                        Art, at some point, became a profound source of comfort, expressive release, and human
+                        connection for me.
+                        Exploring its intersection with technology, I aspire to create similar experiences —
+                        ones that offer inner peace, sparks of ingenuity, and a deep sense of belonging in this world.
+                    </p>
+                </div>
+            </section>
+
+            <!-- TAB 2: PROJECTS -->
+            <section class="tab-pane" id="tab-projects">
+                <div class="section-intro">
+                    <h2>Projects</h2>
+                    <p>Computer graphics, physics simulation, and technical art experiments.</p>
+                </div>
+
+                <div class="projects-list">
+                    <article class="project-item">
+                        <a href="projects/acoustic-peace-transfer.html" class="project-thumb-link"
+                            aria-label="Preview Acoustic Peace Transfer">
+                            <img src="images/preview-bell-of-king-seongdeok.jpg"
+                                alt="Acoustic Peace Transfer Snapshot Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/acoustic-peace-transfer.html"
+                                        class="title-link">광명 (Gwangmyeong): Acoustic Peace Transfer</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis</span>
+                            </div>
+                            <p class="project-description">
+                                Sound simulation of a temple bell, driving the audio from its
+                                structure, material properties, and
+                                hearing positions.
+                            </p>
+                            <div class="project-tags">
+                                <span>Finite Element Analysis</span>
+                                <span>Modal Sound Synthesis</span>
+                                <span>Acoustic Transfer</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/acoustic-peace-transfer.html" class="text-link">View Project &amp;
+                                    Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/cloth-pbd.html" class="project-thumb-link" aria-label="Preview Cloth-PBD">
+                            <img src="images/preview-cloth-pbd.jpg" alt="Cloth-PBD Snapshot Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/cloth-pbd.html" class="title-link">PBD Cloth
+                                        Solver</a></h3>
+                                <span class="project-meta">2026 • Simulation</span>
+                            </div>
+                            <p class="project-description">
+                                Cloth simulation using Position Based Dynamics (PBD) technique.
+                            </p>
+                            <div class="project-tags">
+                                <span>Position Based Dynamics</span>
+                                <span>Cloth</span>
+                                <span>Houdini</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/cloth-pbd.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/taichi-xylophone.html" class="project-thumb-link"
+                            aria-label="Preview Taichi Xylophone">
+                            <img src="images/preview-taichi-xylophone.png" alt="Taichi Xylophone Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/taichi-xylophone.html"
+                                        class="title-link">Taichi Xylophone</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis / Rendering</span>
+                            </div>
+                            <p class="project-description">
+                                A xylophone performance with a ray marching renderer and synthesized audio.
+                            </p>
+                            <div class="project-tags">
+                                <span>Ray Marching</span>
+                                <span>Taichi Lang</span>
+                                <span>Librosa</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/taichi-xylophone.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/fire-sound-synthesis.html" class="project-thumb-link"
+                            aria-label="Fire - Sound Synthesis">
+                            <img src="images/preview-fire-sound-synthesis.jpg" alt="Fire - Sound Synthesis Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/fire-sound-synthesis.html"
+                                        class="title-link">Undying Passion (2026)</a></h3>
+                                <span class="project-meta">2026 • Sound Synthesis</span>
+                            </div>
+                            <p class="project-description">
+                                Sound synthesis of a burning text.
+                            </p>
+                            <div class="project-tags">
+                                <span>Fire Sound Synthesis</span>
+                                <span>Spectral Bandwidth Extension</span>
+                                <span>Houdini</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/fire-sound-synthesis.html" class="text-link">View Project &amp;
+                                    Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/be-kind-to-yourself.html" class="project-thumb-link"
+                            aria-label="Preview Be Kind To Yourself">
+                            <img src="images/preview-be-kind-to-yourself.png" alt="Be Kind To Yourself Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/be-kind-to-yourself.html"
+                                        class="title-link">Be Kind to Yourself (2019)</a></h3>
+                                <span class="project-meta">2025 • Kinematics</span>
+                            </div>
+                            <p class="project-description">
+                                A short heartfelt story, for myself and everyone. Created within a custsom 2D animation
+                                system.
+                            </p>
+                            <div class="project-tags">
+                                <span>Inverse / Forward Kinematics</span>
+                                <span>Keyframe Interpolation</span>
+                                <span>OpenProcessing</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/be-kind-to-yourself.html" class="text-link">View Project &amp;
+                                    Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/in-memory-of-my-grandmother.html" class="project-thumb-link"
+                            aria-label="Preview In Memory of My Grandmother">
+                            <img src="images/preview-in-memory-of-my-grandmother.svg"
+                                alt="In Memory of My Grandmother Snapshot Preview" class="project-thumb-img"
+                                loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/in-memory-of-my-grandmother.html"
+                                        class="title-link">In Memory of My Grandmother (2025)</a></h3>
+                                <span class="project-meta">2025 • Rasterization</span>
+                            </div>
+                            <p class="project-description">
+                                A memorial piece drawn in SVG, rendered with a custom SVG rasterization pipeline.
+                            </p>
+                            <div class="project-tags">
+                                <span>SVG</span>
+                                <span>Rasterization</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/in-memory-of-my-grandmother.html" class="text-link">View Project
+                                    &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- <article class="project-item">
+                        <a href="projects/cardinal-3d.html" class="project-thumb-link" aria-label="Preview Cardinal 3D">
+                            <img src="images/preview-cardinal-3d.png" alt="Cardinal 3D Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/cardinal-3d.html" class="title-link">Cardinal
+                                        3D</a></h3>
+                                <span class="project-meta">2025 • Geometry Processing / Rendering</span>
+                            </div>
+                            <p class="project-description">
+                                A mesh editor with a custom path tracer.
+                            </p>
+                            <div class="project-tags">
+                                <span>Path Tracing</span>
+                                <span>Geometry Processing</span>
+                                <span>C++</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/cardinal-3d.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article> -->
+
+                    <article class="project-item">
+                        <a href="projects/graphics-heart.html" class="project-thumb-link"
+                            aria-label="Preview Graphics Heart">
+                            <img src="images/preview-graphics-heart3.jpg" alt="Graphics Heart Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/graphics-heart.html"
+                                        class="title-link">Graphics❤️</a></h3>
+                                <span class="project-meta">2026 • Technical Art</span>
+                            </div>
+                            <p class="project-description">
+                                Writing simulation.
+                            </p>
+                            <div class="project-tags">
+                                <span>Dynamics</span>
+                                <span>Houdini</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/graphics-heart.html" class="text-link">View Project &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/procedural-jigsaw-puzzle.html" class="project-thumb-link"
+                            aria-label="Preview Procedural Jigsaw Puzzle">
+                            <img src="images/preview-jigsaw5.jpg" alt="Procedural Jigsaw Puzzle Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/procedural-jigsaw-puzzle.html"
+                                        class="title-link">Procedural Jigsaw Puzzle</a></h3>
+                                <span class="project-meta">2026 • Technical Art</span>
+                            </div>
+                            <p class="project-description">
+                                Procedural jigsaw puzzle generator.
+                            </p>
+                            <div class="project-tags">
+                                <span>Procedural Modeling</span>
+                                <span>Houdini</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/procedural-jigsaw-puzzle.html" class="text-link">View Project &amp;
+                                    Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <a href="projects/voices-floating-around-my-head.html" class="project-thumb-link"
+                            aria-label="Preview Voices Floating around my Head">
+                            <img src="images/preview-floating-head.png" alt="Voices Floating around my Head Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </a>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3 class="project-name"><a href="projects/voices-floating-around-my-head.html"
+                                        class="title-link">Voices Floating around my Head (2024)</a></h3>
+                                <span class="project-meta">2025 • Technical Art</span>
+                            </div>
+                            <p class="project-description">
+                                Visualization of words that were stuck in my head.
+                            </p>
+                            <div class="project-tags">
+                                <span>Three.JS</span>
+                                <span>3D Scanning</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="projects/voices-floating-around-my-head.html" class="text-link">View Project
+                                    &amp; Visuals
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- TAB 3: WORK & EXPERIENCE -->
+            <section class="tab-pane" id="tab-work">
+                <div class="section-intro"
+                    style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h2>Work &amp; Experience</h2>
+                        <p>Shipped products and career experience.</p>
+                    </div>
+                    <a href="docs/Resume.pdf" target="_blank" rel="noopener noreferrer" class="text-link"
+                        style="font-size: 0.9rem; font-weight: 500;">View Resume (PDF) &rarr;</a>
+                </div>
+
+                <!-- Featured Shipped Work -->
+                <div class="projects-list" style="margin-bottom: 40px;">
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/google-gentle-monster-glasses.jpg"
+                                alt="Low-Latency XR Graphics &amp; Reprojection Pipeline Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">XR Glasses Rendering</h3>
+                                    <span class="project-meta">2026 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-progress">In Progress</span>
+                            </div>
+                            <p class="project-description">
+                                Building the Android graphics and display pipeline for next-generation XR
+                                glasses, specifically integrating Qualcomm's hardware-accelerated Late Stage
+                                Reprojection (LSR).
+                            </p>
+                            <div class="project-tags">
+                                <span>Rendering</span>
+                                <span>Late Stage Reprojection (LSR)</span>
+                                <span>XR Glasses</span>
+                                <span>C++</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.android.com/xr/" target="_blank" rel="noopener noreferrer"
+                                    class="text-link">Explore Android XR &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link thumb-dark">
+                            <img src="images/directx.png" alt="Shader Compilers & Graphics Infrastructure Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">Shader Compilers</h3>
+                                    <span class="project-meta">2026 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Contributed to <a href="https://github.com/microsoft/DirectXShaderCompiler"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">DXC</a> and <a
+                                    href="https://github.com/llvm/llvm-project" target="_blank"
+                                    rel="noopener noreferrer" class="text-link">LLVM</a> open-source compilers for
+                                HLSL-to-SPIR-V translation, implementing CombinedImageSampler support and GPU
+                                reconvergence features for Vulkan.
+                            </p>
+                            <div class="project-tags">
+                                <span>Open Source Development</span>
+                                <span>HLSL</span>
+                                <span>SPIR-V / Vulkan</span>
+                                <span>GPU</span>
+                                <span>LLVM</span>
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/meet-xr.png" alt="Likeness Photorealistic Avatars Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">Likeness Avatars</h3>
+                                    <span class="project-meta">2025 &bull; Android XR, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Served as Tech Lead to architect the backend and build the Android mobile app
+                                end-to-end, enabling users to generate higher quality photorealistic 3D avatars and
+                                stream them to XR devices.
+                            </p>
+                            <div class="project-tags">
+                                <span>Tech Lead</span>
+                                <span>Android / C++</span>
+                                <span>MediaPipe</span>
+                                <span>OpenXR</span>
+                                <span>Performance</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://roadtovr.com/google-android-xr-likeness-avatars-photorealistic/"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">Press Coverage
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item">
+                        <div class="project-thumb-link">
+                            <img src="images/ytvr-cowatch.png" alt="YouTube XR Co-Watching Preview"
+                                class="project-thumb-img" loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <h3 class="project-name">YouTube VR</h3>
+                                    <span class="project-meta">2024 &bull; YouTube, Google</span>
+                                </div>
+                                <span class="tag-shipped">Shipped to Production</span>
+                            </div>
+                            <p class="project-description">
+                                Built a real-time synchronized video co-watching engine for YouTube
+                                on Meta Quest devices, enabling immersive social VR experiences.
+                            </p>
+                            <div class="project-tags">
+                                <span>Media Playback</span>
+                                <span>VR</span>
+                                <span>Security</span>
+                                <span>Android / C++</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.theverge.com/2024/11/13/24295635/youtube-meta-quest-app-co-watch-vr"
+                                    target="_blank" rel="noopener noreferrer" class="text-link">Press Coverage
+                                    &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Career Timeline -->
+                <div class="section-intro" style="margin-top: 10px;">
+                    <h3
+                        style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
+                        Experience</h3>
+                </div>
+
+                <div class="cv-list" style="margin-bottom: 32px;">
+                    <div class="cv-item">
+                        <div class="cv-time">Dec 2021 &ndash; Present</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">Senior Software Engineer</h3>
+                            <div class="cv-org">Google &bull; San Jose, CA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="section-intro" style="margin-top: 10px;">
+                    <h3
+                        style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">
+                        Education</h3>
+                </div>
+
+                <div class="cv-list">
+                    <div class="cv-item">
+                        <div class="cv-time">2020</div>
+                        <div class="cv-details">
+                            <h3 class="cv-title">B.A. in Computer Science</h3>
+                            <div class="cv-org">University of California, Berkeley</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: LEARNING JOURNEY -->
+            <section class="tab-pane" id="tab-learning">
+                <div class="section-intro">
+                    <h2>Learning Journey</h2>
+                    <p>Technical topics I am continuously exploring.</p>
+                </div>
+
+                <div class="journal-entries">
+                    <div class="journal-entry disabled">
+                        <div class="writing-meta" style="margin-bottom: 6px;">
+                            <span class="writing-date">Coming Soon!</span>
+                        </div>
+                        <h4>Singular Value Decomposition (SVD) &ndash; the crown jewel of Linear Algebra</h4>
+                        <p>
+                            Class notes from EE263 at Stanford University.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: ABOUT ME -->
+            <section class="tab-pane" id="tab-about">
+                <div class="section-intro">
+                    <h2>About Me</h2>
+                    <p>Thoughts and curated inspirations.</p>
+                </div>
+
+                <!-- Sub Navigation for About Me -->
+                <div class="subtabs-nav">
+                    <button class="subtab-btn active" data-subtab="writing">Writing</button>
+                    <button class="subtab-btn" data-subtab="books">Books</button>
+                    <button class="subtab-btn disabled" disabled data-subtab="inspirations">Works of
+                        Inspiration</button>
+                    <button class="subtab-btn disabled" disabled data-subtab="quotes">Quotes To Live By</button>
+                </div>
+
+                <!-- Subtab 1: Writing -->
+                <div class="subtab-pane active" id="subtab-writing">
+                    <div class="journal-entries">
+                        <a href="projects/in-memory-of-my-grandmother.html#behind-the-piece" class="journal-entry">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Aug 2026</span>
+                            </div>
+                            <h4>History, Religion, and Freedom</h4>
+                            <p>
+                                The behind story of the artwork &ldquo;In Memory of My Grandmother (2025)&rdquo;,
+                                reflecting on modern Korean history and my grandmother's life.
+                            </p>
+                        </a>
+
+                        <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Stanford vs UC Berkeley: CS Classes Comparison</h4>
+                            <p>
+                                Honest thoughts comparing Computer Science classes I took at Stanford and UC
+                                Berkeley.
+                            </p>
+                        </div>
+
+                        <!-- <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Google, an Amusement Park for Developers</h4>
+                            <p>
+                                Thoughts on my time working at Google as a software engineer.
+                            </p>
+                        </div> -->
+
+                        <!-- <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Jin-Seon-Mi (진·선·미 / 眞·善·美): The Pursuit of Truth, Goodness, and Beauty</h4>
+                            <p>
+                                Exploring the modern pursuit of beauty and its transformative role in Korean society.
+                            </p>
+                        </div> -->
+
+                        <!-- <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Finding a Place For My Dichotomous Identity</h4>
+                            <p>
+                                My own journey of searching and embracing my identity, often split between two
+                                contrasting worlds: a queer woman
+                                in tech, Korean-born and American-educated, balancing my love for engineering and
+                                aesthetics.
+                            </p>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Subtab 2: Impactful Books -->
+                <div class="subtab-pane" id="subtab-books">
+                    <div class="books-list">
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">Designing Your Life</span>
+                                <span class="book-author">Bill Burnett &amp; Dave Evans</span>
+                            </div>
+                            <p class="book-description">A practical guide and mindset to building a purposeful
+                                well-designed life.
+                            </p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">미학적 인간으로 살아가기 (Living as an Aesthetic Human)</span>
+                                <span class="book-author">최광진</span>
+                            </div>
+                            <p class="book-description">Exploring life through aesthetic consciousness, creativity,
+                                and finding deeper harmony between the self and art.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">나의 소원 (My Wish)</span>
+                                <span class="book-author">김구</span>
+                            </div>
+                            <p class="book-description">A profound essay on the supreme power of culture, freedom, and
+                                humanity, as well as what Korea can bring to the world.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">Thinking in Systems</span>
+                                <span class="book-author">Donella H. Meadows</span>
+                            </div>
+                            <p class="book-description">A systems thinking primer and its application to our life and
+                                the
+                                world.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">The Molecule of More</span>
+                                <span class="book-author">Daniel Z. Lieberman &amp; Michael E. Long</span>
+                            </div>
+                            <p class="book-description">The difference between dopamine and serotonin, and how they
+                                drive our lives.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">초격차 (Super Gap)</span>
+                                <span class="book-author">권오현</span>
+                            </div>
+                            <p class="book-description">Building an unbeatable competitive advantage based on the
+                                experience of growing Samsung Electronics into a global leader.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">Mindset</span>
+                                <span class="book-author">Carol S. Dweck</span>
+                            </div>
+                            <p class="book-description">The transformative psychology of cultivating a growth mindset
+                                over fixed intelligence and limitations.</p>
+                        </div>
+
+                        <div class="book-row">
+                            <div class="book-main">
+                                <span class="book-title">Atomic Habits</span>
+                                <span class="book-author">James Clear</span>
+                            </div>
+                            <p class="book-description">An actionable framework for compound micro-improvements,
+                                habit systems, and identity-based change.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtab 3: Works of Inspiration -->
+                <div class="subtab-pane" id="subtab-inspirations">
+                    <div class="journal-entries">
+                        <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Works of Inspiration</h4>
+                            <p>
+                                A curated collection of art, minimalist design, and creative software that inspire my
+                                work.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtab 4: Quotes To Live By -->
+                <div class="subtab-pane" id="subtab-quotes">
+                    <div class="journal-entries">
+                        <div class="journal-entry disabled">
+                            <div class="writing-meta" style="margin-bottom: 6px;">
+                                <span class="writing-date">Coming Soon!</span>
+                            </div>
+                            <h4>Quotes To Live By</h4>
+                            <p>
+                                Words and philosophies that ground my perspective on engineering and life.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB 6: CONTACT -->
+            <section class="tab-pane" id="tab-contact">
+                <div class="section-intro">
+                    <h2>Contact</h2>
+                    <!-- <p>Let's connect.</p> -->
+                </div>
+
+                <div class="contact-text-list">
+                    <div class="contact-text-row">
+                        <a href="mailto:clucie0407@gmail.com" class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" class="contact-icon" aria-hidden="true">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                            <span>clucie0407@gmail.com</span>
+                        </a>
+                    </div>
+                    <div class="contact-text-row">
+                        <a href="https://www.linkedin.com/in/clucie" target="_blank" rel="noopener noreferrer"
+                            class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" class="contact-icon" aria-hidden="true">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect width="4" height="12" x="2" y="9"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                            <span>linkedin.com/in/clucie</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Anonymous Feedback Section -->
+                <div class="feedback-section">
+                    <div class="feedback-header">
+                        <h2 class="feedback-title">Feedback</h2>
+                    </div>
+
+                    <form id="feedback-form" class="feedback-form">
+                        <div class="form-group">
+                            <textarea id="feedback-message" name="message" rows="4" class="form-textarea"
+                                placeholder="Feel free to leave me a note! This is completely anonymous."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="feedback-submit-btn" id="feedback-submit-btn">
+                            <span id="feedback-btn-text">Send Note</span>
+                        </button>
+
+                        <div id="feedback-status" class="feedback-status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 <a href="#intro" class="footer-author-link">Lucie Choi</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
