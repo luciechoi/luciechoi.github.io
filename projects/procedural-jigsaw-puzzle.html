@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procedural Jigsaw Puzzle — Lucie Choi</title>
+  <meta name="description" content="Procedural generation and geometric assembly of jigsaw puzzles by Lucie Choi." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .image-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 24px 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .image-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .image-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-card-caption {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Procedural Jigsaw Puzzle</h1>
+      <div class="project-detail-meta">
+        <span>2026 • Technical Art • 3 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Procedural Modeling</span>
+        <span>Houdini</span>
+      </div>
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Media Showcase Hero -->
+      <div class="media-container" style="max-width: 780px; margin: 0 auto 28px auto;">
+        <img src="/images/preview-jigsaw4.jpg" alt="Procedural Jigsaw Puzzle Preview"
+          style="width: 100%; height: auto; border-radius: 8px; display: block;" />
+      </div>
+
+      <!-- Overview -->
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          A jigsaw puzzle generator built in Houdini. This is procedurally generated so that any image can be used, and
+          the puzzle size (number of rows and columns) can be adjusted.
+        </p>
+      </section>
+
+      <!-- Algorithm & Procedural Pipeline -->
+      <section class="detail-section">
+        <h3>Procedural Algorithm</h3>
+        <h4>1. Grid Initialization</h4>
+        <p>
+          We begin with a 2D planar <code>Grid</code> SOP defining the number of rows and columns. We will discard the
+          boundary edges and leave only the internal shared edges, since we are making a "cutter" to subtract from the
+          cardboard geometry.
+        </p>
+
+        <div class="media-container" style="max-width: 480px; margin: 16px auto 22px auto;">
+          <img src="/images/puzzle-grid.png" alt="Grid Initialization and Internal Edges" loading="lazy" />
+          <div class="media-caption">
+            Planar grid with internal shared edges.
+          </div>
+        </div>
+
+        <h4>2. Tab Attachment</h4>
+        <p>
+          Each interlocking tab is constructed from an open circular arc (derived from a <code>Circle</code> node):
+        </p>
+        <ul>
+          <li>
+            <strong>Centroid Attachment</strong>: For every internal edge segment, the curve centroid and local
+            tangents are computed.
+          </li>
+          <li>
+            <strong>Randomized Flipping</strong>: An Attribute Wrangle assigns a randomized binary orientation
+            to each edge so that tabs randomly alternate.
+          </li>
+          <li>
+            <strong>Curve Reconstruction</strong>: The open arc tab is copied to the edge centroid
+            via a <code>Copy to Points</code> SOP, the underlying
+            straight segment is trimmed, and vertices are merged and fused to create a continuous, non-intersecting
+            seam network.
+          </li>
+        </ul>
+
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/puzzle-neck.png" alt="Parametric Arc Tab and Neck Geometry" loading="lazy" />
+            <div class="image-card-caption">
+              Open arc tab profile
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="/images/puzzle-grid-neck.png" alt="Grid with Randomized Interlocking Tabs" loading="lazy" />
+            <div class="image-card-caption">
+              Randomized alternating arc tabs
+            </div>
+          </div>
+        </div>
+
+        <h4>3. Boolean Subtraction</h4>
+        <p>
+          It is important to give a slight <strong>width</strong> (thickness) to the cutter ribbon—rather than using an
+          infinitesimally thin sheet because we need the gaps to be big enough to be caught by the renderer. Finally, a
+          <strong>Boolean SOP</strong> subtracts this 3D cutter from the textured cardboard geometry, partitioning it
+          into individual puzzle pieces. 🧩
+        </p>
+
+        <div class="image-grid-2">
+          <div class="image-card">
+            <img src="/images/jigsaw-cutter.png" alt="Extruded 3D Jigsaw Cutter Ribbon" loading="lazy" />
+            <div class="image-card-caption">
+              Extruded 3D cutter
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="/images/preview-jigsaw3.png" alt="Procedural Jigsaw Puzzle Exploded Piece View" loading="lazy" />
+            <div class="image-card-caption">
+              Subtracted pieces
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul class="references-list" style="list-style-type: none; padding-left: 0;">
+          <li id="ref-1" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            Image Source: Studio Ghibli Wiki. <a href="https://ghibli.fandom.com/wiki/Warawara" target="_blank"
+              rel="noopener noreferrer" class="text-link">Warawara</a>.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi</p>
+    </footer>
+  </div>
+</body>
+
+</html>

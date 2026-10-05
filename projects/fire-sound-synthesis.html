@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undying Passion (2026) — Sound Synthesis — Lucie Choi</title>
+  <meta name="description"
+    content="Physically based fire sound synthesis of burning 3D typography driven by Houdini Pyro simulation, flux integral calculation, and spectral bandwidth extension by Lucie Choi." />
+
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="module" src="/src/project.js"></script>
+
+  <style>
+    .code-snippet-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .code-snippet-box code.hljs {
+      background: transparent;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .feature-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 18px 0;
+    }
+
+    .feature-tag {
+      font-size: 0.82rem;
+      padding: 4px 10px;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .image-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0 16px 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .image-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .image-card.medium {
+      max-width: 620px;
+      margin: 18px auto 20px auto;
+      height: auto;
+    }
+
+    .image-card.diagram {
+      max-width: 640px;
+      margin: 18px auto 20px auto;
+      background: #ffffff;
+      padding: 8px;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .image-card.diagram img {
+      object-fit: contain;
+      max-height: 320px;
+    }
+
+    .image-card-caption {
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .image-card-caption a {
+      color: var(--text-main);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+
+    .pipeline-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px auto 28px auto;
+      max-width: 100%;
+    }
+
+    .pipeline-step {
+      flex: 1 1 120px;
+      max-width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 10px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      min-height: 48px;
+    }
+
+    .step-name {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .pipeline-connector {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 680px) {
+      .pipeline-flow {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .pipeline-step {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .pipeline-connector {
+        transform: rotate(90deg);
+        padding: 2px 0;
+      }
+    }
+
+    .perf-table-container {
+      margin: 16px 0 20px 0;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+
+    .perf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .perf-table th {
+      background: var(--bg-subtle);
+      padding: 10px 14px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .perf-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+    }
+
+    .perf-table tr:last-child td {
+      border-bottom: none;
+      font-weight: 600;
+      background: var(--bg-subtle);
+    }
+
+    .callout-box {
+      background-color: #f0fdf4;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-left: 4px solid #16a34a;
+      padding: 14px 16px;
+      margin: 16px 0 20px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .callout-box strong {
+      color: #14532d;
+    }
+
+    .callout-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-family: var(--font-heading);
+      color: #15803d;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-container">
+    <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+
+    <header class="project-detail-header">
+      <h1 class="project-detail-title">Undying Passion (2026)</h1>
+      <div class="project-detail-meta">
+        <span>2026 • Sound Synthesis • 20 min read</span>
+      </div>
+
+      <div class="project-tags">
+        <span>Fire Sound Synthesis</span>
+        <span>Spectral Bandwidth Extension</span>
+        <span>Houdini</span>
+      </div>
+
+      <div class="action-buttons">
+        <span class="action-btn disabled" aria-disabled="true" title="Source code not currently public">
+          View Source Code &rarr;
+        </span>
+      </div>
+    </header>
+
+    <main class="project-detail-content">
+      <!-- Embedded Visual Media / Main Hero Video -->
+      <div class="media-container">
+        <video controls playsinline preload="metadata" poster="/images/preview-fire-sound-synthesis.jpg"
+          style="width: 100%; max-height: 540px; background: #000; border-radius: 8px 8px 0 0; display: block;">
+          <source src="/videos/fire-sound-synthesis.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Process Pipeline -->
+      <section class="detail-section">
+        <h3>Process Pipeline</h3>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="step-name">1. Pyro Solver</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">2. Flux Integral Calculation</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">3. Low-Frequency Sound Synthesis</span>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-step">
+            <span class="step-name">4. Bandwidth Extension</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overview & Physics -->
+      <section class="detail-section">
+        <h3>Overview</h3>
+        <p>
+          This project implements the fire sound synthesis approach proposed in the <a
+            href="https://www.cs.cornell.edu/projects/Sound/fire/FireSound2011.pdf" target="_blank"
+            rel="noopener noreferrer" class="text-link">paper</a> [1].
+        </p>
+        <p>
+          Unlike rigid-body impact sound or modal vibrations of solid shells, open flame combustion sound is governed by
+          <strong>unsteady volumetric expansion</strong>. When combustible fuel-air gases enter the flame front, rapid
+          chemical reactions dramatically elevate temperature, causing the gas volume to violently expand.
+        </p>
+        <p>
+          Following the acoustic formulation, the acoustic pressure \(p(t)\) emitted by
+          a compact flame source is directly proportional to the time derivative of the total volumetric expansion flux
+          across the flame reaction isosurface \(S(t)\):
+        </p>
+
+        <p style="text-align: center; margin: 18px 0;">
+          $$p(t) = \frac{d}{dt} \int_{S(t)} \mathbf{u}(\mathbf{x}, t) \cdot \mathbf{n}(\mathbf{x}, t) \, dS(\mathbf{x})
+          = \frac{d}{dt} I(t)$$
+        </p>
+
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;">
+          &bull; <strong>\(S(t)\)</strong>: Dynamic flame reaction isosurface bounding the combustion front.<br />
+          &bull; <strong>\(\mathbf{u}(\mathbf{x}, t)\)</strong>: Gas fluid velocity field at position \(\mathbf{x}\) and
+          time \(t\).<br />
+          &bull; <strong>\(\mathbf{n}(\mathbf{x}, t)\)</strong>: Outward unit normal vector on the flame front surface
+          element \(dS\).<br />
+          &bull; <strong>\(I(t) = \int_{S(t)} \mathbf{u} \cdot \mathbf{n} \, dS\)</strong>: Instantaneous volumetric
+          expansion flux integral.<br />
+          &bull; <strong>\(p(t) = \frac{d}{dt} I(t)\)</strong>: Acoustic pressure wave emitted by the flame.
+        </p>
+
+        <p>
+          However, because we cannot realistically sample at the audio rate 44.1 kHz, this project adopts a two-scale
+          synthesis strategy:
+        </p>
+        <ol style="margin-left: 20px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">
+          <li><strong>Low-Frequency Roar (\(&lt; 120\text{ Hz}\))</strong>: Evaluated directly from the physical
+            expansion flux integral \(I(t)\) of the Houdini Pyro simulation.</li>
+          <li><strong>High-Frequency Sizzle (\(120\text{ Hz} - 10\text{ kHz}\))</strong>: Synthesized via spectral
+            bandwidth extension.</li>
+        </ol>
+      </section>
+
+      <!-- Houdini Pyro & Sound Data Preparation -->
+      <section class="detail-section">
+        <h3>Sound Data Preparation</h3>
+
+        <h4>1. Pyro Simulation Setup</h4>
+        <p>
+          I started by prototyping the combustion solver on a basic torch flame to establish and validate the data
+          export
+          pipeline before moving to complex typography. In Houdini's Pyro solver, the combustion reaction rate is
+          represented
+          by the scalar <code>flame</code> field.
+        </p>
+
+        <h4>2. Isosurface Flux Integral Calculation</h4>
+        <p>
+          To compute the surface integral \(\int_{S(t)} \mathbf{u} \cdot \mathbf{n} \, dS\), the volume simulation is
+          processed
+          through custom SOP geometry nodes:
+        </p>
+        <ul>
+          <li><strong>Convert Volume SOP</strong>: Extracts the dynamic flame reaction isosurface from the
+            <code>flame</code> scalar field at a specified isovalue threshold.
+          </li>
+          <li><strong>Measure SOP</strong>: Computes the surface area \(dS\) of each polygon primitive on the extracted
+            mesh.</li>
+          <li><strong>Trilinear Velocity Sampling</strong>: Uses the <code>VolumeSample</code> VEX API to interpolate
+            fluid velocity \(\mathbf{u}\) from the 3D velocity voxels to surface points.</li>
+          <li>
+            <strong>Staircase Artifact Mitigation</strong>: Voxel discretizations create jagged normals on the
+            isosurface. In early tests,
+            these sharp normal discontinuities introduced artificial high-frequency noise spikes in \(\mathbf{u} \cdot
+            \mathbf{n}\).
+            Applying an <code>Attribute Blur SOP</code> on vertex position, normal, and velocity fields smoothly
+            resolved this issue without damping physical bulk motion.
+          </li>
+        </ul>
+
+        <h4>3. Audio-Rate Sampling at 240 FPS</h4>
+        <p>
+          The flux integral was simulated and recorded at <strong>240 FPS</strong> (\(f_s^{\text{sim}} = 240\text{
+          Hz}\)), corresponding to a Nyquist frequency of \(f_{\text{Nyquist}} = 120\text{ Hz}\).
+          The integral sequence \(I(t)\) was exported to CSV for python synthesis.
+        </p>
+
+        <div class="callout-box">
+          <div class="callout-title">Flux Integration</div>
+          <p>
+            The exported flux integral \(I(t)\) exhibits strong physical coherence: it rapidly ramps up from ignition as
+            expanding gas envelopes the ignition points, subsequently settling into turbulent periodic oscillations.
+            While instantaneous flux occasionally dips into slight negative values—primarily an artifact of the
+            non-physical combustion divergence model in the Pyro solver rather than true physical gas
+            contraction—acoustic
+            pressure is evaluated strictly through the time derivative \(p(t) \propto \frac{dI}{dt}\), preserving
+            proper transient acoustics.
+          </p>
+          <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);">
+            <em>Note on Sampling Rate</em>: Because 240 FPS is relatively low for audio (Nyquist of 120 Hz), the final
+            sound is mostly hearing the synthesized noise model. The purpose is mainly to describe the overall pipeline
+            for synthesizing fire sound.
+          </p>
+        </div>
+      </section>
+
+      <!-- Low Frequency Sound Synthesis -->
+      <section class="detail-section">
+        <h3>Low-Frequency Sound Synthesis</h3>
+        <p>
+          The raw simulation flux data captures the deep, rumbling "roar" of the combustion process.
+        </p>
+        <p>
+          To reconstruct continuous 44.1 kHz audio from the 240 Hz sampled data:
+        </p>
+        <ul>
+          <li>
+            <strong>Spline Upsampling</strong>: We apply cubic spline interpolation for smooth upsampling to the audio
+            rate (44.1 kHz).
+          </li>
+          <li>
+            <strong>Acoustic Pressure</strong>: We compute the time derivative \(p(t) \propto \frac{dI}{dt}\) using
+            <code>np.gradient(...)</code> to produce the low-frequency pressure waveform.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Spectral Bandwidth Extension -->
+      <section class="detail-section">
+        <h3>Spectral Bandwidth Extension</h3>
+        <h4>The Physics of Fire Hiss</h4>
+        <p>
+          While the low-frequency rumble captures bulk combustion dynamics, natural fire emits a rich, broad-band
+          crackle and hiss spanning up to several kilohertz. According to turbulent combustion acoustics, the sound
+          power spectrum of
+          turbulent flame fronts
+          empirically satisfies an <strong>inverse power law</strong> decay:
+        </p>
+
+        <p style="text-align: center; margin: 16px 0;">
+          $$S(f) \propto f^{-\alpha/2}, \quad \alpha \in [2.2, 3.4]$$
+        </p>
+        <p>
+          The parameter \(\alpha\) dictates the spectral decay slope. Lower values (\(\alpha \approx 2.2\)) retain more
+          high-frequency energy,
+          yielding a sharp, crisp hiss, while higher values (\(\alpha \approx 3.4\)) produce a smoother, warmer timbre.
+        </p>
+
+        <h4>Spectral Bandwidth Extension</h4>
+        <div class="image-card diagram">
+          <img src="/images/fire-sound-bandwidth-extension-diagram.png"
+            alt="Spectral Bandwidth Extension Pipeline Diagram" loading="lazy" />
+        </div>
+
+        <p>
+          The synthesis algorithm processes the audio in short time windows to generate matching high-frequency hiss:
+        </p>
+        <ol style="margin-left: 20px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 14px;">
+          <li><strong>Windowing</strong>: Divide the low-frequency audio into short, overlapping segments.</li>
+          <li><strong>Noise Shaping</strong>: Generate white noise and filter it to follow the \(f^{-\alpha/2}\)
+            power-law decay curve.</li>
+          <li><strong>Energy Matching</strong>: Scale the volume of the synthetic noise in each segment so it matches
+            the physical simulation's intensity.</li>
+          <li><strong>Temporal Smoothing</strong>: Smooth volume transitions over time to eliminate audible clicks or
+            fluttering.</li>
+          <li><strong>Blending &amp; Reconstruction</strong>: Blend the low-frequency roar with the high-frequency hiss
+            across the 120 Hz boundary, then stitch the segments back together.</li>
+        </ol>
+
+        <div class="callout-box">
+          <div class="callout-title">Why Use FFT &amp; IFFT?</div>
+          <p>
+            Shaping noise to follow the theoretical \(f^{-\alpha/2}\) power law is difficult to calculate directly on
+            time-domain audio samples, but simple in the frequency domain:
+          </p>
+          <ul style="margin: 8px 0 8px 20px; font-size: 0.92rem; line-height: 1.6;">
+            <li><strong>FFT (Time &rarr; Frequency)</strong>: Converts the audio from time-domain waveforms into
+              frequency
+              components.</li>
+            <li><strong>Filter &amp; Scale</strong>: Multiplies the frequency spectrum by \(f^{-\alpha/2}\) and scales
+              its volume
+              by the simulation's physical energy factor \(\beta\).</li>
+            <li><strong>IFFT (Frequency &rarr; Time)</strong>: Converts the shaped frequencies back into continuous
+              time-domain audio waves that can be played through speakers.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Spectrogram Analysis & Results -->
+      <section class="detail-section">
+
+        <h4>Audio-Visual Synthesis Comparison</h4>
+        <p>
+          The video below demonstrates the audible difference between the synthesized raw low-frequency simulation audio
+          (sub-120 Hz rumble) and the extended broadband fire sound (with high-frequency turbulent hiss):
+        </p>
+
+        <div class="media-container" style="margin: 18px auto 22px auto;">
+          <video controls playsinline preload="metadata"
+            style="width: 100%; max-height: 480px; background: #000; border-radius: 8px 8px 0 0; display: block;">
+            <source src="/videos/fire-comparison.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+
+      <!-- Behind the Title -->
+      <section class="detail-section">
+        <h3>Behind the Title</h3>
+        <p>
+          This was a class project for Stanford's CS 448Z (Physically Based Animation and Sound). While working on it, I
+          was undergoing a biopsy for breast cancer, not knowing what was to come.
+        </p>
+        <p style="margin-top: 12px;">
+          Reflecting on how many things I still wanted to create and had yet to do, I decided that I want to pursue
+          Graphics and VFX no matter what. Hence the title, <em>Undying Passion (2026)</em> — Graphics is what I can
+          truly call my passion.
+        </p>
+        <p style="margin-top: 12px; font-size: 0.92rem; color: var(--text-muted); font-style: italic;">
+          *Note: I later found out the result was benign — just harmless "noise"!
+        </p>
+      </section>
+
+      <!-- References -->
+      <section class="detail-section">
+        <h3>References</h3>
+        <ul class="references-list" style="list-style-type: none; padding-left: 0;">
+          <li id="ref-1" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [1] Jeffrey Chadwick, Changxi Zheng, Doug L. James. <a
+              href="https://www.cs.cornell.edu/projects/Sound/fire/FireSound2011.pdf" target="_blank"
+              rel="noopener noreferrer" class="text-link">Animating Fire with Sound</a>. ACM Transactions on Graphics
+            (SIGGRAPH 2011).
+          </li>
+          <li id="ref-2" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [2] Doug L. James. <a
+              href="https://docs.google.com/document/d/1AqWr6LH2e-G2rA6pVOydBP-kJWSbCfPi41J1EcZU5po/edit?tab=t.0"
+              target="_blank" rel="noopener noreferrer" class="text-link">CS448Z: Physically Based Animation and Sound —
+              Project 3: Making Noise</a>. Stanford University, Spring 2026.
+          </li>
+          <li id="ref-3" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [3] Doug L. James. <a href="https://dougjam.github.io/demos/fire-bandwidth-extension/" target="_blank"
+              rel="noopener noreferrer" class="text-link">Fire Sound: Spectral Bandwidth Extension Demo</a>.
+          </li>
+          <li id="ref-4" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6;">
+            [4] SideFX. <a href="https://www.youtube.com/watch?v=Y21O616n_N4" target="_blank" rel="noopener noreferrer"
+              class="text-link">Pyro SOP Solver: Spreading Flames</a>.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 Lucie Choi</p>
+    </footer>
+  </div>
+</body>
+
+</html>
